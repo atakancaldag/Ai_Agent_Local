@@ -1,0 +1,38 @@
+[
+  {
+    "question": "Denetimli ögrenme nedir?",
+    "answer": "Denetimli öğrenme, verilerdeki örneklerin etiketli olduğu ve modelin bu etiketlere göre eğitim aldığı bir makine öğrenmesi türüdür. Model, bu etiketli verilerle eğitilir ve bilinmeyen verilerle tahmin yapabilir."
+  },
+  {
+    "question": "Sınıflandırma ve Regresyon arasındaki fark?",
+    "answer": "Sınıflandırma, verileri kategorik sınıflara ayırmayı amaçlayan bir modelleme problemidir. Regresyon ise sürekli bir değeri tahmin etmeye yönelik bir problem türüdür. Örneğin, sınıflandırma 'spam' veya 'ham' e-posta gibi etiketleri tahmin ederken, regresyon bir evin fiyatını tahmin edebilir."
+  },
+  {
+    "question": "Aşırı öğrenme (overfitting) nedir nasıl önlenir?",
+    "answer": "Aşırı öğrenme, modelin eğitim verisine fazla uyum sağlaması durumudur. Bu, modelin eğitim verisini çok iyi ezberlemesi ancak yeni, görülmemiş verilerde kötü performans göstermesiyle sonuçlanır. Aşırı öğrenmeyi önlemek için veri artırma, erken durdurma, regularizasyon ve çapraz doğrulama gibi yöntemler kullanılabilir."
+  },
+  {
+    "question": "Gradyan düşüşü nasıl işe çalışır, nerede kullanılır?",
+    "answer": "Gradyan düşüşü, bir fonksiyonun minimum değerini bulmak için kullanılan bir optimizasyon algoritmasıdır. Modelin hata fonksiyonunun türevini alarak, en düşük hata için modelin parametrelerini günceller. Derin öğrenme ve makine öğrenmesi algoritmalarında, özellikle yapay sinir ağlarında yaygın olarak kullanılır."
+  },
+  {
+    "question": "Karmaşıklık (Confusion) Matrisi nerelerde kullanılır ne işe yarar?",
+    "answer": "Karmaşıklık matrisi, sınıflandırma problemlerinin değerlendirilmesinde kullanılan bir araçtır. Modelin doğru ve yanlış sınıflandırmalarını görsel olarak gösterir. Doğru pozitif, yanlış pozitif, doğru negatif ve yanlış negatif değerleri içerir. Bu matris, modelin performansını ölçmede, özellikle dengesiz veri setlerinde faydalıdır."
+  },
+  {
+    "question": "Veri ön işleme neden önemlidir?",
+    "answer": "Veri ön işleme, modelin doğru ve güvenilir sonuçlar verebilmesi için verinin temizlenmesi ve düzenlenmesidir. Eksik verilerin doldurulması, anormal değerlerin düzeltilmesi, normalizasyon ve standardizasyon işlemleri, modelin daha verimli ve doğru sonuçlar üretmesini sağlar."
+  },
+  {
+    "question": "Birim vektör nedir ve nerelerde kullanılır?",
+    "answer": "Birim vektör, uzunluğu 1 olan bir vektördür. Veri analizi ve makine öğrenmesinde, vektörlerin karşılaştırılması veya benzerlik hesaplamaları için kullanılır. Özellikle, metin madenciliği ve doğal dil işleme (NLP) gibi alanlarda, kelime gömme (word embedding) tekniklerinde yer alır."
+  },
+  {
+    "question": "Support Vector Machine (SVM) nedir?",
+    "answer": "Support Vector Machine (SVM), sınıflandırma ve regresyon analizlerinde kullanılan güçlü bir makine öğrenmesi algoritmasıdır. SVM, iki sınıf arasındaki en geniş marjı maksimize ederek karar sınırını belirler ve yeni verileri bu sınırla sınıflandırır."
+  },
+  {
+    "question": "Derin Öğrenme (Deep Learning) ile Geleneksel Makine Öğrenmesi Arasındaki Fark?",
+    "answer": "Derin öğrenme, özellikle büyük veri setleri ve karmaşık yapılarla çalışabilen bir makine öğrenmesi dalıdır. Derin öğrenme, çok katmanlı sinir ağları kullanırken, geleneksel makine öğrenmesi algoritmaları daha basit yapılarla çalışır. Derin öğrenme genellikle daha fazla hesaplama gücü ve veri gerektirir."
+  }
+]
