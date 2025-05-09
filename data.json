@@ -1,0 +1,74 @@
+[
+  {
+    "question": "Denetimli ögrenme nedir?",
+    "answer": "Denetimli öğrenme, verilerdeki örneklerin etiketli olduğu ve modelin bu etiketlere göre eğitim aldığı bir makine öğrenmesi türüdür. Model, bu etiketli verilerle eğitilir ve bilinmeyen verilerle tahmin yapabilir."
+  },
+  {
+    "question": "Sınıflandırma ve Regresyon arasındaki fark?",
+    "answer": "Sınıflandırma, verileri kategorik sınıflara ayırmayı amaçlayan bir modelleme problemidir. Regresyon ise sürekli bir değeri tahmin etmeye yönelik bir problem türüdür. Örneğin, sınıflandırma 'spam' veya 'ham' e-posta gibi etiketleri tahmin ederken, regresyon bir evin fiyatını tahmin edebilir."
+  },
+  {
+    "question": "Aşırı öğrenme nedir nasıl önlenir?",
+    "answer": "Aşırı öğrenme, modelin eğitim verisine fazla uyum sağlaması durumudur. Bu, modelin eğitim verisini çok iyi ezberlemesi ancak yeni, görülmemiş verilerde kötü performans göstermesiyle sonuçlanır. Aşırı öğrenmeyi önlemek için veri artırma, erken durdurma, regularizasyon ve çapraz doğrulama gibi yöntemler kullanılabilir."
+  },
+  {
+    "question": "Gradyan düşüşü nasıl çalışır?",
+    "answer": "Gradyan düşüşü, bir fonksiyonun minimum değerini bulmak için kullanılan bir optimizasyon algoritmasıdır. Modelin hata fonksiyonunun türevini alarak, en düşük hata için modelin parametrelerini günceller. Derin öğrenme ve makine öğrenmesi algoritmalarında, özellikle yapay sinir ağlarında yaygın olarak kullanılır."
+  },
+  {
+    "question": "Karmaşıklık (Confusion) Matrisi ne işe yarar?",
+    "answer": "Karmaşıklık matrisi, sınıflandırma problemlerinin değerlendirilmesinde kullanılan bir araçtır. Modelin doğru ve yanlış sınıflandırmalarını görsel olarak gösterir. Doğru pozitif, yanlış pozitif, doğru negatif ve yanlış negatif değerleri içerir. Bu matris, modelin performansını ölçmede, özellikle dengesiz veri setlerinde faydalıdır."
+  },
+  {
+    "question": "Veri ön işleme neden önemli?",
+    "answer": "Veri ön işleme, modelin doğru ve güvenilir sonuçlar verebilmesi için verinin temizlenmesi ve düzenlenmesidir. Eksik verilerin doldurulması, anormal değerlerin düzeltilmesi, normalizasyon ve standardizasyon işlemleri, modelin daha verimli ve doğru sonuçlar üretmesini sağlar."
+  },
+  {
+    "question": "Birim vektör nedir?",
+    "answer": "Birim vektör, uzunluğu 1 olan bir vektördür. Veri analizi ve makine öğrenmesinde, vektörlerin karşılaştırılması veya benzerlik hesaplamaları için kullanılır. Özellikle, metin madenciliği ve doğal dil işleme (NLP) gibi alanlarda, kelime gömme (word embedding) tekniklerinde yer alır."
+  },
+  {
+    "question": "Support Vector Machine (SVM) nedir?",
+    "answer": "Support Vector Machine (SVM), sınıflandırma ve regresyon analizlerinde kullanılan güçlü bir makine öğrenmesi algoritmasıdır. SVM, iki sınıf arasındaki en geniş marjı maksimize ederek karar sınırını belirler ve yeni verileri bu sınırla sınıflandırır."
+  },
+  {
+    "question": "Derin Öğrenme (Deep Learning) ile Geleneksel Makine Öğrenmesi Arasındaki Fark?",
+    "answer": "Derin öğrenme, özellikle büyük veri setleri ve karmaşık yapılarla çalışabilen bir makine öğrenmesi dalıdır. Derin öğrenme, çok katmanlı sinir ağları kullanırken, geleneksel makine öğrenmesi algoritmaları daha basit yapılarla çalışır. Derin öğrenme genellikle daha fazla hesaplama gücü ve veri gerektirir."
+  },
+  {
+    "question": "Doğruluk (Accuracy) metriği ne zaman yanıltıcı olabilir?",
+    "answer": "Doğruluk metriği, sınıflandırma modellerinde genel başarıyı gösterse de, dengesiz veri setlerinde yanıltıcı olabilir. Örneğin, %95 oranında bir sınıf varsa ve model hep bu sınıfı tahmin ediyorsa doğruluk yüksek olur ama model başarısızdır."
+  },
+  {
+    "question": "Random Forest nasıl çalışır?",
+    "answer": "Random Forest, birçok karar ağacından oluşan bir topluluk (ensemble) algoritmasıdır. Her bir ağaç farklı veri alt kümeleriyle eğitilir ve sonuçlar çoğunluk oyuna göre birleştirilir. Bu, aşırı öğrenmeyi azaltır ve doğruluğu artırır."
+  },
+  {
+    "question": "K-means algoritması nedir?",
+    "answer": "K-means, kümeleme (clustering) algoritmasıdır. Verileri, her biri bir merkeze (centroid) sahip K farklı kümeye ayırır. Veriler, en yakın merkeze atanır ve merkezler her iterasyonda güncellenir. Genelde denetimsiz öğrenmede kullanılır."
+  },
+  {
+    "question": "ROC eğrisi nedir ve ne işe yarar?",
+    "answer": "ROC eğrisi, sınıflandırma modellerinin başarılarını çeşitli eşik değerlerinde karşılaştırmak için kullanılır. True Positive Rate ile False Positive Rate'in grafiğini çizer. Altında kalan alan (AUC) ne kadar büyükse, model o kadar iyidir."
+  },
+  {
+    "question": "Epoch ve Batch Size ne anlama gelir?",
+    "answer": "Epoch, tüm eğitim verisinin modele bir kez gösterilmesidir. Batch size ise verinin modele aynı anda gösterilen parça büyüklüğüdür. Küçük batch boyutu daha sık güncelleme sağlar; büyük batch ise daha stabil ama yavaş olabilir."
+  },
+  {
+    "question": "Naive Bayes algoritması nerede kullanılır?",
+    "answer": "Naive Bayes, özellikle metin sınıflandırma problemlerinde (spam filtresi, duygu analizi gibi) yaygın kullanılan olasılıksal bir sınıflandırıcıdır. Özelliklerin birbirinden bağımsız olduğu varsayımıyla çalışır."
+  },
+  {
+    "question": "Aktivasyon fonksiyonu nedir?",
+    "answer": "Aktivasyon fonksiyonu, yapay sinir ağlarında nöronların çıkış değerini belirler. Doğrusal olmayanlık katarak öğrenmeyi mümkün kılar. Yaygın örnekler: ReLU, Sigmoid, Tanh."
+  },
+  {
+    "question": "Principal Component Analysis (PCA) ne işe yarar?",
+    "answer": "PCA, yüksek boyutlu verileri daha az boyuta indirgerken veri varyansını korumaya çalışan bir boyut indirgeme tekniğidir. Görselleştirme ve gürültü azaltma gibi işlemlerde kullanılır."
+  },
+  {
+    "question": "Veri setini eğitim ve test olarak ayırmak neden önemlidir?",
+    "answer": "Modelin genelleme yeteneğini değerlendirmek için eğitim verisiyle öğrenme yapılır, test verisiyle performans ölçülür. Aynı veride hem eğitim hem test yapılırsa modelin ezberlemiş olması muhtemeldir."
+  }
+]
