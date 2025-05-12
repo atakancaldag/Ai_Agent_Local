@@ -12,7 +12,7 @@
     "answer": "Aşırı öğrenme, modelin eğitim verisine fazla uyum sağlaması durumudur. Bu, modelin eğitim verisini çok iyi ezberlemesi ancak yeni, görülmemiş verilerde kötü performans göstermesiyle sonuçlanır. Aşırı öğrenmeyi önlemek için veri artırma, erken durdurma, regularizasyon ve çapraz doğrulama gibi yöntemler kullanılabilir."
   },
   {
-    "question": "Gradyan düşüşü nasıl çalışır?",
+    "question": "Gradyan düşüşü nedir?",
     "answer": "Gradyan düşüşü, bir fonksiyonun minimum değerini bulmak için kullanılan bir optimizasyon algoritmasıdır. Modelin hata fonksiyonunun türevini alarak, en düşük hata için modelin parametrelerini günceller. Derin öğrenme ve makine öğrenmesi algoritmalarında, özellikle yapay sinir ağlarında yaygın olarak kullanılır."
   },
   {
