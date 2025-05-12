@@ -1,8 +1,12 @@
 import os
 import json
 import numpy as np
+<<<<<<< HEAD
 import torch, chromadb
 from chromadb.config import Settings
+=======
+import torch
+>>>>>>> 4ad5b77254e1e1a3e88e7e4847ba764e7535b7a2
 from sentence_transformers import SentenceTransformer, util
 from openai import OpenAI
 import openai
@@ -15,8 +19,12 @@ class QASystem:
                  model_name="all-MiniLM-L6-v2",
                  similarity_threshold=0.7,
                  api_key_path='openai_api.json',
+<<<<<<< HEAD
                  chatgpt_model="gpt-3.5-turbo",
                  chroma_dir='chroma_db'):
+=======
+                 chatgpt_model="gpt-3.5-turbo"):
+>>>>>>> 4ad5b77254e1e1a3e88e7e4847ba764e7535b7a2
         """
         Soru-cevap sistemini başlatır ve gerekli tüm bileşenleri yükler.
 
@@ -38,11 +46,17 @@ class QASystem:
         self.device = ("cuda" if torch.cuda.is_available() else "cpu")
         self.model = SentenceTransformer(model_name, device=self.device)
 
+<<<<<<< HEAD
         self.chroma_client = chromadb.Client()
         self.collection = self.chroma_client.get_or_create_collection(name="qa_collection")
  
         self.data = []
         self.questions = []
+=======
+        self.data = []
+        self.questions = []
+        self.question_embeddings = None
+>>>>>>> 4ad5b77254e1e1a3e88e7e4847ba764e7535b7a2
 
         self.load_data()
         self.embed_questions()
@@ -64,6 +78,7 @@ class QASystem:
         """
         Soruların embedding'lerini yükler veya oluşturur ve belleğe kaydeder.
         """
+<<<<<<< HEAD
         if self.collection.count() > 0:
             return
 
@@ -75,6 +90,16 @@ class QASystem:
             documents=self.questions,
             embeddings=embeddings
         )
+=======
+        if os.path.exists(self.embedding_file):
+            self.question_embeddings = torch.tensor(np.load(self.embedding_file)).to(self.device)
+        else:
+            print("İlk çalıştırma: embedding'ler hesaplanıyor...")
+            embeddings_np = self.model.encode(self.questions, convert_to_numpy=True)
+            with open(self.embedding_file, 'wb') as f:
+                np.save(f, embeddings_np)
+            self.question_embeddings = torch.tensor(embeddings_np).to(self.device)
+>>>>>>> 4ad5b77254e1e1a3e88e7e4847ba764e7535b7a2
 
     def load_openai_key(self):
         """
@@ -161,6 +186,7 @@ class QASystem:
         Returns:
             tuple: (bulunan en iyi cevap veya None, benzerlik skoru)
         """
+<<<<<<< HEAD
         user_emb = self.model.encode(user_question, convert_to_numpy=True).tolist()
         result = self.collection.query(
             query_embeddings=[user_emb],
@@ -174,6 +200,17 @@ class QASystem:
                 idx = int(result['ids'][0][0])
                 return self.data[idx]['answer'], similarity
         return None, 1 - distance if result['distances'] else 0.0
+=======
+        user_embedding = self.model.encode(user_question, convert_to_tensor=True).to(self.device)
+        cosine_scores = util.cos_sim(user_embedding, self.question_embeddings)[0]
+
+        max_score = torch.max(cosine_scores).item()
+        if max_score >= self.similarity_threshold:
+            best_idx = torch.argmax(cosine_scores).item()
+            return self.data[best_idx]['answer'], max_score
+        else:
+            return None, max_score
+>>>>>>> 4ad5b77254e1e1a3e88e7e4847ba764e7535b7a2
 
     def run(self):
         """
