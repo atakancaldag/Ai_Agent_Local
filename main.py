@@ -1,106 +1,201 @@
-from sentence_transformers import SentenceTransformer, util
-import numpy as np
-import json
 import os
+import json
+import numpy as np
+import torch, chromadb
+from chromadb.config import Settings
+from sentence_transformers import SentenceTransformer, util
+from openai import OpenAI
 import openai
-from openai import AuthenticationError, OpenAIError
+from openai.types.chat import ChatCompletionMessageParam
+
+class QASystem:
+    def __init__(self,
+                 data_path='data.json',
+                 embedding_file='all-MiniLM-L6-v2_embeddings.npy',
+                 model_name="all-MiniLM-L6-v2",
+                 similarity_threshold=0.7,
+                 api_key_path='openai_api.json',
+                 chatgpt_model="gpt-3.5-turbo",
+                 chroma_dir='chroma_db'):
+        """
+        Soru-cevap sistemini başlatır ve gerekli tüm bileşenleri yükler.
+
+        Args:
+            data_path (str): JSON formatındaki soru-cevap veri dosyasının yolu.
+            embedding_file (str): Embedding verilerinin kaydedileceği/yükleneceği dosya.
+            model_name (str): Kullanılacak SentenceTransformer modeli.
+            similarity_threshold (float): Benzerlik eşiği (0-1 arası).
+            api_key_path (str): OpenAI API anahtarının saklandığı dosya yolu.
+            chatgpt_model (str): Kullanılacak ChatGPT model adı.
+        """
+        self.data_path = data_path
+        self.embedding_file = embedding_file
+        self.model_name = model_name
+        self.similarity_threshold = similarity_threshold
+        self.api_key_path = api_key_path
+        self.chatgpt_model = chatgpt_model
+
+        self.device = ("cuda" if torch.cuda.is_available() else "cpu")
+        self.model = SentenceTransformer(model_name, device=self.device)
+
+        self.chroma_client = chromadb.Client()
+        self.collection = self.chroma_client.get_or_create_collection(name="qa_collection")
+ 
+        self.data = []
+        self.questions = []
+
+        self.load_data()
+        self.embed_questions()
+        self.load_openai_key()
+
+    def load_data(self):
+        """
+        data_path içerisindeki JSON dosyasını yükler ve soruları belleğe alır.
+        """
+        try:
+            with open(self.data_path, 'r') as file:
+                self.data = json.load(file)
+                self.questions = [item['question'] for item in self.data]
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            print(f"Veri dosyası hatalı veya eksik: {e}")
+            exit(1)
+
+    def embed_questions(self):
+        """
+        Soruların embedding'lerini yükler veya oluşturur ve belleğe kaydeder.
+        """
+        if self.collection.count() > 0:
+            return
+
+        embeddings = self.model.encode(self.questions, convert_to_numpy=True).tolist()
+        ids = [str(i) for i in range(len(self.questions))]
+
+        self.collection.add(
+            ids=ids,
+            documents=self.questions,
+            embeddings=embeddings
+        )
+
+    def load_openai_key(self):
+        """
+        OpenAI API anahtarını dosyadan yükler veya kullanıcıdan ister. Anahtar geçersizse tekrar ister.
+        """
+        while True:
+            if not os.path.exists(self.api_key_path) or os.path.getsize(self.api_key_path) == 0:
+                key = input("OpenAI API anahtarınızı girin: ").strip()
+                with open(self.api_key_path, "w") as f:
+                    json.dump({"api_key": key}, f)
+
+            with open(self.api_key_path, "r") as f:
+                try:
+                    config = json.load(f)
+                    key = config.get("api_key")
+                    openai.api_key = key
+                except json.JSONDecodeError:
+                    key = None
+
+            if not key:
+                print("API anahtarı okunamadı. Tekrar giriniz.")
+                os.remove(self.api_key_path)
+                continue
+
+            if self.check_openai_api_key(key):
+                print("API anahtarı doğru.")
+                break
+            else:
+                print("API anahtarı geçersiz. Lütfen tekrar girin.")
+                os.remove(self.api_key_path)
+
+    @staticmethod
+    def check_openai_api_key(api_key):
+        """
+        OpenAI API anahtarının geçerli olup olmadığını kontrol eder.
+
+        Args:
+            api_key (str): Test edilecek API anahtarı.
+
+        Returns:
+            bool: Anahtar geçerliyse True, değilse False.
+        """
+        try:
+            client = OpenAI(api_key=api_key)
+            client.models.list()
+            return True
+        except openai.AuthenticationError:
+            return False
+
+    def ask_openai(self, prompt):
+        """
+        OpenAI ChatGPT API'sini kullanarak kullanıcıdan gelen soruya yanıt alır.
+
+        Args:
+            prompt (str): Kullanıcıdan gelen soru.
+
+        Returns:
+            str: ChatGPT'den gelen yanıt veya hata mesajı.
+        """
+        try:
+            client = OpenAI(api_key=openai.api_key)
+            messages: list[ChatCompletionMessageParam] = [
+                {"role": "system",
+                 "content": "You are a Turkish coding assistant specialized in machine learning and answering only machine learning related questions."},
+                {"role": "user", "content": prompt}
+            ] # type: ignore
+            response = client.chat.completions.create(
+                model=self.chatgpt_model,
+                messages=messages,
+                max_tokens=256,
+                temperature=0.7
+            )
+            return response.choices[0].message.content.strip()
+        except Exception as e:
+            return f"ChatGPT API hatası: {str(e)}"
+
+    def find_best_match(self, user_question):
+        """
+        Kullanıcının sorduğu soruya en benzer soruyu veri kümesinde bulur.
+
+        Args:
+            user_question (str): Kullanıcının girdiği soru.
+
+        Returns:
+            tuple: (bulunan en iyi cevap veya None, benzerlik skoru)
+        """
+        user_emb = self.model.encode(user_question, convert_to_numpy=True).tolist()
+        result = self.collection.query(
+            query_embeddings=[user_emb],
+            n_results=1,
+            include=['documents', 'distances']
+        )
+        if result['distances']:
+            distance = result['distances'][0][0]
+            similarity = 1 - distance
+            if similarity >= self.similarity_threshold:
+                idx = int(result['ids'][0][0])
+                return self.data[idx]['answer'], similarity
+        return None, 1 - distance if result['distances'] else 0.0
+
+    def run(self):
+        """
+        Ana uygulama döngüsünü başlatır. Kullanıcıdan soru alır, eşleşme varsa gösterir;
+        yoksa OpenAI API'ye soruyu gönderir.
+        """
+        print("Soru cevap sistemine hoş geldiniz. Çıkmak için 'cikis' yazınız.")
+        while True:
+            user_input = input("Soru girin: ").strip()
+            if user_input.lower() == "cikis":
+                print("Programdan çıkılıyor...")
+                break
+
+            answer, score = self.find_best_match(user_input)
+            if answer:
+                print(f"Cevap: {answer} (Benzerlik skoru: {score:.4f})")
+            else:
+                print("Cevap verilemiyor, ChatGPT'den cevap alınıyor...")
+                ai_answer = self.ask_openai(user_input)
+                print(f"ChatGPT cevabı: {ai_answer} (Skor: {score:.4f})")
 
 
-model = SentenceTransformer("all-MiniLM-L6-v2")
-embedding_dosyasi = 'question_embeddings.npy'
-chatgpt_model = "gpt-3.5-turbo"
-
-def Embed():
-    try:
-        with open(embedding_dosyasi, "rb") as f:
-            question_embeddings = np.load(f)
-            return question_embeddings
-    except FileNotFoundError:
-        print("Ilk sefer calistirildiginden dolayi sürec biraz uzun sürebilir... Bu sürec tek seferliktir.")
-        question_embeddings = model.encode(questions, convert_to_numpy=True)
-        with open(embedding_dosyasi, "wb") as f:
-            np.save(f, question_embeddings)
-        return question_embeddings
-
-def check_openai_api_key(api_key):
-    client = openai.OpenAI(api_key=api_key)
-    try:
-        client.models.list()
-    except openai.AuthenticationError:
-        return False
-    else:
-        return True
-
-
-
-def load_api_key(path='openai_api.json'): 
-    """
-    Sorulari openaiye yollamak için openai_api.json diye dosyaya bakiyor, içinde key var mi diye bakiyor, dosya yoksa oluşturuyor
-    Sonrasinda api key kontrolü yapiyor, yanlişsa dosyadakini siliyor, kullanicidan yenisini isteyip dosyaya kaydediyor
-     """
-    while True:
-        if not os.path.exists(path) or os.path.getsize(path) == 0:
-            key = input("OpenAI API anahtarinizi girin: ")
-            with open(path, "w") as f:
-                json.dump({"api_key": key.strip()}, f)
-
-        with open(path, "r") as f:
-            try:
-                config = json.load(f)
-                key = config.get("api_key") or config.get("api_id")
-                openai.api_key = key.strip()
-            except json.JSONDecodeError:
-                key = None
-        if not key:
-            print("API anahtarı bulunamadı veya okunamadı. Tekrar deneyin.")
-            os.remove(path)
-            continue
-        if check_openai_api_key(openai.api_key):
-            print("API anahtari dogru, devam ediliyor...")
-            break
-        else:
-            print("API anahtari yanlis, tekrar deneyin.")
-            os.remove(path)
-            continue
-
-
-with open('data.json', 'r') as file:
-    data = json.load(file)
-questions = [item['question'] for item in data]
-
-question_embeddings = Embed()
-
-load_api_key()
-
-def ask_openai(prompt, model_name=chatgpt_model):
-    """
-    Adi üstünde, benzerlik yetmediyse eger, soruyu chatgptye tükürüyor
-    """
-    response = openai.ChatCompletion.create(
-        model=model_name,
-        messages=[{"role": "user", "content": prompt}],
-        max_tokens=512,
-        temperature=0.7
-    )
-    return response.choices[0].message.content.strip()
-
-while True:
-    print("Programdan cikis yapmak için 'cikis' yaziniz")
-    user_question = input("Soru girin: ")
-    if user_question.lower() == 'cikis':
-        print("Programdan cikiliyor...")
-        break
-    user_embedding = model.encode(user_question, convert_to_tensor=True)
-    cosine_scores = util.cos_sim(user_embedding, question_embeddings)[0]
-    if max(cosine_scores) > 0.7:
-        best_match_idx = cosine_scores.argmax()
-        best_score = cosine_scores[best_match_idx].item()
-
-        matched_question = questions[best_match_idx]
-        matched_answer = data[best_match_idx]['answer']
-
-        print(f"Cevap: {matched_answer} (Benzerlik skoru: {best_score:.4f})")
-    else:
-        print("Bu sorunun cevabi bana ogretilmedi, ChatGPT'ye soruyorum...")
-        ai_answer = ask_openai(user_question)
-        print(ai_answer)
+if __name__ == "__main__":
+    qa_system = QASystem()
+    qa_system.run()
