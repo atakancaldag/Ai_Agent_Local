@@ -1,30 +1,22 @@
 import os
 import json
 import numpy as np
-<<<<<<< HEAD
 import torch, chromadb
 from chromadb.config import Settings
-=======
-import torch
->>>>>>> 4ad5b77254e1e1a3e88e7e4847ba764e7535b7a2
 from sentence_transformers import SentenceTransformer, util
 from openai import OpenAI
 import openai
 from openai.types.chat import ChatCompletionMessageParam
+from typing import List, Tuple
 
 class QASystem:
     def __init__(self,
                  data_path='data.json',
-                 embedding_file='all-MiniLM-L6-v2_embeddings.npy',
                  model_name="all-MiniLM-L6-v2",
                  similarity_threshold=0.7,
                  api_key_path='openai_api.json',
-<<<<<<< HEAD
                  chatgpt_model="gpt-3.5-turbo",
-                 chroma_dir='chroma_db'):
-=======
-                 chatgpt_model="gpt-3.5-turbo"):
->>>>>>> 4ad5b77254e1e1a3e88e7e4847ba764e7535b7a2
+                 chroma_dir: str ='chroma_db_persistent'):
         """
         Soru-cevap sistemini başlatır ve gerekli tüm bileşenleri yükler.
 
@@ -35,28 +27,25 @@ class QASystem:
             similarity_threshold (float): Benzerlik eşiği (0-1 arası).
             api_key_path (str): OpenAI API anahtarının saklandığı dosya yolu.
             chatgpt_model (str): Kullanılacak ChatGPT model adı.
+            chroma_dir (str): ChromaDB veritabanının saklanacağı/yükleneceği dizin yolu. Varsayılan olarak 'chroma_db_persistent' kullanılır.
         """
         self.data_path = data_path
-        self.embedding_file = embedding_file
         self.model_name = model_name
         self.similarity_threshold = similarity_threshold
         self.api_key_path = api_key_path
         self.chatgpt_model = chatgpt_model
+        self.chroma_dir = chroma_dir
 
         self.device = ("cuda" if torch.cuda.is_available() else "cpu")
         self.model = SentenceTransformer(model_name, device=self.device)
 
-<<<<<<< HEAD
-        self.chroma_client = chromadb.Client()
-        self.collection = self.chroma_client.get_or_create_collection(name="qa_collection")
+        print(f"ChromaDB verileri '{self.chroma_dir}' dizininde saklanacak/yüklenecek.")
+        self.chroma_client: chromadb.ClientAPI = chromadb.PersistentClient(path=self.chroma_dir)
+        self.collection_name: str = "qa_collection_persistent"
+        self.collection: chromadb.Collection = self.chroma_client.get_or_create_collection(name=self.collection_name)
  
         self.data = []
         self.questions = []
-=======
-        self.data = []
-        self.questions = []
-        self.question_embeddings = None
->>>>>>> 4ad5b77254e1e1a3e88e7e4847ba764e7535b7a2
 
         self.load_data()
         self.embed_questions()
@@ -76,35 +65,60 @@ class QASystem:
 
     def embed_questions(self):
         """
-        Soruların embedding'lerini yükler veya oluşturur ve belleğe kaydeder.
+        `self.questions` listesindeki soruların embedding'lerini oluşturur ve ChromaDB'ye kaydeder.
+
+        Eğer ChromaDB'deki öğe sayısı `self.questions` listesindeki soru sayısından farklıysa,
+        mevcut ChromaDB koleksiyonu silinir ve tüm sorular için yeniden embedding oluşturulup eklenir.
+        Aksi takdirde, mevcut embedding'lerin güncel olduğu varsayılır.
+        Embedding işlemi sırasında sorular `document`, cevaplar ise `metadata` olarak saklanır.        
         """
-<<<<<<< HEAD
-        if self.collection.count() > 0:
+
+        num_questions_in_data = len(self.questions)
+        num_items_in_collection = self.collection.count()
+
+        if not self.questions:
+            print("Embedding için hiç soru bulunamadı. Lütfen önce veriyi yükleyin.")
             return
 
-        embeddings = self.model.encode(self.questions, convert_to_numpy=True).tolist()
-        ids = [str(i) for i in range(len(self.questions))]
+        if num_items_in_collection != num_questions_in_data:
+            print(f"ChromaDB koleksiyonundaki öğe sayısı ({num_items_in_collection}) ile veri dosyasındaki soru sayısı ({num_questions_in_data}) eşleşmiyor.")
+            print("Mevcut koleksiyon temizlenip yeniden embedding oluşturulacak.")
+            
+            if num_items_in_collection > 0:
+                 all_ids = self.collection.get(include=[])['ids']
+                 if all_ids:
+                     self.collection.delete(ids=all_ids)
+                 print(f"Koleksiyondaki {len(all_ids)} öğe silindi.")
 
-        self.collection.add(
-            ids=ids,
-            documents=self.questions,
-            embeddings=embeddings
-        )
-=======
-        if os.path.exists(self.embedding_file):
-            self.question_embeddings = torch.tensor(np.load(self.embedding_file)).to(self.device)
+
+            print("Sorular için embedding'ler oluşturuluyor...")
+            embeddings: List[List[float]] = self.model.encode(self.questions, convert_to_tensor=False, show_progress_bar=True).tolist() # numpy array yerine list of lists
+            ids: List[str] = [str(i) for i in range(num_questions_in_data)]
+            
+            metadatas = [{'answer': item['answer']} for item in self.data]
+
+            try:
+                self.collection.add(
+                    ids=ids,
+                    documents=self.questions, 
+                    embeddings=embeddings,
+                    metadatas=metadatas 
+                )
+                print(f"{len(ids)} adet soru embedding'i ChromaDB'ye başarıyla eklendi.")
+            except Exception as e:
+                print(f"ChromaDB'ye embedding eklenirken hata oluştu: {e}")
         else:
-            print("İlk çalıştırma: embedding'ler hesaplanıyor...")
-            embeddings_np = self.model.encode(self.questions, convert_to_numpy=True)
-            with open(self.embedding_file, 'wb') as f:
-                np.save(f, embeddings_np)
-            self.question_embeddings = torch.tensor(embeddings_np).to(self.device)
->>>>>>> 4ad5b77254e1e1a3e88e7e4847ba764e7535b7a2
+            print("Mevcut embedding'ler güncel. Yeniden oluşturmaya gerek yok.")
 
     def load_openai_key(self):
         """
-        OpenAI API anahtarını dosyadan yükler veya kullanıcıdan ister. Anahtar geçersizse tekrar ister.
+        OpenAI API anahtarını `self.api_key_path` ile belirtilen dosyadan yükler.
+        
+        Dosya yoksa, boşsa veya geçersiz bir anahtar içeriyorsa, kullanıcıdan yeni bir
+        API anahtarı girmesini ister ve dosyaya kaydeder. Anahtar doğrulanana kadar bu işlem tekrarlanır.
+        Doğrulanan anahtar `openai.api_key` global değişkenine atanır.
         """
+
         while True:
             if not os.path.exists(self.api_key_path) or os.path.getsize(self.api_key_path) == 0:
                 key = input("OpenAI API anahtarınızı girin: ").strip()
@@ -165,7 +179,7 @@ class QASystem:
                 {"role": "system",
                  "content": "You are a Turkish coding assistant specialized in machine learning and answering only machine learning related questions."},
                 {"role": "user", "content": prompt}
-            ] # type: ignore
+            ]
             response = client.chat.completions.create(
                 model=self.chatgpt_model,
                 messages=messages,
@@ -186,31 +200,43 @@ class QASystem:
         Returns:
             tuple: (bulunan en iyi cevap veya None, benzerlik skoru)
         """
-<<<<<<< HEAD
-        user_emb = self.model.encode(user_question, convert_to_numpy=True).tolist()
-        result = self.collection.query(
-            query_embeddings=[user_emb],
-            n_results=1,
-            include=['documents', 'distances']
-        )
-        if result['distances']:
-            distance = result['distances'][0][0]
-            similarity = 1 - distance
-            if similarity >= self.similarity_threshold:
-                idx = int(result['ids'][0][0])
-                return self.data[idx]['answer'], similarity
-        return None, 1 - distance if result['distances'] else 0.0
-=======
-        user_embedding = self.model.encode(user_question, convert_to_tensor=True).to(self.device)
-        cosine_scores = util.cos_sim(user_embedding, self.question_embeddings)[0]
+        if self.collection.count() == 0:
+            print("ChromaDB koleksiyonunda hiç öğe yok. Eşleşme yapılamaz.")
+            return None, 0.0
 
-        max_score = torch.max(cosine_scores).item()
-        if max_score >= self.similarity_threshold:
-            best_idx = torch.argmax(cosine_scores).item()
-            return self.data[best_idx]['answer'], max_score
-        else:
-            return None, max_score
->>>>>>> 4ad5b77254e1e1a3e88e7e4847ba764e7535b7a2
+        user_emb: List[float] = self.model.encode(user_question, convert_to_numpy=False).tolist() # Tek bir embedding için
+        
+        try:
+            results = self.collection.query(
+                query_embeddings=[user_emb], 
+                n_results=1,
+                include=['documents', 'distances', 'metadatas']
+            )
+        except Exception as e:
+            print(f"ChromaDB sorgusu sırasında hata: {e}")
+            return None, 0.0
+
+
+
+        if results and results['ids'] and results['ids'][0]:
+
+
+            distance = results['distances'][0][0] if results['distances'] and results['distances'][0] else float('inf')
+            similarity = 1 - distance
+
+
+            if similarity >= self.similarity_threshold:
+
+                answer = results['metadatas'][0][0].get('answer') if results['metadatas'] and results['metadatas'][0] and results['metadatas'][0][0] else None
+                
+                if answer:
+                    return answer, similarity
+                else:
+                    return None, similarity
+            else:
+                return None, similarity 
+        
+        return None, 0.0
 
     def run(self):
         """
