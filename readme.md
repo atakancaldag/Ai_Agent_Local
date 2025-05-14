@@ -20,3 +20,5 @@ Bu proje, kullanıcıların sorularına en uygun cevapları sağlamak amacıyla 
    
    ```bash
    python main.py
+3. **Projenin Kullanımı**:\
+  Projeyi kullanmak için openai api key girerek sorularınızı sormaya başlayabilirsiniz.
