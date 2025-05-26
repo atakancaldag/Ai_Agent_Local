@@ -1,5 +1,7 @@
 import os
 import json
+from nis import match
+
 import numpy as np
 import torch
 from sentence_transformers import SentenceTransformer, util
@@ -8,6 +10,7 @@ import openai
 from openai.types.chat import ChatCompletionMessageParam
 from pyairtable import Api
 from dotenv import load_dotenv
+import smtplib
 load_dotenv()
 
 class QASystem:
@@ -44,6 +47,27 @@ class QASystem:
         self.embeddings = []
         self.load_openai_key()
         self.load_data_and_embeddings()
+
+    def send_mail(self, subject, body, to_email):
+        smtp_server = os.getenv("SMTP_SERVER")
+        smtp_port = int(os.getenv("SMTP_PORT", 587))
+        smtp_user = os.getenv("SMTP_USER")
+        smtp_password = os.getenv("SMTP_PASSWORD")
+        from_email = smtp_user
+
+        if not all([smtp_server, smtp_user, smtp_password, to_email]):
+            print("[ERROR] Mail gönderim bilgileri eksik.")
+            return
+
+        try:
+            message = f"Subject: {subject}\n\n{body}"
+            with smtplib.SMTP(smtp_server, smtp_port) as server:
+                server.starttls()
+                server.login(smtp_user, smtp_password)
+                server.sendmail(from_email, to_email, message)
+            print("[INFO] E-posta başarıyla gönderildi.")
+        except Exception as e:
+            print(f"[ERROR] E-posta gönderimi başarısız: {e}")
 
     def load_stopwords(self):
         with open(self.stopwords_file, 'r', encoding='utf-8') as f:
@@ -181,28 +205,41 @@ class QASystem:
         else:
             return None, max_score
 
-    def ask_openai(self, prompt):
+    def ask_openai(self, prompt, detailed:bool=False):
         """
         OpenAI ChatGPT API'sini kullanarak kullanıcıdan gelen soruya yanıt alır.
 
         Args:
             prompt (str): Kullanıcıdan gelen soru.
+            detailed (bool): Promptu türü için bool değeri. (1: Detaylı | 0: Sıradan)
 
         Returns:
             str: ChatGPT'den gelen yanıt veya hata mesajı.
         """
+        max_token = 128
         try:
             client = OpenAI(api_key=openai.api_key)
-            messages: list[ChatCompletionMessageParam] = [
-                {"role": "system",
-                 "content": "You are a Turkish coding assistant specialized in machine learning and answering only machine learning related questions."},
-                {"role": "user", "content": prompt}
-            ]  # type: ignore
+            if not detailed:
+                messages: list[ChatCompletionMessageParam] = [
+                    {"role": "system",
+                     "content": "Sen, yalnızca makine öğrenmesiyle ilgili soruları yanıtlayan uzman bir Türkçe yapay zeka asistanısın. Kodlama, algoritmalar ve teknik konularda detaylı açıklamalar yapmaya odaklan."},
+                    {"role": "user", "content": prompt}
+                ]
+
+            else:
+                max_token = 256
+                messages: list[ChatCompletionMessageParam] = [
+                    {"role": "system",
+                     "content": "Sen, yalnızca makine öğrenmesiyle ilgili soruları yanıtlayan uzman bir Türkçe yapay zeka asistanısın. Kodlama, algoritmalar ve teknik konularda detaylı açıklamalar yapmaya odaklan."},
+                    {"role": "user", "content": prompt}
+                ]
+
+
             response = client.chat.completions.create(
                 model=self.chatgpt_model,
                 messages=messages,
-                max_tokens=256,
-                temperature=0.7
+                max_tokens= max_token,
+                temperature=0.3
             )
             return response.choices[0].message.content.strip()
         except Exception as e:
@@ -239,10 +276,31 @@ class QASystem:
             answer, score = self.find_best_match(user_input)
             if answer:
                 print(f"Cevap: {answer} (Benzerlik skoru: {score:.4f})")
+                while True:
+                    feedback = input('\nVerilen cevaptan memnun kaldınız mı? (y/n): ').lower()
+                    if feedback == 'y':
+                        break
+                    elif feedback == 'n':
+                        ai_answer = self.ask_openai(user_input, True)
+                        print(f"\nYeni cevap: {ai_answer}")
+                        second_feedback = input('\nBu cevaptan memnun kaldınız mı? (y/n): ').lower()
+                        if second_feedback == 'y':
+                            self.add_to_airtable(user_input, ai_answer)
+                        elif second_feedback == 'n':
+                            self.send_mail(
+                                subject="QA Sistemi Hatalı Yanıt Bildirimi",
+                                body=f"Kullanıcı şu sorudan memnun kalmadı:\n\nSoru: {user_input}\n\nCevaplar:\n1- {answer}\n2- {ai_answer}",
+                                to_email=os.getenv("TEACHER_EMAIL")
+                            )
+                        break
+                    else:
+                        print('Yanlış komut girildi. Tekrar deneyiniz:')
+
             else:
                 if not self.is_about_ml(user_input):
                     print("Üzgünüz, yalnızca makine öğrenmesiyle ilgili sorulara yanıt veriyorum.")
                     continue
+
                 print("Cevap verilemiyor, ChatGPT'den cevap alınıyor...")
                 ai_answer = self.ask_openai(user_input)
                 print(f"ChatGPT cevabı: {ai_answer} (Benzerlik skoru: {score:.4f})")
