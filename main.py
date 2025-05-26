@@ -1,106 +1,272 @@
-from sentence_transformers import SentenceTransformer, util
-import numpy as np
-import json
 import os
+import json
+import numpy as np
+import torch
+from sentence_transformers import SentenceTransformer, util
+from openai import OpenAI
 import openai
-from openai import AuthenticationError, OpenAIError
+from openai.types.chat import ChatCompletionMessageParam
+from pyairtable import Api
+from dotenv import load_dotenv
+load_dotenv()
 
+class QASystem:
+    def __init__(self,
+                 airtable_api_key,
+                 airtable_base_id,
+                 airtable_table_name,
+                 model_name="all-MiniLM-L6-v2",
+                 similarity_threshold=0.8,
+                 api_key_path='.env',
+                 keywords_path='keywords.json',
+                 stopwords_file='keywords.json',
+                 chatgpt_model="gpt-3.5-turbo"):
 
-model = SentenceTransformer("all-MiniLM-L6-v2")
-embedding_dosyasi = 'question_embeddings.npy'
-chatgpt_model = "gpt-3.5-turbo"
+        self.airtable_api_key = airtable_api_key
+        self.airtable_base_id = airtable_base_id
+        self.airtable_table_name = airtable_table_name
 
-def Embed():
-    try:
-        with open(embedding_dosyasi, "rb") as f:
-            question_embeddings = np.load(f)
-            return question_embeddings
-    except FileNotFoundError:
-        print("Ilk sefer calistirildiginden dolayi sürec biraz uzun sürebilir... Bu sürec tek seferliktir.")
-        question_embeddings = model.encode(questions, convert_to_numpy=True)
-        with open(embedding_dosyasi, "wb") as f:
-            np.save(f, question_embeddings)
-        return question_embeddings
+        self.model_name = model_name
+        self.similarity_threshold = similarity_threshold
+        self.ml_keywords = keywords_path
+        self.stopwords_file = stopwords_file
+        self.chatgpt_model = chatgpt_model
 
-def check_openai_api_key(api_key):
-    client = openai.OpenAI(api_key=api_key)
-    try:
-        client.models.list()
-    except openai.AuthenticationError:
-        return False
-    else:
-        return True
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.model = SentenceTransformer(self.model_name, device=self.device)
 
+        self.api = Api(self.airtable_api_key)
+        self.airtable = self.api.table(self.airtable_base_id, self.airtable_table_name)
 
+        self.data = []
+        self.questions = []
+        self.answers = []
+        self.embeddings = []
+        self.load_openai_key()
+        self.load_data_and_embeddings()
 
-def load_api_key(path='openai_api.json'): 
-    """
-    Sorulari openaiye yollamak için openai_api.json diye dosyaya bakiyor, içinde key var mi diye bakiyor, dosya yoksa oluşturuyor
-    Sonrasinda api key kontrolü yapiyor, yanlişsa dosyadakini siliyor, kullanicidan yenisini isteyip dosyaya kaydediyor
-     """
-    while True:
-        if not os.path.exists(path) or os.path.getsize(path) == 0:
-            key = input("OpenAI API anahtarinizi girin: ")
-            with open(path, "w") as f:
-                json.dump({"api_key": key.strip()}, f)
+    def load_stopwords(self):
+        with open(self.stopwords_file, 'r', encoding='utf-8') as f:
+            stopwords = json.load(f)
+        return set([sw.lower() for sw in stopwords])
 
-        with open(path, "r") as f:
-            try:
-                config = json.load(f)
-                key = config.get("api_key") or config.get("api_id")
-                openai.api_key = key.strip()
-            except json.JSONDecodeError:
-                key = None
-        if not key:
-            print("API anahtarı bulunamadı veya okunamadı. Tekrar deneyin.")
-            os.remove(path)
-            continue
-        if check_openai_api_key(openai.api_key):
-            print("API anahtari dogru, devam ediliyor...")
-            break
+    def is_about_ml(self, text: str) -> bool:
+        """
+        Metni makine öğrenmesiyle ilgili olup olmadığını
+        belirlemek için yerel json dosyasındaki anahtar kelimelerle kontrol eder.
+
+        Args:
+            text (str): Kontrol edilecek kullanıcı girişi.
+
+        Returns:
+            bool: Metin makine öğrenmesi konusuysa True, değilse False.
+        """
+        try:
+            with open(self.ml_keywords, "r", encoding="utf-8") as f:
+                ml_keywords = json.load(f)
+        except Exception as e:
+            print(f"ml_keywords.json dosyası okunurken hata oluştu: {e}")
+            return False
+
+        text_lower = text.lower()
+        return any(keyword.lower() in text_lower for keyword in ml_keywords)
+
+    def load_openai_key(self):
+        """
+        Loads the OpenAI API key from environment variables.
+        """
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise EnvironmentError("Environment variable 'OPENAI_API_KEY' is missing.")
+        openai.api_key = api_key
+        if not self.check_openai_api_key(api_key):
+            raise ValueError("Invalid OpenAI API key.")
+
+    @staticmethod
+    def check_openai_api_key(api_key):
+        """
+        OpenAI API anahtarının geçerli olup olmadığını kontrol eder.
+
+        Args:
+            api_key (str): Test edilecek API anahtarı.
+
+        Returns:
+            bool: Anahtar geçerliyse True, değilse False.
+        """
+        try:
+            client = OpenAI(api_key=api_key)
+            client.models.list()
+            return True
+        except Exception:
+            return False
+
+    def load_data_and_embeddings(self):
+        """
+        Airtable'dan verileri çeker, eksik embedding varsa hesaplar, hem localde hem Airtable'da günceller.
+        """
+        print("Airtable'dan veriler çekiliyor...")
+        records = self.airtable.all()
+        self.data.clear()
+        self.questions.clear()
+        self.answers.clear()
+        self.embeddings.clear()
+
+        update_needed = []
+        for record in records:
+            fields = record.get("fields", {})
+            question = fields.get("question", "").strip()
+            answer = fields.get("answer", "").strip()
+            embedding_str = fields.get("embedding", None)
+
+            if not question or not answer:
+                continue
+
+            if embedding_str:
+                try:
+                    embedding = np.array(json.loads(embedding_str), dtype=np.float32)
+                except Exception:
+                    embedding = None
+            else:
+                embedding = None
+
+            if embedding is None:
+                update_needed.append((record["id"], question))
+                embedding = None
+
+            self.data.append({
+                "id": record["id"],
+                "question": question,
+                "answer": answer,
+                "embedding": embedding
+            })
+            self.questions.append(question)
+            self.answers.append(answer)
+            self.embeddings.append(embedding)
+
+        # Hesaplanması gereken embeddingler varsa hesapla ve güncelle
+        if update_needed:
+            print(f"{len(update_needed)} embedding hesaplanacak ve Airtable'a kaydedilecek...")
+            for record_id, question in update_needed:
+                emb = self.model.encode(question, convert_to_numpy=True).tolist()
+                self.airtable.update(record_id, {"embedding": json.dumps(emb)})
+                # Güncellemeyi data listesine de yansıt
+                for item in self.data:
+                    if item["id"] == record_id:
+                        item["embedding"] = np.array(emb, dtype=np.float32)
+
+        # Embedding matrisi numpy array haline getir
+        self.embeddings = [
+            item["embedding"] if item["embedding"] is not None else np.zeros(self.model.get_sentence_embedding_dimension())
+            for item in self.data
+        ]
+        self.question_embeddings = torch.tensor(np.array(self.embeddings)).to(self.device)
+        print(f"{len(self.questions)} soru ve embedding yüklendi.")
+
+    def find_best_match(self, user_question):
+        """
+        Kullanıcının sorduğu soruya en benzer soruyu veri kümesinde bulur.
+
+        Args:
+            user_question (str): Kullanıcının girdiği soru.
+
+        Returns:
+            tuple: (bulunan en iyi cevap veya None, benzerlik skoru)
+        """
+        user_embedding = self.model.encode(user_question, convert_to_tensor=True).to(self.device)
+        cosine_scores = util.cos_sim(user_embedding, self.question_embeddings)[0]
+        max_score = torch.max(cosine_scores).item()
+        if max_score >= self.similarity_threshold:
+            best_idx = torch.argmax(cosine_scores).item()
+            return self.answers[best_idx], max_score
         else:
-            print("API anahtari yanlis, tekrar deneyin.")
-            os.remove(path)
-            continue
+            return None, max_score
 
+    def ask_openai(self, prompt):
+        """
+        OpenAI ChatGPT API'sini kullanarak kullanıcıdan gelen soruya yanıt alır.
 
-with open('data.json', 'r') as file:
-    data = json.load(file)
-questions = [item['question'] for item in data]
+        Args:
+            prompt (str): Kullanıcıdan gelen soru.
 
-question_embeddings = Embed()
+        Returns:
+            str: ChatGPT'den gelen yanıt veya hata mesajı.
+        """
+        try:
+            client = OpenAI(api_key=openai.api_key)
+            messages: list[ChatCompletionMessageParam] = [
+                {"role": "system",
+                 "content": "You are a Turkish coding assistant specialized in machine learning and answering only machine learning related questions."},
+                {"role": "user", "content": prompt}
+            ]  # type: ignore
+            response = client.chat.completions.create(
+                model=self.chatgpt_model,
+                messages=messages,
+                max_tokens=256,
+                temperature=0.7
+            )
+            return response.choices[0].message.content.strip()
+        except Exception as e:
+            return f"ChatGPT API hatası: {str(e)}"
 
-load_api_key()
+    def add_to_airtable(self, question, answer):
+        """
+        Yeni soru-cevap ve embedding'i Airtable'a ekler.
 
-def ask_openai(prompt, model_name=chatgpt_model):
-    """
-    Adi üstünde, benzerlik yetmediyse eger, soruyu chatgptye tükürüyor
-    """
-    response = openai.ChatCompletion.create(
-        model=model_name,
-        messages=[{"role": "user", "content": prompt}],
-        max_tokens=512,
-        temperature=0.7
-    )
-    return response.choices[0].message.content.strip()
+        Args:
+            question (str): Soru metni.
+            answer (str): Cevap metni.
+        """
+        embedding = self.model.encode(question, convert_to_numpy=True).tolist()
+        record = {
+            "question": question,
+            "answer": answer,
+            "embedding": json.dumps(embedding)
+        }
+        self.airtable.create(record)
+        self.questions.append(question)
+        self.answers.append(answer)
+        self.embeddings.append(np.array(embedding, dtype=np.float32))
+        self.question_embeddings = torch.tensor(np.array(self.embeddings)).to(self.device)
 
-while True:
-    print("Programdan cikis yapmak için 'cikis' yaziniz")
-    user_question = input("Soru girin: ")
-    if user_question.lower() == 'cikis':
-        print("Programdan cikiliyor...")
-        break
-    user_embedding = model.encode(user_question, convert_to_tensor=True)
-    cosine_scores = util.cos_sim(user_embedding, question_embeddings)[0]
-    if max(cosine_scores) > 0.7:
-        best_match_idx = cosine_scores.argmax()
-        best_score = cosine_scores[best_match_idx].item()
+    def run(self):
+        print("Soru cevap sistemine hoş geldiniz. Çıkmak için 'cikis' yazınız.")
+        while True:
+            user_input = input("Soru girin: ").strip()
+            if user_input.lower() == "cikis":
+                print("Programdan çıkılıyor...")
+                break
 
-        matched_question = questions[best_match_idx]
-        matched_answer = data[best_match_idx]['answer']
+            answer, score = self.find_best_match(user_input)
+            if answer:
+                print(f"Cevap: {answer} (Benzerlik skoru: {score:.4f})")
+            else:
+                if not self.is_about_ml(user_input):
+                    print("Üzgünüz, yalnızca makine öğrenmesiyle ilgili sorulara yanıt veriyorum.")
+                    continue
+                print("Cevap verilemiyor, ChatGPT'den cevap alınıyor...")
+                ai_answer = self.ask_openai(user_input)
+                print(f"ChatGPT cevabı: {ai_answer} (Benzerlik skoru: {score:.4f})")
+                self.add_to_airtable(user_input, ai_answer)
 
-        print(f"Cevap: {matched_answer} (Benzerlik skoru: {best_score:.4f})")
-    else:
-        print("Bu sorunun cevabi bana ogretilmedi, ChatGPT'ye soruyorum...")
-        ai_answer = ask_openai(user_question)
-        print(ai_answer)
+def get_env_variable(key: str) -> str:
+    value = os.getenv(key)
+    if not value:
+        raise EnvironmentError(f"Environment variable '{key}' is missing.")
+    return value
+
+if __name__ == "__main__":
+    try:
+        api_key = get_env_variable("AIRTABLE_API")
+        base_id = get_env_variable("AIRTABLE_BASE_ID")
+        table_name = get_env_variable("AIRTABLE_TABLE_NAME")
+
+        qa_system = QASystem(
+            airtable_api_key=api_key,
+            airtable_base_id=base_id,
+            airtable_table_name=table_name
+        )
+        qa_system.run()
+
+    except EnvironmentError as e:
+        print(f"[ERROR] Configuration error: {e}")
+        exit(1)
