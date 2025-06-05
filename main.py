@@ -16,6 +16,7 @@ class QASystem:
                  similarity_threshold=0.7,
                  api_key_path='openai_api.json',
                  chatgpt_model="gpt-3.5-turbo",
+                 keywords_path='keywords.json',
                  chroma_dir: str ='chroma_db_persistent'):
         """
         Soru-cevap sistemini başlatır ve gerekli tüm bileşenleri yükler.
@@ -34,6 +35,7 @@ class QASystem:
         self.similarity_threshold = similarity_threshold
         self.api_key_path = api_key_path
         self.chatgpt_model = chatgpt_model
+        self.ml_keywords = keywords_path
         self.chroma_dir = chroma_dir
 
         self.device = ("cuda" if torch.cuda.is_available() else "cpu")
@@ -56,7 +58,7 @@ class QASystem:
         data_path içerisindeki JSON dosyasını yükler ve soruları belleğe alır.
         """
         try:
-            with open(self.data_path, 'r') as file:
+            with open(self.data_path, 'r', encoding='utf-8') as file:
                 self.data = json.load(file)
                 self.questions = [item['question'] for item in self.data]
         except (FileNotFoundError, json.JSONDecodeError) as e:
@@ -109,6 +111,28 @@ class QASystem:
                 print(f"ChromaDB'ye embedding eklenirken hata oluştu: {e}")
         else:
             print("Mevcut embedding'ler güncel. Yeniden oluşturmaya gerek yok.")
+
+    def is_about_ml(self, text: str) -> bool:
+        """
+        Metni makine öğrenmesiyle ilgili olup olmadığını
+        belirlemek için yerel json dosyasındaki anahtar kelimelerle kontrol eder.
+
+        Args:
+            text (str): Kontrol edilecek kullanıcı girişi.
+
+        Returns:
+            bool: Metin makine öğrenmesi konusuysa True, değilse False.
+        """
+        try:
+            with open(self.ml_keywords, "r", encoding="utf-8") as f:
+                ml_keywords = json.load(f)
+        except Exception as e:
+            print(f"ml_keywords.json dosyası okunurken hata oluştu: {e}")
+            return False
+
+        text_lower = text.lower()
+        return any(keyword.lower() in text_lower for keyword in ml_keywords)
+
 
     def load_openai_key(self):
         """
@@ -238,6 +262,46 @@ class QASystem:
         
         return None, 0.0
 
+    def add_new_qa_to_data(self, question: str, answer: str):
+        """
+        Yeni soruyu ve cevabını data.json dosyasına ve bellekteki verilere ekler,
+        ardından embedding'leri günceller.
+
+        Args:
+            question (str): Kullanıcı tarafından sorulan yeni soru.
+            answer (str): ChatGPT tarafından verilen cevap.
+        """
+        if not question or not answer: # Basit doğrulama
+            print("Soru veya cevap boş olamaz. Veriye eklenmedi.")
+            return
+
+        new_entry = {"question": question, "answer": answer}
+        
+        #  Bellekteki verileri güncelle
+        self.data.append(new_entry)
+        self.questions.append(question) # self.questions listesini de güncelle
+        
+        try:
+            with open(self.data_path, 'w', encoding='utf-8') as f:
+                json.dump(self.data, f, ensure_ascii=False, indent=2) 
+            print(f"Yeni soru-cevap '{question[:30]}...' başarıyla '{self.data_path}' dosyasına eklendi.")
+            
+            # ChromaDB'deki embedding'leri güncelle
+            print("Veri güncellendi, embedding'ler yeniden oluşturulacak...")
+            self.embed_questions()
+
+        except IOError as e:
+            print(f"'{self.data_path}' dosyasına yazılırken hata oluştu: {e}")
+            # Eğer dosyaya yazma işlemi başarısız olursa, son eklenen veriyi geri al
+            self.data.pop() 
+            self.questions.pop() 
+            print("Dosyaya yazılamadığı için bellekteki son eklenen soru-cevap geri alındı.")
+        except Exception as e:
+            print(f"Yeni soru-cevap eklenirken beklenmedik bir hata oluştu: {e}")
+
+            if self.data and self.data[-1] == new_entry: self.data.pop()
+            if self.questions and self.questions[-1] == question: self.questions.pop()
+
     def run(self):
         """
         Ana uygulama döngüsünü başlatır. Kullanıcıdan soru alır, eşleşme varsa gösterir;
@@ -250,12 +314,24 @@ class QASystem:
                 print("Programdan çıkılıyor...")
                 break
 
+            if not self.is_about_ml(user_input):
+                print("Üzgünüz, yalnızca makine öğrenmesiyle ilgili sorulara yanıt veriyorum.")
+                continue
+
             answer, score = self.find_best_match(user_input)
+            
             if answer:
                 print(f"Cevap: {answer} (Benzerlik skoru: {score:.4f})")
             else:
                 print("Cevap verilemiyor, ChatGPT'den cevap alınıyor...")
                 ai_answer = self.ask_openai(user_input)
+
+                if ai_answer and not ai_answer.startswith("OpenAI API Hatası:") and \
+                   not ai_answer.startswith("ChatGPT'den geçerli bir yanıt alınamadı."):
+                    # Yeni soruyu ve ChatGPT'nin cevabını veri setine ekle
+                    self.add_new_qa_to_data(user_input, ai_answer)
+                else:
+                    print("ChatGPT'den geçerli bir cevap alınamadığı veya bir hata oluştuğu için yeni soru-cevap kaydedilmedi.")
                 print(f"ChatGPT cevabı: {ai_answer} (Skor: {score:.4f})")
 
 

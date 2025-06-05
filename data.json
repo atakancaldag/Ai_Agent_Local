@@ -1,74 +1,82 @@
 [
   {
-    "question": "Denetimli ögrenme nedir?",
-    "answer": "Denetimli öğrenme, verilerdeki örneklerin etiketli olduğu ve modelin bu etiketlere göre eğitim aldığı bir makine öğrenmesi türüdür. Model, bu etiketli verilerle eğitilir ve bilinmeyen verilerle tahmin yapabilir."
+    "question": "Denetimli ÃƒÂ¶grenme nedir?",
+    "answer": "Denetimli ÃƒÂ¶Ã„Å¸renme, verilerdeki ÃƒÂ¶rneklerin etiketli olduÃ„Å¸u ve modelin bu etiketlere gÃƒÂ¶re eÃ„Å¸itim aldÃ„Â±Ã„Å¸Ã„Â± bir makine ÃƒÂ¶Ã„Å¸renmesi tÃƒÂ¼rÃƒÂ¼dÃƒÂ¼r. Model, bu etiketli verilerle eÃ„Å¸itilir ve bilinmeyen verilerle tahmin yapabilir."
   },
   {
-    "question": "Sınıflandırma ve Regresyon arasındaki fark?",
-    "answer": "Sınıflandırma, verileri kategorik sınıflara ayırmayı amaçlayan bir modelleme problemidir. Regresyon ise sürekli bir değeri tahmin etmeye yönelik bir problem türüdür. Örneğin, sınıflandırma 'spam' veya 'ham' e-posta gibi etiketleri tahmin ederken, regresyon bir evin fiyatını tahmin edebilir."
+    "question": "SÃ„Â±nÃ„Â±flandÃ„Â±rma ve Regresyon arasÃ„Â±ndaki fark?",
+    "answer": "SÃ„Â±nÃ„Â±flandÃ„Â±rma, verileri kategorik sÃ„Â±nÃ„Â±flara ayÃ„Â±rmayÃ„Â± amaÃƒÂ§layan bir modelleme problemidir. Regresyon ise sÃƒÂ¼rekli bir deÃ„Å¸eri tahmin etmeye yÃƒÂ¶nelik bir problem tÃƒÂ¼rÃƒÂ¼dÃƒÂ¼r. Ãƒâ€“rneÃ„Å¸in, sÃ„Â±nÃ„Â±flandÃ„Â±rma 'spam' veya 'ham' e-posta gibi etiketleri tahmin ederken, regresyon bir evin fiyatÃ„Â±nÃ„Â± tahmin edebilir."
   },
   {
-    "question": "Aşırı öğrenme nedir nasıl önlenir?",
-    "answer": "Aşırı öğrenme, modelin eğitim verisine fazla uyum sağlaması durumudur. Bu, modelin eğitim verisini çok iyi ezberlemesi ancak yeni, görülmemiş verilerde kötü performans göstermesiyle sonuçlanır. Aşırı öğrenmeyi önlemek için veri artırma, erken durdurma, regularizasyon ve çapraz doğrulama gibi yöntemler kullanılabilir."
+    "question": "AÃ…Å¸Ã„Â±rÃ„Â± ÃƒÂ¶Ã„Å¸renme nedir nasÃ„Â±l ÃƒÂ¶nlenir?",
+    "answer": "AÃ…Å¸Ã„Â±rÃ„Â± ÃƒÂ¶Ã„Å¸renme, modelin eÃ„Å¸itim verisine fazla uyum saÃ„Å¸lamasÃ„Â± durumudur. Bu, modelin eÃ„Å¸itim verisini ÃƒÂ§ok iyi ezberlemesi ancak yeni, gÃƒÂ¶rÃƒÂ¼lmemiÃ…Å¸ verilerde kÃƒÂ¶tÃƒÂ¼ performans gÃƒÂ¶stermesiyle sonuÃƒÂ§lanÃ„Â±r. AÃ…Å¸Ã„Â±rÃ„Â± ÃƒÂ¶Ã„Å¸renmeyi ÃƒÂ¶nlemek iÃƒÂ§in veri artÃ„Â±rma, erken durdurma, regularizasyon ve ÃƒÂ§apraz doÃ„Å¸rulama gibi yÃƒÂ¶ntemler kullanÃ„Â±labilir."
   },
   {
-    "question": "Gradyan düşüşü nedir?",
-    "answer": "Gradyan düşüşü, bir fonksiyonun minimum değerini bulmak için kullanılan bir optimizasyon algoritmasıdır. Modelin hata fonksiyonunun türevini alarak, en düşük hata için modelin parametrelerini günceller. Derin öğrenme ve makine öğrenmesi algoritmalarında, özellikle yapay sinir ağlarında yaygın olarak kullanılır."
+    "question": "Gradyan dÃƒÂ¼Ã…Å¸ÃƒÂ¼Ã…Å¸ÃƒÂ¼ nedir?",
+    "answer": "Gradyan dÃƒÂ¼Ã…Å¸ÃƒÂ¼Ã…Å¸ÃƒÂ¼, bir fonksiyonun minimum deÃ„Å¸erini bulmak iÃƒÂ§in kullanÃ„Â±lan bir optimizasyon algoritmasÃ„Â±dÃ„Â±r. Modelin hata fonksiyonunun tÃƒÂ¼revini alarak, en dÃƒÂ¼Ã…Å¸ÃƒÂ¼k hata iÃƒÂ§in modelin parametrelerini gÃƒÂ¼nceller. Derin ÃƒÂ¶Ã„Å¸renme ve makine ÃƒÂ¶Ã„Å¸renmesi algoritmalarÃ„Â±nda, ÃƒÂ¶zellikle yapay sinir aÃ„Å¸larÃ„Â±nda yaygÃ„Â±n olarak kullanÃ„Â±lÃ„Â±r."
   },
   {
-    "question": "Karmaşıklık (Confusion) Matrisi ne işe yarar?",
-    "answer": "Karmaşıklık matrisi, sınıflandırma problemlerinin değerlendirilmesinde kullanılan bir araçtır. Modelin doğru ve yanlış sınıflandırmalarını görsel olarak gösterir. Doğru pozitif, yanlış pozitif, doğru negatif ve yanlış negatif değerleri içerir. Bu matris, modelin performansını ölçmede, özellikle dengesiz veri setlerinde faydalıdır."
+    "question": "KarmaÃ…Å¸Ã„Â±klÃ„Â±k (Confusion) Matrisi ne iÃ…Å¸e yarar?",
+    "answer": "KarmaÃ…Å¸Ã„Â±klÃ„Â±k matrisi, sÃ„Â±nÃ„Â±flandÃ„Â±rma problemlerinin deÃ„Å¸erlendirilmesinde kullanÃ„Â±lan bir araÃƒÂ§tÃ„Â±r. Modelin doÃ„Å¸ru ve yanlÃ„Â±Ã…Å¸ sÃ„Â±nÃ„Â±flandÃ„Â±rmalarÃ„Â±nÃ„Â± gÃƒÂ¶rsel olarak gÃƒÂ¶sterir. DoÃ„Å¸ru pozitif, yanlÃ„Â±Ã…Å¸ pozitif, doÃ„Å¸ru negatif ve yanlÃ„Â±Ã…Å¸ negatif deÃ„Å¸erleri iÃƒÂ§erir. Bu matris, modelin performansÃ„Â±nÃ„Â± ÃƒÂ¶lÃƒÂ§mede, ÃƒÂ¶zellikle dengesiz veri setlerinde faydalÃ„Â±dÃ„Â±r."
   },
   {
-    "question": "Veri ön işleme neden önemli?",
-    "answer": "Veri ön işleme, modelin doğru ve güvenilir sonuçlar verebilmesi için verinin temizlenmesi ve düzenlenmesidir. Eksik verilerin doldurulması, anormal değerlerin düzeltilmesi, normalizasyon ve standardizasyon işlemleri, modelin daha verimli ve doğru sonuçlar üretmesini sağlar."
+    "question": "Veri ÃƒÂ¶n iÃ…Å¸leme neden ÃƒÂ¶nemli?",
+    "answer": "Veri ÃƒÂ¶n iÃ…Å¸leme, modelin doÃ„Å¸ru ve gÃƒÂ¼venilir sonuÃƒÂ§lar verebilmesi iÃƒÂ§in verinin temizlenmesi ve dÃƒÂ¼zenlenmesidir. Eksik verilerin doldurulmasÃ„Â±, anormal deÃ„Å¸erlerin dÃƒÂ¼zeltilmesi, normalizasyon ve standardizasyon iÃ…Å¸lemleri, modelin daha verimli ve doÃ„Å¸ru sonuÃƒÂ§lar ÃƒÂ¼retmesini saÃ„Å¸lar."
   },
   {
-    "question": "Birim vektör nedir?",
-    "answer": "Birim vektör, uzunluğu 1 olan bir vektördür. Veri analizi ve makine öğrenmesinde, vektörlerin karşılaştırılması veya benzerlik hesaplamaları için kullanılır. Özellikle, metin madenciliği ve doğal dil işleme (NLP) gibi alanlarda, kelime gömme (word embedding) tekniklerinde yer alır."
+    "question": "Birim vektÃƒÂ¶r nedir?",
+    "answer": "Birim vektÃƒÂ¶r, uzunluÃ„Å¸u 1 olan bir vektÃƒÂ¶rdÃƒÂ¼r. Veri analizi ve makine ÃƒÂ¶Ã„Å¸renmesinde, vektÃƒÂ¶rlerin karÃ…Å¸Ã„Â±laÃ…Å¸tÃ„Â±rÃ„Â±lmasÃ„Â± veya benzerlik hesaplamalarÃ„Â± iÃƒÂ§in kullanÃ„Â±lÃ„Â±r. Ãƒâ€“zellikle, metin madenciliÃ„Å¸i ve doÃ„Å¸al dil iÃ…Å¸leme (NLP) gibi alanlarda, kelime gÃƒÂ¶mme (word embedding) tekniklerinde yer alÃ„Â±r."
   },
   {
     "question": "Support Vector Machine (SVM) nedir?",
-    "answer": "Support Vector Machine (SVM), sınıflandırma ve regresyon analizlerinde kullanılan güçlü bir makine öğrenmesi algoritmasıdır. SVM, iki sınıf arasındaki en geniş marjı maksimize ederek karar sınırını belirler ve yeni verileri bu sınırla sınıflandırır."
+    "answer": "Support Vector Machine (SVM), sÃ„Â±nÃ„Â±flandÃ„Â±rma ve regresyon analizlerinde kullanÃ„Â±lan gÃƒÂ¼ÃƒÂ§lÃƒÂ¼ bir makine ÃƒÂ¶Ã„Å¸renmesi algoritmasÃ„Â±dÃ„Â±r. SVM, iki sÃ„Â±nÃ„Â±f arasÃ„Â±ndaki en geniÃ…Å¸ marjÃ„Â± maksimize ederek karar sÃ„Â±nÃ„Â±rÃ„Â±nÃ„Â± belirler ve yeni verileri bu sÃ„Â±nÃ„Â±rla sÃ„Â±nÃ„Â±flandÃ„Â±rÃ„Â±r."
   },
   {
-    "question": "Derin Öğrenme (Deep Learning) ile Geleneksel Makine Öğrenmesi Arasındaki Fark?",
-    "answer": "Derin öğrenme, özellikle büyük veri setleri ve karmaşık yapılarla çalışabilen bir makine öğrenmesi dalıdır. Derin öğrenme, çok katmanlı sinir ağları kullanırken, geleneksel makine öğrenmesi algoritmaları daha basit yapılarla çalışır. Derin öğrenme genellikle daha fazla hesaplama gücü ve veri gerektirir."
+    "question": "Derin Ãƒâ€“Ã„Å¸renme (Deep Learning) ile Geleneksel Makine Ãƒâ€“Ã„Å¸renmesi ArasÃ„Â±ndaki Fark?",
+    "answer": "Derin ÃƒÂ¶Ã„Å¸renme, ÃƒÂ¶zellikle bÃƒÂ¼yÃƒÂ¼k veri setleri ve karmaÃ…Å¸Ã„Â±k yapÃ„Â±larla ÃƒÂ§alÃ„Â±Ã…Å¸abilen bir makine ÃƒÂ¶Ã„Å¸renmesi dalÃ„Â±dÃ„Â±r. Derin ÃƒÂ¶Ã„Å¸renme, ÃƒÂ§ok katmanlÃ„Â± sinir aÃ„Å¸larÃ„Â± kullanÃ„Â±rken, geleneksel makine ÃƒÂ¶Ã„Å¸renmesi algoritmalarÃ„Â± daha basit yapÃ„Â±larla ÃƒÂ§alÃ„Â±Ã…Å¸Ã„Â±r. Derin ÃƒÂ¶Ã„Å¸renme genellikle daha fazla hesaplama gÃƒÂ¼cÃƒÂ¼ ve veri gerektirir."
   },
   {
-    "question": "Doğruluk (Accuracy) metriği ne zaman yanıltıcı olabilir?",
-    "answer": "Doğruluk metriği, sınıflandırma modellerinde genel başarıyı gösterse de, dengesiz veri setlerinde yanıltıcı olabilir. Örneğin, %95 oranında bir sınıf varsa ve model hep bu sınıfı tahmin ediyorsa doğruluk yüksek olur ama model başarısızdır."
+    "question": "DoÃ„Å¸ruluk (Accuracy) metriÃ„Å¸i ne zaman yanÃ„Â±ltÃ„Â±cÃ„Â± olabilir?",
+    "answer": "DoÃ„Å¸ruluk metriÃ„Å¸i, sÃ„Â±nÃ„Â±flandÃ„Â±rma modellerinde genel baÃ…Å¸arÃ„Â±yÃ„Â± gÃƒÂ¶sterse de, dengesiz veri setlerinde yanÃ„Â±ltÃ„Â±cÃ„Â± olabilir. Ãƒâ€“rneÃ„Å¸in, %95 oranÃ„Â±nda bir sÃ„Â±nÃ„Â±f varsa ve model hep bu sÃ„Â±nÃ„Â±fÃ„Â± tahmin ediyorsa doÃ„Å¸ruluk yÃƒÂ¼ksek olur ama model baÃ…Å¸arÃ„Â±sÃ„Â±zdÃ„Â±r."
   },
   {
-    "question": "Random Forest nasıl çalışır?",
-    "answer": "Random Forest, birçok karar ağacından oluşan bir topluluk (ensemble) algoritmasıdır. Her bir ağaç farklı veri alt kümeleriyle eğitilir ve sonuçlar çoğunluk oyuna göre birleştirilir. Bu, aşırı öğrenmeyi azaltır ve doğruluğu artırır."
+    "question": "Random Forest nasÃ„Â±l ÃƒÂ§alÃ„Â±Ã…Å¸Ã„Â±r?",
+    "answer": "Random Forest, birÃƒÂ§ok karar aÃ„Å¸acÃ„Â±ndan oluÃ…Å¸an bir topluluk (ensemble) algoritmasÃ„Â±dÃ„Â±r. Her bir aÃ„Å¸aÃƒÂ§ farklÃ„Â± veri alt kÃƒÂ¼meleriyle eÃ„Å¸itilir ve sonuÃƒÂ§lar ÃƒÂ§oÃ„Å¸unluk oyuna gÃƒÂ¶re birleÃ…Å¸tirilir. Bu, aÃ…Å¸Ã„Â±rÃ„Â± ÃƒÂ¶Ã„Å¸renmeyi azaltÃ„Â±r ve doÃ„Å¸ruluÃ„Å¸u artÃ„Â±rÃ„Â±r."
   },
   {
-    "question": "K-means algoritması nedir?",
-    "answer": "K-means, kümeleme (clustering) algoritmasıdır. Verileri, her biri bir merkeze (centroid) sahip K farklı kümeye ayırır. Veriler, en yakın merkeze atanır ve merkezler her iterasyonda güncellenir. Genelde denetimsiz öğrenmede kullanılır."
+    "question": "K-means algoritmasÃ„Â± nedir?",
+    "answer": "K-means, kÃƒÂ¼meleme (clustering) algoritmasÃ„Â±dÃ„Â±r. Verileri, her biri bir merkeze (centroid) sahip K farklÃ„Â± kÃƒÂ¼meye ayÃ„Â±rÃ„Â±r. Veriler, en yakÃ„Â±n merkeze atanÃ„Â±r ve merkezler her iterasyonda gÃƒÂ¼ncellenir. Genelde denetimsiz ÃƒÂ¶Ã„Å¸renmede kullanÃ„Â±lÃ„Â±r."
   },
   {
-    "question": "ROC eğrisi nedir ve ne işe yarar?",
-    "answer": "ROC eğrisi, sınıflandırma modellerinin başarılarını çeşitli eşik değerlerinde karşılaştırmak için kullanılır. True Positive Rate ile False Positive Rate'in grafiğini çizer. Altında kalan alan (AUC) ne kadar büyükse, model o kadar iyidir."
+    "question": "ROC eÃ„Å¸risi nedir ve ne iÃ…Å¸e yarar?",
+    "answer": "ROC eÃ„Å¸risi, sÃ„Â±nÃ„Â±flandÃ„Â±rma modellerinin baÃ…Å¸arÃ„Â±larÃ„Â±nÃ„Â± ÃƒÂ§eÃ…Å¸itli eÃ…Å¸ik deÃ„Å¸erlerinde karÃ…Å¸Ã„Â±laÃ…Å¸tÃ„Â±rmak iÃƒÂ§in kullanÃ„Â±lÃ„Â±r. True Positive Rate ile False Positive Rate'in grafiÃ„Å¸ini ÃƒÂ§izer. AltÃ„Â±nda kalan alan (AUC) ne kadar bÃƒÂ¼yÃƒÂ¼kse, model o kadar iyidir."
   },
   {
     "question": "Epoch ve Batch Size ne anlama gelir?",
-    "answer": "Epoch, tüm eğitim verisinin modele bir kez gösterilmesidir. Batch size ise verinin modele aynı anda gösterilen parça büyüklüğüdür. Küçük batch boyutu daha sık güncelleme sağlar; büyük batch ise daha stabil ama yavaş olabilir."
+    "answer": "Epoch, tÃƒÂ¼m eÃ„Å¸itim verisinin modele bir kez gÃƒÂ¶sterilmesidir. Batch size ise verinin modele aynÃ„Â± anda gÃƒÂ¶sterilen parÃƒÂ§a bÃƒÂ¼yÃƒÂ¼klÃƒÂ¼Ã„Å¸ÃƒÂ¼dÃƒÂ¼r. KÃƒÂ¼ÃƒÂ§ÃƒÂ¼k batch boyutu daha sÃ„Â±k gÃƒÂ¼ncelleme saÃ„Å¸lar; bÃƒÂ¼yÃƒÂ¼k batch ise daha stabil ama yavaÃ…Å¸ olabilir."
   },
   {
-    "question": "Naive Bayes algoritması nerede kullanılır?",
-    "answer": "Naive Bayes, özellikle metin sınıflandırma problemlerinde (spam filtresi, duygu analizi gibi) yaygın kullanılan olasılıksal bir sınıflandırıcıdır. Özelliklerin birbirinden bağımsız olduğu varsayımıyla çalışır."
+    "question": "Naive Bayes algoritmasÃ„Â± nerede kullanÃ„Â±lÃ„Â±r?",
+    "answer": "Naive Bayes, ÃƒÂ¶zellikle metin sÃ„Â±nÃ„Â±flandÃ„Â±rma problemlerinde (spam filtresi, duygu analizi gibi) yaygÃ„Â±n kullanÃ„Â±lan olasÃ„Â±lÃ„Â±ksal bir sÃ„Â±nÃ„Â±flandÃ„Â±rÃ„Â±cÃ„Â±dÃ„Â±r. Ãƒâ€“zelliklerin birbirinden baÃ„Å¸Ã„Â±msÃ„Â±z olduÃ„Å¸u varsayÃ„Â±mÃ„Â±yla ÃƒÂ§alÃ„Â±Ã…Å¸Ã„Â±r."
   },
   {
     "question": "Aktivasyon fonksiyonu nedir?",
-    "answer": "Aktivasyon fonksiyonu, yapay sinir ağlarında nöronların çıkış değerini belirler. Doğrusal olmayanlık katarak öğrenmeyi mümkün kılar. Yaygın örnekler: ReLU, Sigmoid, Tanh."
+    "answer": "Aktivasyon fonksiyonu, yapay sinir aÃ„Å¸larÃ„Â±nda nÃƒÂ¶ronlarÃ„Â±n ÃƒÂ§Ã„Â±kÃ„Â±Ã…Å¸ deÃ„Å¸erini belirler. DoÃ„Å¸rusal olmayanlÃ„Â±k katarak ÃƒÂ¶Ã„Å¸renmeyi mÃƒÂ¼mkÃƒÂ¼n kÃ„Â±lar. YaygÃ„Â±n ÃƒÂ¶rnekler: ReLU, Sigmoid, Tanh."
   },
   {
-    "question": "Principal Component Analysis (PCA) ne işe yarar?",
-    "answer": "PCA, yüksek boyutlu verileri daha az boyuta indirgerken veri varyansını korumaya çalışan bir boyut indirgeme tekniğidir. Görselleştirme ve gürültü azaltma gibi işlemlerde kullanılır."
+    "question": "Principal Component Analysis (PCA) ne iÃ…Å¸e yarar?",
+    "answer": "PCA, yÃƒÂ¼ksek boyutlu verileri daha az boyuta indirgerken veri varyansÃ„Â±nÃ„Â± korumaya ÃƒÂ§alÃ„Â±Ã…Å¸an bir boyut indirgeme tekniÃ„Å¸idir. GÃƒÂ¶rselleÃ…Å¸tirme ve gÃƒÂ¼rÃƒÂ¼ltÃƒÂ¼ azaltma gibi iÃ…Å¸lemlerde kullanÃ„Â±lÃ„Â±r."
   },
   {
-    "question": "Veri setini eğitim ve test olarak ayırmak neden önemlidir?",
-    "answer": "Modelin genelleme yeteneğini değerlendirmek için eğitim verisiyle öğrenme yapılır, test verisiyle performans ölçülür. Aynı veride hem eğitim hem test yapılırsa modelin ezberlemiş olması muhtemeldir."
+    "question": "Veri setini eÃ„Å¸itim ve test olarak ayÃ„Â±rmak neden ÃƒÂ¶nemlidir?",
+    "answer": "Modelin genelleme yeteneÃ„Å¸ini deÃ„Å¸erlendirmek iÃƒÂ§in eÃ„Å¸itim verisiyle ÃƒÂ¶Ã„Å¸renme yapÃ„Â±lÃ„Â±r, test verisiyle performans ÃƒÂ¶lÃƒÂ§ÃƒÂ¼lÃƒÂ¼r. AynÃ„Â± veride hem eÃ„Å¸itim hem test yapÃ„Â±lÃ„Â±rsa modelin ezberlemiÃ…Å¸ olmasÃ„Â± muhtemeldir."
+  },
+  {
+    "question": "Makine Ã¶ÄŸrenmesi nedir?",
+    "answer": "Makine Ã¶ÄŸrenmesi, bilgisayar sistemlerinin verilerden Ã¶ÄŸrenerek belirli bir gÃ¶revi yerine getirmelerini saÄŸlayan yapay zeka alanÄ±nÄ±n bir alt dalÄ±dÄ±r. Makine Ã¶ÄŸrenmesi algoritmalarÄ±, veri analizi yaparak desenleri tanÄ±mlar, Ã¶ÄŸrenir ve bu desenleri kullanarak tahminlerde bulunabilir. Makine Ã¶ÄŸrenmesi, genellikle deneyimsel veriler Ã¼zerinden Ã§alÄ±ÅŸÄ±r ve insan mÃ¼dahalesi olmadan kendini geliÅŸtirme yeteneÄŸine sahiptir. AmacÄ±, veri tabanlÄ± kararlar alabilen ve belirli bir problemi Ã§Ã¶zebilen modeller oluÅŸturmaktÄ±r."
+  },
+  {
+    "question": "Pekiştirmeli öğrenme nedir?",
+    "answer": "Pekiştirmeli öğrenme, bir ajanın çevresiyle etkileşime geçerek deneyimler yoluyla öğrenme sürecini gerçekleştirdiği bir makine öğrenme yöntemidir. Bu yöntemde, ajan belirli bir görevi en iyi şekilde yerine getirmek için çevresinden aldığı geri bildirimlere dayanarak öğrenme gerçekleştirir. Ajan, çevresindeki duruma göre belirli aksiyonlar alır ve bu aksiyonların sonuçlarına göre ödül veya ceza alır. Pekiştirmeli öğrenme algoritmaları, ajanın en yüksek toplam ödülü elde etmek için en iyi aksiyonları öğrenmesini sağlar. Bu yöntem genellikle oyun stratejileri, robot kontrolü, otomatik sürüş ve diğer karmaşık karar verme problemlerinde kullanılır."
   }
 ]
