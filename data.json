@@ -78,5 +78,9 @@
   {
     "question": "Pekiştirmeli öğrenme nedir?",
     "answer": "Pekiştirmeli öğrenme, bir ajanın çevresiyle etkileşime geçerek deneyimler yoluyla öğrenme sürecini gerçekleştirdiği bir makine öğrenme yöntemidir. Bu yöntemde, ajan belirli bir görevi en iyi şekilde yerine getirmek için çevresinden aldığı geri bildirimlere dayanarak öğrenme gerçekleştirir. Ajan, çevresindeki duruma göre belirli aksiyonlar alır ve bu aksiyonların sonuçlarına göre ödül veya ceza alır. Pekiştirmeli öğrenme algoritmaları, ajanın en yüksek toplam ödülü elde etmek için en iyi aksiyonları öğrenmesini sağlar. Bu yöntem genellikle oyun stratejileri, robot kontrolü, otomatik sürüş ve diğer karmaşık karar verme problemlerinde kullanılır."
+  },
+  {
+    "question": "Makine öğrenmesi nedir?",
+    "answer": "Makine öğrenmesi, bilgisayar sistemlerinin veri kullanarak öğrenme yeteneğine sahip olduğu yapay zeka alanının bir alt dalıdır. Makine öğrenmesi, algoritmalar kullanarak verilerden örüntüler çıkararak ve bu örüntüleri kullanarak gelecekteki kararlar alabilen sistemlerin geliştirilmesini sağlar. Bu sistemler genellikle deneme yanılma yöntemiyle sürekli olarak geliştirilir ve daha iyi sonuçlar elde etmek için veriye maruz kalır. Makine öğrenmesi, sınıflandırma, regresyon, kümeleme, boyut indirgeme ve pek çok farklı probleme çözüm sunar."
   }
 ]
