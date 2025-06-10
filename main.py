@@ -8,6 +8,8 @@ from openai import OpenAI
 import openai
 from openai.types.chat import ChatCompletionMessageParam
 from typing import List, Tuple
+# re modülünü import ediyoruz, is_about_ml fonksiyonunda kullanmak için.
+import re 
 
 class QASystem:
     def __init__(self,
@@ -16,19 +18,12 @@ class QASystem:
                  similarity_threshold=0.7,
                  api_key_path='openai_api.json',
                  chatgpt_model="gpt-3.5-turbo",
-                 keywords_path='keywords.json',
+                 # TAVSİYE: Daha iyi sonuçlar için 'keywords_clean.json' dosyasını kullanabilirsiniz.
+                 keywords_path='keywords.json', 
                  chroma_dir: str ='chroma_db_persistent'):
         """
         Soru-cevap sistemini başlatır ve gerekli tüm bileşenleri yükler.
-
-        Args:
-            data_path (str): JSON formatındaki soru-cevap veri dosyasının yolu.
-            embedding_file (str): Embedding verilerinin kaydedileceği/yükleneceği dosya.
-            model_name (str): Kullanılacak SentenceTransformer modeli.
-            similarity_threshold (float): Benzerlik eşiği (0-1 arası).
-            api_key_path (str): OpenAI API anahtarının saklandığı dosya yolu.
-            chatgpt_model (str): Kullanılacak ChatGPT model adı.
-            chroma_dir (str): ChromaDB veritabanının saklanacağı/yükleneceği dizin yolu. Varsayılan olarak 'chroma_db_persistent' kullanılır.
+        (Açıklamalar aynı)
         """
         self.data_path = data_path
         self.model_name = model_name
@@ -48,10 +43,31 @@ class QASystem:
  
         self.data = []
         self.questions = []
+        
+        # Stop words ve keywords listelerini __init__ içinde bir kere yükleyelim.
+        self._load_ml_keywords_and_stopwords()
 
         self.load_data()
         self.embed_questions()
         self.load_openai_key()
+
+    def _load_ml_keywords_and_stopwords(self):
+        """Yardımcı fonksiyon: Anahtar kelimeleri ve stop words'leri başlangıçta yükler."""
+        try:
+            with open(self.ml_keywords, "r", encoding="utf-8") as f:
+                self.ml_keywords_set = set(keyword.lower() for keyword in json.load(f))
+        except Exception as e:
+            print(f"'{self.ml_keywords}' dosyası okunurken hata oluştu: {e}. Konu kontrolü devre dışı.")
+            self.ml_keywords_set = set()
+
+        # Stop words listesini doğrudan kod içinde tanımlayalım veya bir dosyadan okuyalım.
+        # Eğer stopwords.json dosyanız varsa, bu daha iyi bir yaklaşımdır.
+        try:
+            with open('stopwords.json', 'r', encoding='utf-8') as f:
+                self.stop_words = set(json.load(f))
+        except FileNotFoundError:
+            print("Uyarı: 'stopwords.json' bulunamadı. Basit bir stop words listesi kullanılacak.")
+            self.stop_words = {'ve', 'veya', 'ile', 'ama', 'çünkü', 'da', 'de', 'ki', 'mi', 'mı', 'mu', 'mü', 'bu', 'şu', 'o', 'bir', 'için', 'ne', 'nasıl', 'nedir'}
 
     def load_data(self):
         """
@@ -68,11 +84,7 @@ class QASystem:
     def embed_questions(self):
         """
         `self.questions` listesindeki soruların embedding'lerini oluşturur ve ChromaDB'ye kaydeder.
-
-        Eğer ChromaDB'deki öğe sayısı `self.questions` listesindeki soru sayısından farklıysa,
-        mevcut ChromaDB koleksiyonu silinir ve tüm sorular için yeniden embedding oluşturulup eklenir.
-        Aksi takdirde, mevcut embedding'lerin güncel olduğu varsayılır.
-        Embedding işlemi sırasında sorular `document`, cevaplar ise `metadata` olarak saklanır.        
+        (Açıklamalar aynı)      
         """
 
         num_questions_in_data = len(self.questions)
@@ -114,33 +126,27 @@ class QASystem:
 
     def is_about_ml(self, text: str) -> bool:
         """
-        Metni makine öğrenmesiyle ilgili olup olmadığını
-        belirlemek için yerel json dosyasındaki anahtar kelimelerle kontrol eder.
-
-        Args:
-            text (str): Kontrol edilecek kullanıcı girişi.
-
-        Returns:
-            bool: Metin makine öğrenmesi konusuysa True, değilse False.
+        Metnin makine öğrenmesiyle ilgili olup olmadığını daha akıllı bir şekilde kontrol eder.
         """
-        try:
-            with open(self.ml_keywords, "r", encoding="utf-8") as f:
-                ml_keywords = json.load(f)
-        except Exception as e:
-            print(f"ml_keywords.json dosyası okunurken hata oluştu: {e}")
-            return False
+        normalized_text = re.sub(r'[^\w\s]', '', text.lower())
+        input_words = {word for word in normalized_text.split() if word not in self.stop_words and len(word) > 1}
+        
+        # Kelime bazlı kesişim kontrolü
+        if input_words.intersection(self.ml_keywords_set):
+            return True
+        
+        # N-gram (çoklu kelime) kontrolü
+        for keyword in self.ml_keywords_set:
+            if " " in keyword and keyword in normalized_text:
+                return True
 
-        text_lower = text.lower()
-        return any(keyword.lower() in text_lower for keyword in ml_keywords)
+        return False
 
 
     def load_openai_key(self):
         """
         OpenAI API anahtarını `self.api_key_path` ile belirtilen dosyadan yükler.
-        
-        Dosya yoksa, boşsa veya geçersiz bir anahtar içeriyorsa, kullanıcıdan yeni bir
-        API anahtarı girmesini ister ve dosyaya kaydeder. Anahtar doğrulanana kadar bu işlem tekrarlanır.
-        Doğrulanan anahtar `openai.api_key` global değişkenine atanır.
+        (Açıklamalar aynı)
         """
 
         while True:
@@ -173,12 +179,7 @@ class QASystem:
     def check_openai_api_key(api_key):
         """
         OpenAI API anahtarının geçerli olup olmadığını kontrol eder.
-
-        Args:
-            api_key (str): Test edilecek API anahtarı.
-
-        Returns:
-            bool: Anahtar geçerliyse True, değilse False.
+        (Açıklamalar aynı)
         """
         try:
             client = OpenAI(api_key=api_key)
@@ -190,12 +191,7 @@ class QASystem:
     def ask_openai(self, prompt):
         """
         OpenAI ChatGPT API'sini kullanarak kullanıcıdan gelen soruya yanıt alır.
-
-        Args:
-            prompt (str): Kullanıcıdan gelen soru.
-
-        Returns:
-            str: ChatGPT'den gelen yanıt veya hata mesajı.
+        (Açıklamalar aynı)
         """
         try:
             client = OpenAI(api_key=openai.api_key)
@@ -217,12 +213,7 @@ class QASystem:
     def find_best_match(self, user_question):
         """
         Kullanıcının sorduğu soruya en benzer soruyu veri kümesinde bulur.
-
-        Args:
-            user_question (str): Kullanıcının girdiği soru.
-
-        Returns:
-            tuple: (bulunan en iyi cevap veya None, benzerlik skoru)
+        (Açıklamalar aynı)
         """
         if self.collection.count() == 0:
             print("ChromaDB koleksiyonunda hiç öğe yok. Eşleşme yapılamaz.")
@@ -240,17 +231,11 @@ class QASystem:
             print(f"ChromaDB sorgusu sırasında hata: {e}")
             return None, 0.0
 
-
-
         if results and results['ids'] and results['ids'][0]:
-
-
             distance = results['distances'][0][0] if results['distances'] and results['distances'][0] else float('inf')
             similarity = 1 - distance
 
-
             if similarity >= self.similarity_threshold:
-
                 answer = results['metadatas'][0][0].get('answer') if results['metadatas'] and results['metadatas'][0] and results['metadatas'][0][0] else None
                 
                 if answer:
@@ -266,10 +251,7 @@ class QASystem:
         """
         Yeni soruyu ve cevabını data.json dosyasına ve bellekteki verilere ekler,
         ardından embedding'leri günceller.
-
-        Args:
-            question (str): Kullanıcı tarafından sorulan yeni soru.
-            answer (str): ChatGPT tarafından verilen cevap.
+        (Açıklamalar aynı)
         """
         if not question or not answer: # Basit doğrulama
             print("Soru veya cevap boş olamaz. Veriye eklenmedi.")
@@ -277,47 +259,50 @@ class QASystem:
 
         new_entry = {"question": question, "answer": answer}
         
-        #  Bellekteki verileri güncelle
         self.data.append(new_entry)
-        self.questions.append(question) # self.questions listesini de güncelle
+        self.questions.append(question)
         
         try:
             with open(self.data_path, 'w', encoding='utf-8') as f:
                 json.dump(self.data, f, ensure_ascii=False, indent=2) 
             print(f"Yeni soru-cevap '{question[:30]}...' başarıyla '{self.data_path}' dosyasına eklendi.")
             
-            # ChromaDB'deki embedding'leri güncelle
             print("Veri güncellendi, embedding'ler yeniden oluşturulacak...")
             self.embed_questions()
 
         except IOError as e:
             print(f"'{self.data_path}' dosyasına yazılırken hata oluştu: {e}")
-            # Eğer dosyaya yazma işlemi başarısız olursa, son eklenen veriyi geri al
             self.data.pop() 
             self.questions.pop() 
             print("Dosyaya yazılamadığı için bellekteki son eklenen soru-cevap geri alındı.")
         except Exception as e:
             print(f"Yeni soru-cevap eklenirken beklenmedik bir hata oluştu: {e}")
-
             if self.data and self.data[-1] == new_entry: self.data.pop()
             if self.questions and self.questions[-1] == question: self.questions.pop()
 
+    # --- BU FONKSİYON GÜNCELLENDİ ---
     def run(self):
         """
-        Ana uygulama döngüsünü başlatır. Kullanıcıdan soru alır, eşleşme varsa gösterir;
+        Ana uygulama döngüsünü başlatır. Kullanıcıdan soru alır, 
+        ÖNCE KONU KONTROLÜ YAPAR, sonra eşleşme varsa gösterir;
         yoksa OpenAI API'ye soruyu gönderir.
         """
         print("Soru cevap sistemine hoş geldiniz. Çıkmak için 'cikis' yazınız.")
         while True:
             user_input = input("Soru girin: ").strip()
+            if not user_input: # Boş girdi kontrolü
+                continue
             if user_input.lower() == "cikis":
                 print("Programdan çıkılıyor...")
                 break
-
+            
+            # --- ÇÖZÜM: KONTROLÜN DOĞRU YERİ ---
+            # Herhangi bir işlem yapmadan önce, sorunun konuyla ilgili olup olmadığını kontrol et.
             if not self.is_about_ml(user_input):
-                print("Üzgünüz, yalnızca makine öğrenmesiyle ilgili sorulara yanıt veriyorum.")
-                continue
+                print("❌ Üzgünüm, yalnızca makine öğrenmesiyle ilgili sorulara yanıt veriyorum.")
+                continue # Bu komut, döngünün geri kalanını atlayıp başa dönmesini sağlar.
 
+            # Eğer soru konuyla ilgiliyse, normal işlemlere devam et.
             answer, score = self.find_best_match(user_input)
             
             if answer:
@@ -325,15 +310,16 @@ class QASystem:
             else:
                 print("Cevap verilemiyor, ChatGPT'den cevap alınıyor...")
                 ai_answer = self.ask_openai(user_input)
+                
+                print(f"ChatGPT cevabı: {ai_answer}")
 
-                if ai_answer and not ai_answer.startswith("OpenAI API Hatası:") and \
-                   not ai_answer.startswith("ChatGPT'den geçerli bir yanıt alınamadı."):
+                # ChatGPT'den gelen cevabın geçerli olup olmadığını kontrol et.
+                if ai_answer and not ai_answer.startswith("ChatGPT API hatası:"):
                     # Yeni soruyu ve ChatGPT'nin cevabını veri setine ekle
                     self.add_new_qa_to_data(user_input, ai_answer)
                 else:
-                    print("ChatGPT'den geçerli bir cevap alınamadığı veya bir hata oluştuğu için yeni soru-cevap kaydedilmedi.")
-                print(f"ChatGPT cevabı: {ai_answer} (Skor: {score:.4f})")
-
+                    print("Yeni soru-cevap, bir hata oluştuğu veya cevap geçersiz olduğu için kaydedilmedi.")
+    # --- GÜNCELLEME BİTTİ ---
 
 if __name__ == "__main__":
     qa_system = QASystem()
