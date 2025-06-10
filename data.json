@@ -82,5 +82,17 @@
   {
     "question": "Makine öğrenmesi nedir?",
     "answer": "Makine öğrenmesi, bilgisayar sistemlerinin veri kullanarak öğrenme yeteneğine sahip olduğu yapay zeka alanının bir alt dalıdır. Makine öğrenmesi, algoritmalar kullanarak verilerden örüntüler çıkararak ve bu örüntüleri kullanarak gelecekteki kararlar alabilen sistemlerin geliştirilmesini sağlar. Bu sistemler genellikle deneme yanılma yöntemiyle sürekli olarak geliştirilir ve daha iyi sonuçlar elde etmek için veriye maruz kalır. Makine öğrenmesi, sınıflandırma, regresyon, kümeleme, boyut indirgeme ve pek çok farklı probleme çözüm sunar."
+  },
+  {
+    "question": "Random forest nedir?",
+    "answer": "Random Forest, karar ağaçlarından oluşturulan bir ensemble (topluluk) öğrenme algoritmasıdır. Karar ağaçlarının bir araya gelerek oluşturduğu bu topluluk sayesinde daha doğru ve güvenilir tahminler yapılabilir. Random Forest, hem sınıflandırma hem de regresyon problemlerinde kullanılabilir. Algoritma, her bir karar ağacının veri kümesinin rastgele alt kümeleri üzerinde eğitilmesi ve ardından bu ağaçların bir araya getirilerek ortak bir tahmin oluşturulması prensibine dayanır. Bu sayede overfitting (aşırı uydurma) problemi azaltılarak daha iyi genelleme yapılabilir."
+  },
+  {
+    "question": "sınıflandırma problemi nedir",
+    "answer": "Sınıflandırma problemi, makine öğrenimi alanında karşılaşılan bir tür gözetimli öğrenme problemidir. Bu problemde, veri noktaları farklı sınıflara ayrılmalıdır. Yani, veri noktalarının belirli kategorilere veya sınıflara atanması hedeflenir. Örneğin, e-posta mesajlarını spam veya spam olmayan olarak sınıflandırmak, el yazısı sayıları tanımlamak gibi uygulamalarda sınıflandırma problemleri karşımıza çıkar. Sınıflandırma algoritmaları, belirli özelliklere sahip veri noktalarını doğru sınıflara atamak için kullanılır. Bu algoritmalar, veri setinin özelliklerini analiz ederek örüntüleri tanımlar ve yeni, görülmemiş veri noktalarını doğru sınıflara atamak için bu örüntüleri kullanır"
+  },
+  {
+    "question": "Denetimli öğrenme nedir?",
+    "answer": "Denetimli öğrenme, makine öğrenmesinin bir alt dalıdır ve etiketli verilerle çalışmayı içerir. Bu yöntemde, makine öğrenme modeli, giriş verileri ile bu verilere karşılık gelen doğru çıktıları eşleştirmeyi öğrenmeye çalışır. Yani, model, eğitim verilerindeki örneklerden öğrenerek, yeni giriş verileri için doğru çıktıları tahmin etmeyi amaçlar. Sınıflandırma ve regresyon gibi görevlerde yaygın olarak kullanılan denetimli öğrenme, veriler arasındaki ilişkileri modeller ve bu modelleri kullanarak tahminler yapar."
   }
 ]
