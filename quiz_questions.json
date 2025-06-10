@@ -1,0 +1,202 @@
+{
+  "Reinforcement Learning": [
+    {
+      "soru": "Hangi durumda bir ajan, deneme-yanılma yoluyla en iyi eylemi öğrenir?",
+      "siklar": {
+        "A": "Supervised Learning",
+        "B": "Unsupervised Learning",
+        "C": "Reinforcement Learning",
+        "D": "Semi-supervised Learning"
+      },
+      "dogru_cevap": "C"
+    },
+        {
+      "soru": "Bir ajan çevresiyle nasıl etkileşime girerek ödül öğrenir?",
+      "siklar": {
+        "A": "Sadece geçmiş veriler üzerinden",
+        "B": "Rastgele seçimlerle",
+        "C": "Çevreden aldığı ödüller ve cezalar yoluyla",
+        "D": "Veri etiketleyicileri yardımıyla"
+      },
+      "dogru_cevap": "C"
+    },
+    {
+      "soru": "Temporal Difference (TD) öğrenme nedir?",
+      "siklar": {
+        "A": "Gelecekteki ödülleri tahmin etmeden öğrenme",
+        "B": "Sadece geçmiş ödüllerle öğrenme",
+        "C": "Tahmini ödül ile elde edilen ödül farkını kullanarak öğrenme",
+        "D": "Veri kümesini etiketleme"
+      },
+      "dogru_cevap": "C"
+    },
+    {
+      "soru": "Pekiştirmeli öğrenmede 'policy' terimi neyi ifade eder?",
+      "siklar": {
+        "A": "Ajanın ödül fonksiyonunu",
+        "B": "Ajanın eylem alma stratejisini",
+        "C": "Ajanın hata oranını",
+        "D": "Ajanın çevresini"
+      },
+      "dogru_cevap": "B"
+    },
+    {
+      "soru": "'Q-learning' algoritmasının temel amacı nedir?",
+      "siklar": {
+        "A": "Veriyi kümelere ayırmak",
+        "B": "Gelecekteki ödülleri maksimize eden bir politika öğrenmek",
+        "C": "Veri setindeki desenleri bulmak",
+        "D": "Modelin doğruluğunu ölçmek"
+      },
+      "dogru_cevap": "B"
+    },
+    {
+      "soru": "Pekiştirmeli öğrenmede bir ajanın belirli bir durumda gerçekleştirdiği eylemin ne kadar iyi olduğunu ölçen sinyale ne ad verilir?",
+      "siklar": {
+        "A": "Politika (Policy)",
+        "B": "Durum (State)",
+        "C": "Ödül (Reward)",
+        "D": "Epok (Epoch)"
+      },
+      "dogru_cevap": "C"
+    }
+  ],
+  "Random Forest": [
+    {
+      "soru": "Random Forest algoritması hangi temel model üzerine kuruludur?",
+      "siklar": {
+        "A": "Sinir Ağları",
+        "B": "Destek Vektör Makineleri",
+        "C": "Doğrusal Regresyon",
+        "D": "Karar Ağaçları (Decision Trees)"
+      },
+      "dogru_cevap": "D"
+    },
+        {
+      "soru": "Random Forest algoritmasında kullanılan 'özellik seçimi' yöntemi nedir?",
+      "siklar": {
+        "A": "Her ağaca tüm özellikleri vermek",
+        "B": "Rastgele bazı özellikleri seçmek",
+        "C": "Özelliklerin sıralanmasına göre seçim yapmak",
+        "D": "En yüksek korelasyonlu özellikleri seçmek"
+      },
+      "dogru_cevap": "B"
+    },
+    {
+      "soru": "Random Forest modelinde ağaçlar arasındaki korelasyonun düşük olması neden önemlidir?",
+      "siklar": {
+        "A": "Modelin eğitim süresini kısaltmak için",
+        "B": "Overfitting’i önlemek için",
+        "C": "Veri normalizasyonunu kolaylaştırmak için",
+        "D": "Model karmaşıklığını artırmak için"
+      },
+      "dogru_cevap": "B"
+    },
+    {
+      "soru": "Random Forest'ta 'bagging' tekniğinin temel amacı nedir?",
+      "siklar": {
+        "A": "Modelin hızını artırmak",
+        "B": "Modelin varyansını düşürmek ve aşırı öğrenmeyi (overfitting) önlemek",
+        "C": "Daha az veri ile eğitim yapmak",
+        "D": "Özellik sayısını artırmak"
+      },
+      "dogru_cevap": "B"
+    }
+  ],
+  "Supervised Learning": [
+    {
+      "soru": "Aşağıdakilerden hangisi bir sınıflandırma (classification) problemidir?",
+      "siklar": {
+        "A": "Bir evin gelecekteki fiyatını tahmin etmek",
+        "B": "Bir e-postanın spam olup olmadığını belirlemek",
+        "C": "Müşterileri satın alma alışkanlıklarına göre gruplamak",
+        "D": "Veri setindeki aykırı değerleri bulmak"
+      },
+      "dogru_cevap": "B"
+    },
+    {
+      "soru": "Bir modelin eğitim verisini çok iyi öğrenip test verisinde düşük performans göstermesi durumuna ne ad verilir?",
+      "siklar": {
+        "A": "Underfitting (Yetersiz Öğrenme)",
+        "B": "Bias (Sapma)",
+        "C": "Variance (Varyans)",
+        "D": "Overfitting (Aşırı Öğrenme)"
+      },
+      "dogru_cevap": "D"
+    }
+  ],
+  "Deep Learning Fundamentals": [
+    {
+      "soru": "Bir sinir ağındaki nöronun çıktısını belirleyen matematiksel fonksiyona ne ad verilir?",
+      "siklar": {
+        "A": "Kayıp Fonksiyonu (Loss Function)",
+        "B": "Optimizasyon Fonksiyonu",
+        "C": "Aktivasyon Fonksiyonu (Activation Function)",
+        "D": "Geri Yayılım (Backpropagation)"
+      },
+      "dogru_cevap": "C"
+    },
+    {
+      "soru": "Evrişimli Sinir Ağları (CNN) en çok hangi tür veriler üzerinde başarılıdır?",
+      "siklar": {
+        "A": "Zaman serisi verileri",
+        "B": "Tablosal veriler",
+        "C": "Metin verileri",
+        "D": "Görüntü verileri"
+      },
+      "dogru_cevap": "D"
+    }
+  ],
+  "Genel Makine Öğrenmesi": [
+    {
+      "soru": "Bir modelin performansını değerlendirmek için kullanılan ve eğitimde hiç görülmemiş veri setine ne ad verilir?",
+      "siklar": {
+        "A": "Eğitim Seti (Training Set)",
+        "B": "Doğrulama Seti (Validation Set)",
+        "C": "Test Seti (Test Set)",
+        "D": "Hiperparametre Seti"
+      },
+      "dogru_cevap": "C"
+    },
+    {
+      "soru": "Aşağıdakilerden hangisi bir 'hiperparametre' değildir?",
+      "siklar": {
+        "A": "Öğrenme Oranı (Learning Rate)",
+        "B": "Modelin ağırlıkları (Model Weights)",
+        "C": "Bir sinir ağındaki katman sayısı",
+        "D": "Aktivasyon fonksiyonu türü"
+      },
+      "dogru_cevap": "B"
+    },
+    {
+      "soru": "Etiketlenmemiş verilerdeki gizli yapıları ve desenleri bulmayı amaçlayan öğrenme türü hangisidir?",
+      "siklar": {
+        "A": "Denetimli Öğrenme (Supervised Learning)",
+        "B": "Denetimsiz Öğrenme (Unsupervised Learning)",
+        "C": "Pekiştirmeli Öğrenme (Reinforcement Learning)",
+        "D": "Aktif Öğrenme (Active Learning)"
+      },
+      "dogru_cevap": "B"
+    },
+    {
+      "soru": "Bir sınıflandırma modelinin performansını ölçmek için kullanılan ve True Positive, False Positive gibi değerleri içeren tabloya ne denir?",
+      "siklar": {
+        "A": "ROC Eğrisi",
+        "B": "Karmaşıklık Matrisi (Confusion Matrix)",
+        "C": "Özellik Matrisi",
+        "D": "Korelasyon Matrisi"
+      },
+      "dogru_cevap": "B"
+    },
+    {
+      "soru": "Doğal Dil İşleme (NLP) alanının temel amacı nedir?",
+      "siklar": {
+        "A": "Bilgisayarların resimleri anlamasını sağlamak",
+        "B": "Bilgisayarların insan dilini anlamasını, yorumlamasını ve üretmesini sağlamak",
+        "C": "Bilgisayarların deneme-yanılma ile öğrenmesini sağlamak",
+        "D": "Sayısal verilerdeki trendleri bulmak"
+      },
+      "dogru_cevap": "B"
+    }
+  ]
+}
