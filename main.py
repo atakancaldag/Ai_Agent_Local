@@ -8,7 +8,6 @@ from openai import OpenAI
 import openai
 from openai.types.chat import ChatCompletionMessageParam
 from typing import List, Tuple
-# re modülünü import ediyoruz, is_about_ml fonksiyonunda kullanmak için.
 import re 
 
 class QASystem:
@@ -18,7 +17,6 @@ class QASystem:
                  similarity_threshold=0.7,
                  api_key_path='openai_api.json',
                  chatgpt_model="gpt-3.5-turbo",
-                 # TAVSİYE: Daha iyi sonuçlar için 'keywords_clean.json' dosyasını kullanabilirsiniz.
                  keywords_path='keywords.json', 
                  chroma_dir: str ='chroma_db_persistent'):
         """
@@ -61,7 +59,6 @@ class QASystem:
             self.ml_keywords_set = set()
 
         # Stop words listesini doğrudan kod içinde tanımlayalım veya bir dosyadan okuyalım.
-        # Eğer stopwords.json dosyanız varsa, bu daha iyi bir yaklaşımdır.
         try:
             with open('stopwords.json', 'r', encoding='utf-8') as f:
                 self.stop_words = set(json.load(f))
@@ -280,7 +277,6 @@ class QASystem:
             if self.data and self.data[-1] == new_entry: self.data.pop()
             if self.questions and self.questions[-1] == question: self.questions.pop()
 
-    # --- BU FONKSİYON GÜNCELLENDİ ---
     def run(self):
         """
         Ana uygulama döngüsünü başlatır. Kullanıcıdan soru alır, 
@@ -296,11 +292,10 @@ class QASystem:
                 print("Programdan çıkılıyor...")
                 break
             
-            # --- ÇÖZÜM: KONTROLÜN DOĞRU YERİ ---
             # Herhangi bir işlem yapmadan önce, sorunun konuyla ilgili olup olmadığını kontrol et.
             if not self.is_about_ml(user_input):
-                print("❌ Üzgünüm, yalnızca makine öğrenmesiyle ilgili sorulara yanıt veriyorum.")
-                continue # Bu komut, döngünün geri kalanını atlayıp başa dönmesini sağlar.
+                print("Üzgünüm, yalnızca makine öğrenmesiyle ilgili sorulara yanıt veriyorum.")
+                continue
 
             # Eğer soru konuyla ilgiliyse, normal işlemlere devam et.
             answer, score = self.find_best_match(user_input)
@@ -319,7 +314,6 @@ class QASystem:
                     self.add_new_qa_to_data(user_input, ai_answer)
                 else:
                     print("Yeni soru-cevap, bir hata oluştuğu veya cevap geçersiz olduğu için kaydedilmedi.")
-    # --- GÜNCELLEME BİTTİ ---
 
 if __name__ == "__main__":
     qa_system = QASystem()

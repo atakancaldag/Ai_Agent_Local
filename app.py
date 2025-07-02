@@ -35,11 +35,11 @@ class QuizManager:
     def __init__(self, questions_path='quiz_questions.json', topics_path='user_topics.json', keywords_path='keywords.json'):
         self.questions_path = questions_path
         self.topics_path = topics_path
-        self.keywords_path = keywords_path # keywords.json dosyasının yolu
+        self.keywords_path = keywords_path 
         self.quiz_questions = self._load_json(self.questions_path)
         self.user_topics = self._load_json(self.topics_path, default=[])
-        self.ml_keywords = self._load_json(self.keywords_path, default=[]) # Anahtar kelimeleri yükle
-        self.topic_keywords = self._map_topics_to_keywords() # Konu başlıkları için anahtar kelimeler
+        self.ml_keywords = self._load_json(self.keywords_path, default=[]) 
+        self.topic_keywords = self._map_topics_to_keywords() 
 
     def _load_json(self, path, default=None):
         if default is None:
@@ -50,6 +50,7 @@ class QuizManager:
         except (json.JSONDecodeError, FileNotFoundError): return default
 
     def _save_user_topics(self):
+        """Kullanıcı konularını ve çözülen soruları dosyaya kaydeder."""
         with open(self.topics_path, 'w', encoding='utf-8') as f:
             json.dump(self.user_topics, f, ensure_ascii=False, indent=2)
             
@@ -63,17 +64,12 @@ class QuizManager:
             return mapping
 
         for topic in self.quiz_questions.keys():
-            # Konu adını küçük harfe çevir ve kelimelere ayır.
             topic_lower = topic.lower()
             keywords = [topic_lower]
             keywords.extend(topic_lower.split())
             
-            # Tekrarları önlemek için seti kullan ve tekrar listeye çevir
             mapping[topic] = list(set(keywords))
             
-            # Örnek: "Reinforcement Learning" için anahtar kelimeler:
-            # ['reinforcement learning', 'reinforcement', 'learning']
-        
         print(f"Dinamik olarak oluşturulan konu eşlemesi: {mapping}")
         return mapping
 
@@ -84,7 +80,6 @@ class QuizManager:
         """
         text_lower = text.lower()
         for keyword in self.ml_keywords:
-            # \b kelime sınırını belirtir, böylece "ai" kelimesi "train" ile eşleşmez.
             pattern = r'\b' + re.escape(keyword.lower()) + r'\b'
             if re.search(pattern, text_lower):
                 return True
@@ -94,80 +89,149 @@ class QuizManager:
         """Sorunun metnine göre en uygun konuyu belirler."""
         question_lower = question_text.lower()
         
-        # Daha spesifik konuları önce kontrol et
         for topic, keywords in self.topic_keywords.items():
             for keyword in keywords:
                 pattern = r'\b' + re.escape(keyword.lower()) + r'\b'
                 if re.search(pattern, question_lower):
                     return topic
         
-        # Eğer spesifik bir konu bulunamazsa, genel bir konu ata
         return "Genel Makine Öğrenmesi"
+
+    def get_user_data(self, email):
+        """Kullanıcının tüm veri girişini (konular ve çözülmüş sorular) döndürür."""
+        user_entry = next((user for user in self.user_topics if user.get('email') == email), None)
+        if not user_entry:
+            user_entry = {"email": email, "topics": [], "answered_questions": {}}
+            self.user_topics.append(user_entry)
+            self._save_user_topics()
+        return user_entry
 
     def add_topic_for_user(self, email, topic):
         """Kullanıcının konu listesine yeni bir konu ekler."""
         if not topic: return
-        
-        user_entry = next((user for user in self.user_topics if user.get('email') == email), None)
-        
-        if user_entry:
-            if topic not in user_entry['topics']:
-                user_entry['topics'].append(topic)
-        else:
-            self.user_topics.append({"email": email, "topics": [topic]})
-            
-        self._save_user_topics()
+
+        user_entry = self.get_user_data(email)
+        if topic not in user_entry['topics']:
+            user_entry['topics'].append(topic)
+            self._save_user_topics()
 
     def get_user_quiz_status(self, email):
         """Kullanıcının quiz'e girmesi için kaç konusu olduğunu döndürür."""
-        for user in self.user_topics:
-            if user.get('email') == email:
-                return len(user.get('topics', []))
-        return 0
+        user_data = self.get_user_data(email)
+        return len(user_data.get('topics', []))
 
     def get_question_for_user(self, email):
-        """Kullanıcının konularından rastgele bir soru seçer ve döndürür."""
-        user_topics_list = next((user.get('topics', []) for user in self.user_topics if user.get('email') == email), [])
-        
+        """Kullanıcının konularından rastgele bir soru seçer ve döndürür, tekrarları önler."""
+        user_data = self.get_user_data(email)
+        user_topics_list = user_data.get('topics', [])
+        answered_questions = user_data.get('answered_questions', {})
+
         if not user_topics_list:
             return {"status": "no_topics", "message": "Tebrikler, zayıf olduğunuz konu kalmadı!"}
 
         available_topics = [t for t in user_topics_list if t in self.quiz_questions and self.quiz_questions[t]]
-        if not available_topics:
-            return {"status": "no_question_for_topic", "message": "Zayıf olduğunuz konularla ilgili soru bulunamadı."}
+        
+        # Kullanıcının mevcut konuları arasında henüz sorulmamış bir soru olup olmadığını kontrol et.
+        # Eğer tüm sorular sorulmuşsa, ilgili answered_questions listesini sıfırla.
+        all_questions_exhausted = True
+        for topic in available_topics:
+            all_questions_in_topic_ids = {q['id'] for q in self.quiz_questions[topic]}
+            asked_question_ids_in_topic = set(answered_questions.get(topic, []))
+            if len(all_questions_in_topic_ids) > len(asked_question_ids_in_topic):
+                all_questions_exhausted = False
+                break
+        
+        if all_questions_exhausted and available_topics:
+            # Tüm sorular sorulmuşsa, answered_questions'ı ilgili konular için sıfırla
+            for topic in available_topics:
+                if topic in answered_questions:
+                    del answered_questions[topic]
+            user_data['answered_questions'] = answered_questions 
+            self._save_user_topics()
+            return {"status": "reset_needed", "message": "Zayıf olduğunuz konulardaki tüm soruları tamamladınız. Soru havuzu sıfırlandı, yeni sorulara geçebilirsiniz."}
 
-        chosen_topic = random.choice(available_topics)
-        chosen_question = random.choice(self.quiz_questions[chosen_topic])
+
+        random.shuffle(available_topics) # Konuları rastgele sırala
+
+        chosen_topic = None
+        chosen_question = None
+
+        for topic in available_topics:
+            asked_question_ids_in_topic = set(answered_questions.get(topic, []))
+            possible_questions = [q for q in self.quiz_questions[topic] if q['id'] not in asked_question_ids_in_topic]
+
+            if possible_questions:
+                chosen_topic = topic
+                chosen_question = random.choice(possible_questions)
+                break
+        
+        # Yukarıdaki mantık genellikle bu duruma düşmeyi engeller, ancak bir güvenlik önlemi.
+        if not chosen_question:
+            user_data['answered_questions'] = {} 
+            self._save_user_topics()
+            return {"status": "reset_needed", "message": "Zayıf olduğunuz konulardaki tüm soruları tamamladınız. Soru havuzu sıfırlandı, yeni sorulara geçebilirsiniz."}
+        
+        answered_questions.setdefault(chosen_topic, []).append(chosen_question['id'])
+        user_data['answered_questions'] = answered_questions 
+        self._save_user_topics()
+
         return {
             "status": "question_found",
             "topic": chosen_topic,
+            "question_id": chosen_question['id'], 
             "question": chosen_question['soru'],
             "options": chosen_question['siklar']
         }
 
-    def check_answer_and_update(self, email, topic, question_text, user_answer):
+    def check_answer_and_update(self, email, topic, question_id, user_answer):
         """Cevabı kontrol eder ve doğruysa kullanıcının listesinden konuyu siler."""
+        user_data = self.get_user_data(email)
+        user_topics_list = user_data.get('topics', [])
+        answered_questions = user_data.get('answered_questions', {})
+
         correct_answer_char = None
         correct_answer_text = ""
         
+        target_question = None
         if topic in self.quiz_questions:
             for q in self.quiz_questions[topic]:
-                if q['soru'] == question_text:
+                if q['id'] == question_id: 
+                    target_question = q
                     correct_answer_char = q['dogru_cevap']
                     correct_answer_text = q['siklar'][correct_answer_char]
                     break
         
-        if not correct_answer_char: return {"result": "error", "message": "Soru bulunamadı."}
+        if not target_question: return {"result": "error", "message": "Soru bulunamadı."}
 
         if user_answer.strip().upper() == correct_answer_char:
-            for user in self.user_topics:
-                if user.get('email') == email and topic in user['topics']:
-                    user['topics'].remove(topic)
-                    self._save_user_topics()
-                    break
+            if topic in user_topics_list:
+                user_topics_list.remove(topic)
+                user_data['topics'] = user_topics_list
+            
+            # Doğru cevap verildiğinde, bu konudaki answered_questions listesini temizle.
+            # Çünkü konu artık zayıf konu listesinden çıkmış demektir.
+            if topic in answered_questions:
+                del answered_questions[topic]
+                user_data['answered_questions'] = answered_questions
+
+            self._save_user_topics()
             return {"result": "correct", "message": "Doğru cevap!"}
         else:
+            # Yanlış cevap durumunda, soru answered_questions içinde kalmaya devam eder.
+            # Konu, yanlış cevap verildiğinde silinmez.
             return {"result": "incorrect", "message": f"Yanlış cevap. Doğrusu: {correct_answer_char}) {correct_answer_text}"}
+
+    def reset_user_quiz_progress(self, email):
+        """
+        Kullanıcının quiz ilerlemesini sıfırlar. Sadece cevaplanmış soruları temizler,
+        öğrencinin çalıştığı konuları SİLMEZ.
+        """
+        user_data = self.get_user_data(email)
+        # user_data['topics'] = []
+        user_data['answered_questions'] = {}
+        self._save_user_topics()
+        return {"status": "success", "message": "Quiz ilerlemesi sıfırlandı. Konularınız korundu."}
+
 
 # --- Uygulama Kurulumu ve Webhook'lar ---
 app = Flask(__name__)
@@ -241,11 +305,20 @@ def get_quiz_question():
 @app.route('/check_quiz_answer', methods=['POST'])
 def check_quiz_answer():
     data = request.get_json()
-    email, topic, question_text, user_answer = data.get('email'), data.get('topic'), data.get('question'), data.get('user_answer')
-    if not all([email, topic, question_text, user_answer]):
+    email, topic, question_id, user_answer = data.get('email'), data.get('topic'), data.get('question_id'), data.get('user_answer')
+    if not all([email, topic, question_id, user_answer]):
         return jsonify({"error": "Tüm alanlar zorunludur."}), 400
-    result = quiz_manager.check_answer_and_update(email, topic, question_text, user_answer)
+    result = quiz_manager.check_answer_and_update(email, topic, question_id, user_answer)
     return jsonify(result)
 
+@app.route('/reset_quiz_progress', methods=['POST'])
+def reset_quiz_progress():
+    data = request.get_json()
+    email = data.get('email')
+    if not email: return jsonify({"error": "Email zorunludur."}), 400
+    result = quiz_manager.reset_user_quiz_progress(email)
+    return jsonify(result)
+
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True) 
+    app.run(host='0.0.0.0', port=5000, debug=True)

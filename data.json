@@ -800,11 +800,11 @@
     "answer": "K-Means'in başlangıç noktaları, algoritmanın farklı kümelemelere ulaşmasına neden olabilir.  Çünkü algoritma, merkezlerin etrafındaki noktaları gruplandırarak çalışır ve bu merkezlerin başlangıç konumları, son kümelerin şeklini belirler. Birkaç kez çalıştırmak, farklı sonuçlar alıp en iyi sonucu bulmaya yardımcı olur."
   },
   {
-    "question": "para nedir",
-    "answer": "Özür dilerim, size yardımcı olamam. Sadece makine öğrenimi ile ilgili soruları yanıtlayabiliyorum. Başka bir konuda sorunuz varsa yardımcı olmaktan mutluluk duyarım. Teşekkürler!"
-  },
-  {
     "question": "k-nn nedir",
     "answer": "K-NN (k en yakın komşu) algoritması, gözetimli bir makine öğrenimi algoritmasıdır. Bu algoritma, bir veri noktasının sınıflandırılması veya regresyon problemlerinde kullanılır. K-NN algoritması, bir veri noktasını sınıflandırmak veya tahmin etmek için o veri noktasına en yakın k komşusunu kullanır. K-NN algoritması, veri noktaları arasındaki benzerlik ölçüsüne göre çalışır ve yeni bir veri noktasını sınıflandırmak için komşularının etiketlerini kullanır. Bu algoritma genellikle basit ve anlaşılması kolay olması nedeniyle tercih edilir."
+  },
+  {
+    "question": "reinforcement learning nedir?",
+    "answer": "Reinforcement learning (teşvik öğrenimi), bir yapay zeka alanıdır ve bir ajanın çevresiyle etkileşime girerek deneyimlerden öğrenmesini sağlar. Ajan, belirli bir görevde en iyi performansı elde etmek için çevresinden gelen geri bildirimlere dayanarak öğrenme sürecini optimize eder. Bu geri bildirimler genellikle ödüller veya cezalar şeklinde olabilir. Reinforcement learning algoritmaları, ajanın en uygun eylemleri seçmesini ve hedeflenen davranışları öğrenmesini sağlar. Bu algoritmalar genellikle Q-learning, Deep Q-Networks (DQN), Policy Gradient gibi teknikleri kullanır."
   }
 ]
