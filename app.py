@@ -35,11 +35,11 @@ class QuizManager:
     def __init__(self, questions_path='quiz_questions.json', topics_path='user_topics.json', keywords_path='keywords.json'):
         self.questions_path = questions_path
         self.topics_path = topics_path
-        self.keywords_path = keywords_path 
+        self.keywords_path = keywords_path # keywords.json dosyasının yolu
         self.quiz_questions = self._load_json(self.questions_path)
         self.user_topics = self._load_json(self.topics_path, default=[])
-        self.ml_keywords = self._load_json(self.keywords_path, default=[]) 
-        self.topic_keywords = self._map_topics_to_keywords() 
+        self.ml_keywords = self._load_json(self.keywords_path, default=[]) # Anahtar kelimeleri yükle
+        self.topic_keywords = self._map_topics_to_keywords() # Konu başlıkları için anahtar kelimeler
 
     def _load_json(self, path, default=None):
         if default is None:
@@ -131,8 +131,6 @@ class QuizManager:
 
         available_topics = [t for t in user_topics_list if t in self.quiz_questions and self.quiz_questions[t]]
         
-        # Kullanıcının mevcut konuları arasında henüz sorulmamış bir soru olup olmadığını kontrol et.
-        # Eğer tüm sorular sorulmuşsa, ilgili answered_questions listesini sıfırla.
         all_questions_exhausted = True
         for topic in available_topics:
             all_questions_in_topic_ids = {q['id'] for q in self.quiz_questions[topic]}
@@ -142,7 +140,6 @@ class QuizManager:
                 break
         
         if all_questions_exhausted and available_topics:
-            # Tüm sorular sorulmuşsa, answered_questions'ı ilgili konular için sıfırla
             for topic in available_topics:
                 if topic in answered_questions:
                     del answered_questions[topic]
@@ -151,7 +148,7 @@ class QuizManager:
             return {"status": "reset_needed", "message": "Zayıf olduğunuz konulardaki tüm soruları tamamladınız. Soru havuzu sıfırlandı, yeni sorulara geçebilirsiniz."}
 
 
-        random.shuffle(available_topics) # Konuları rastgele sırala
+        random.shuffle(available_topics) 
 
         chosen_topic = None
         chosen_question = None
@@ -165,7 +162,6 @@ class QuizManager:
                 chosen_question = random.choice(possible_questions)
                 break
         
-        # Yukarıdaki mantık genellikle bu duruma düşmeyi engeller, ancak bir güvenlik önlemi.
         if not chosen_question:
             user_data['answered_questions'] = {} 
             self._save_user_topics()
@@ -208,8 +204,6 @@ class QuizManager:
                 user_topics_list.remove(topic)
                 user_data['topics'] = user_topics_list
             
-            # Doğru cevap verildiğinde, bu konudaki answered_questions listesini temizle.
-            # Çünkü konu artık zayıf konu listesinden çıkmış demektir.
             if topic in answered_questions:
                 del answered_questions[topic]
                 user_data['answered_questions'] = answered_questions
@@ -217,8 +211,6 @@ class QuizManager:
             self._save_user_topics()
             return {"result": "correct", "message": "Doğru cevap!"}
         else:
-            # Yanlış cevap durumunda, soru answered_questions içinde kalmaya devam eder.
-            # Konu, yanlış cevap verildiğinde silinmez.
             return {"result": "incorrect", "message": f"Yanlış cevap. Doğrusu: {correct_answer_char}) {correct_answer_text}"}
 
     def reset_user_quiz_progress(self, email):
@@ -227,7 +219,6 @@ class QuizManager:
         öğrencinin çalıştığı konuları SİLMEZ.
         """
         user_data = self.get_user_data(email)
-        # user_data['topics'] = []
         user_data['answered_questions'] = {}
         self._save_user_topics()
         return {"status": "success", "message": "Quiz ilerlemesi sıfırlandı. Konularınız korundu."}
@@ -236,7 +227,8 @@ class QuizManager:
 # --- Uygulama Kurulumu ve Webhook'lar ---
 app = Flask(__name__)
 print("Sistemler başlatılıyor...")
-qa_system = QASystem()
+# QASystem'i low_score_qa_path ile başlat
+qa_system = QASystem(low_score_qa_path='low_score_qa.json')
 user_manager = UserManager()
 quiz_manager = QuizManager() 
 print("Sistemler başarıyla yüklendi.")
@@ -262,29 +254,146 @@ def handle_register():
 
 @app.route('/ask', methods=['POST'])
 def handle_ask():
-    data = request.get_json()
-    user_question, request_type, email = data.get('question'), data.get('request_type'), data.get('email')
+    print("------------------------------------")
+    print("'/ask' webhook'u çağrıldı.")
+    print(f"Gelen İstek Data (Raw): {request.data}")
+
+    try:
+        data = request.get_json()
+        print(f"Gelen İstek JSON: {data}")
+    except Exception as e:
+        print(f"ERROR: JSON ayrıştırma hatası: {e}")
+        return jsonify({"error": "Geçersiz JSON formatı."}), 400
+
+    if data is None:
+        print("ERROR: request.get_json() None döndürdü.")
+        return jsonify({"error": "İstek gövdesi boş veya geçerli JSON değil."}), 400
+
+    user_question = data.get('question')
+    request_type = data.get('request_type')
+    email = data.get('email')
+
+    print(f"Alınan 'user_question': {user_question} (Tipi: {type(user_question)})")
+    print(f"Alınan 'request_type': {request_type} (Tipi: {type(request_type)})")
+    print(f"Alınan 'email': {email} (Tipi: {type(email)})")
+
     if not user_question or not email:
+        print("ERROR: 'question' veya 'email' alanı eksik veya boş.")
         return jsonify({"error": "Soru ve email alanları zorunludur."}), 400
 
     response_text, response_status = "", "success"
+    question_to_rate = user_question 
+    answer_to_rate = "" 
 
     if not quiz_manager.is_about_ml(user_question):
         response_text, response_status = "Üzgünüz, yalnızca makine öğrenmesiyle ilgili sorulara yanıt veriyorum.", "rejected"
+        print(f"DEBUG: Konu dışı soru: '{user_question}'")
     elif request_type == 'regenerate':
-        topic = quiz_manager.get_topic_from_question(user_question)
-        quiz_manager.add_topic_for_user(email, topic)
-        regenerate_prompt = f"'{user_question}' konusunu daha basit veya farklı bir dille yeniden açıklar mısın?"
-        response_text = qa_system.ask_openai(regenerate_prompt)
-    else:
-        answer, score = qa_system.find_best_match(user_question)
-        ai_answer = None
-        if not answer:
-            ai_answer = qa_system.ask_openai(user_question)
-            qa_system.add_new_qa_to_data(user_question, ai_answer)
-        response_text = answer or ai_answer
+        print(f"DEBUG: 'regenerate' isteği algılandı.")
+        if user_question is None: 
+            print("ERROR: user_question is unexpectedly None in regenerate block.")
+            return jsonify({"error": "Soru alanı boş."}), 400
 
-    return jsonify({"answer": response_text, "status": response_status})
+        topic = quiz_manager.get_topic_from_question(user_question)
+        print(f"DEBUG: get_topic_from_question sonucu: {topic}")
+        
+        quiz_manager.add_topic_for_user(email, topic)
+        
+        regenerate_prompt = f"'{user_question}' konusunu daha basit veya farklı bir dille yeniden açıklar mısın?"
+        print(f"DEBUG: regenerate_prompt: {regenerate_prompt}")
+        
+        response_text = qa_system.ask_openai(regenerate_prompt)
+        print(f"DEBUG: qa_system.ask_openai sonucu: {response_text} (Tipi: {type(response_text)})")
+
+        if response_text is None:
+            print("ERROR: qa_system.ask_openai'den None döndü.")
+            response_text = "Üzgünüm, şu anda bir cevap üretemiyorum."
+            response_status = "error"
+            return jsonify({"answer": response_text, "status": response_status})
+
+        question_to_rate = user_question 
+        answer_to_rate = response_text
+        print(f"DEBUG: Yeniden oluşturma isteği işlendi. question_to_rate: '{question_to_rate}', answer_to_rate: '{answer_to_rate}'") 
+
+    else: 
+        print(f"DEBUG: Standart 'ask' isteği algılandı.")
+        matched_item = qa_system.find_best_match(user_question)
+        
+        if matched_item: 
+            response_text = matched_item['answer']
+            question_to_rate = matched_item['question'] 
+            answer_to_rate = response_text
+            print(f"DEBUG: data.json'dan eşleşen cevap bulundu: '{response_text[:50]}...'")
+        else:
+            print("DEBUG: Veritabanında uygun cevap bulunamadı veya eşik altında kaldı, ChatGPT'den cevap alınıyor...")
+            ai_answer = qa_system.ask_openai(user_question)
+            
+            if ai_answer and not ai_answer.startswith("ChatGPT API hatası:"):
+                qa_system.add_new_qa_to_data(user_question, ai_answer)
+                response_text = ai_answer
+                question_to_rate = user_question 
+                answer_to_rate = response_text
+                print(f"DEBUG: ChatGPT'den yeni cevap alındı ve eklenmeye çalışıldı: '{response_text[:50]}...'")
+            else:
+                response_text = "Üzgünüm, şu anda cevap veremiyorum veya ChatGPT bir hata döndürdü."
+                response_status = "error"
+                print(f"DEBUG: ChatGPT hatası veya geçersiz cevap: {response_text}")
+                return jsonify({"answer": response_text, "status": response_status})
+
+    return jsonify({
+        "answer": response_text,
+        "status": response_status,
+        "question_text_for_rating": question_to_rate, 
+        "answer_text_for_rating": answer_to_rate   
+    })
+
+
+# Puanlama endpoint'i
+@app.route('/rate_answer', methods=['POST'])
+def handle_rate_answer():
+    print("------------------------------------")
+    print("'/rate_answer' webhook'u çağrıldı.")
+    
+    print(f"Gelen İstek Data (Raw): {request.data}")
+    
+    try:
+        data = request.get_json()
+        print(f"Gelen İstek JSON: {data}") 
+    except Exception as e:
+        print(f"JSON ayrıştırma hatası: {e}")
+        print(f"Gelen İstek Headers: {request.headers}")
+        return jsonify({"status": "error", "message": "Geçersiz JSON formatı."}), 400
+
+    question_text = data.get('question')
+    answer_text = data.get('answer')
+    rating = data.get('rating')
+
+    print(f"Alınan 'question': {question_text}")
+    print(f"Alınan 'answer': {answer_text}")
+    print(f"Alınan 'rating': {rating} (Tipi: {type(rating)})")
+
+    if not all([question_text, answer_text, rating is not None]):
+        print("Hata: Eksik veri (question, answer veya rating).")
+        return jsonify({"status": "error", "message": "Soru, cevap ve puan zorunludur."}), 400
+
+    try:
+        rating_int = int(rating)
+        print(f"Rating int'e çevrildi: {rating_int}")
+    except ValueError:
+        print(f"Hata: Puan geçerli bir sayıya dönüştürülemiyor: '{rating}'")
+        return jsonify({"status": "error", "message": "Puan geçerli bir sayı olmalıdır."}), 400
+    except Exception as e:
+        print(f"Beklenmedik bir hata oluştu (int dönüşümü): {e}")
+        return jsonify({"status": "error", "message": f"Puan dönüşümü sırasında bir hata oluştu: {str(e)}"}), 500
+
+    try:
+        result = qa_system.update_answer_rating(question_text, answer_text, rating_int)
+        print(f"Puanlama sonucu: {result}")
+        return jsonify(result)
+    except Exception as e:
+        print(f"Puanlama sırasında QASystem metodunda hata oluştu: {e}")
+        return jsonify({"status": "error", "message": f"Puanlama sırasında bir hata oluştu: {str(e)}"}), 500
+
 
 @app.route('/get_quiz_status', methods=['POST'])
 def get_quiz_status():

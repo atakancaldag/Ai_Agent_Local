@@ -18,12 +18,13 @@ class QASystem:
                  api_key_path='openai_api.json',
                  chatgpt_model="gpt-3.5-turbo",
                  keywords_path='keywords.json', 
-                 chroma_dir: str ='chroma_db_persistent'):
+                 chroma_dir: str ='chroma_db_persistent',
+                 low_score_qa_path='low_score_qa.json'): 
         """
         Soru-cevap sistemini başlatır ve gerekli tüm bileşenleri yükler.
-        (Açıklamalar aynı)
         """
         self.data_path = data_path
+        self.low_score_qa_path = low_score_qa_path 
         self.model_name = model_name
         self.similarity_threshold = similarity_threshold
         self.api_key_path = api_key_path
@@ -39,15 +40,104 @@ class QASystem:
         self.collection_name: str = "qa_collection_persistent"
         self.collection: chromadb.Collection = self.chroma_client.get_or_create_collection(name=self.collection_name)
  
-        self.data = []
-        self.questions = []
-        
-        # Stop words ve keywords listelerini __init__ içinde bir kere yükleyelim.
-        self._load_ml_keywords_and_stopwords()
+        self.data = [] 
+        self.low_score_qa_data = [] 
+        self.questions = [] 
 
-        self.load_data()
-        self.embed_questions()
+        self._load_ml_keywords_and_stopwords()
+        self.load_data() 
+        self.embed_questions() 
         self.load_openai_key()
+
+    def _load_json(self, path, default=None):
+        """Yardımcı fonksiyon: JSON dosyasını yükler."""
+        if default is None:
+            default = {}
+        if not os.path.exists(path): return default
+        try:
+            with open(path, 'r', encoding='utf-8') as f: return json.load(f)
+        except (json.JSONDecodeError, FileNotFoundError): return default
+
+    def load_data(self):
+        """
+        data_path ve low_score_qa_path içerisindeki JSON dosyalarını yükler.
+        """
+        try:
+            with open(self.data_path, 'r', encoding='utf-8') as file:
+                self.data = json.load(file)
+                self.questions = [item['question'] for item in self.data]
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            print(f"Uyarı: '{self.data_path}' veri dosyası bulunamadı veya hatalı: {e}. Boş aktif liste ile devam ediliyor.")
+            self.data = []
+            self.questions = []
+
+        try:
+            with open(self.low_score_qa_path, 'r', encoding='utf-8') as file:
+                self.low_score_qa_data = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            print(f"Uyarı: '{self.low_score_qa_path}' düşük puanlı QA dosyası bulunamadı veya hatalı: {e}. Boş pasif liste ile devam ediliyor.")
+            self.low_score_qa_data = []
+
+    def _save_data(self):
+        """Aktif QA verisini data.json'a kaydeder."""
+        try:
+            with open(self.data_path, 'w', encoding='utf-8') as f:
+                json.dump(self.data, f, ensure_ascii=False, indent=2)
+        except IOError as e:
+            print(f"Hata: '{self.data_path}' dosyasına yazılırken sorun oluştu: {e}")
+
+    def _save_low_score_qa_data(self):
+        """Düşük puanlı QA verisini low_score_qa.json'a kaydeder."""
+        try:
+            with open(self.low_score_qa_path, 'w', encoding='utf-8') as f:
+                json.dump(self.low_score_qa_data, f, ensure_ascii=False, indent=2)
+        except IOError as e:
+            print(f"Hata: '{self.low_score_qa_path}' dosyasına yazılırken sorun oluştu: {e}")
+
+    def embed_questions(self):
+        """
+        `self.questions` listesindeki (aktif data) soruların embedding'lerini oluşturur ve ChromaDB'ye kaydeder.
+        """
+        num_questions_in_data = len(self.questions)
+        num_items_in_collection = self.collection.count()
+
+        if not self.questions:
+            print("Embedding için hiç aktif soru bulunamadı. Lütfen önce veriyi yükleyin.")
+            if num_items_in_collection > 0:
+                all_ids = self.collection.get(include=[])['ids']
+                if all_ids:
+                    self.collection.delete(ids=all_ids)
+                    print(f"Koleksiyondaki {len(all_ids)} öğe silindi (aktif soru kalmadığı için).")
+            return
+
+        if num_items_in_collection != num_questions_in_data:
+            print(f"ChromaDB koleksiyonundaki öğe sayısı ({num_items_in_collection}) ile aktif veri dosyasındaki soru sayısı ({num_questions_in_data}) eşleşmiyor.")
+            print("Mevcut koleksiyon temizlenip yeniden embedding oluşturulacak.")
+            
+            if num_items_in_collection > 0:
+                 all_ids = self.collection.get(include=[])['ids']
+                 if all_ids:
+                     self.collection.delete(ids=all_ids)
+                 print(f"Koleksiyondaki {len(all_ids)} öğe silindi.")
+
+            print("Aktif sorular için embedding'ler oluşturuluyor...")
+            embeddings: List[List[float]] = self.model.encode(self.questions, convert_to_tensor=False, show_progress_bar=True).tolist()
+            ids: List[str] = [str(i) for i in range(num_questions_in_data)]
+            
+            metadatas = [{'question': item['question'], 'answer': item['answer']} for item in self.data]
+
+            try:
+                self.collection.add(
+                    ids=ids,
+                    documents=self.questions, 
+                    embeddings=embeddings,
+                    metadatas=metadatas 
+                )
+                print(f"{len(ids)} adet aktif soru embedding'i ChromaDB'ye başarıyla eklendi.")
+            except Exception as e:
+                print(f"ChromaDB'ye embedding eklenirken hata oluştu: {e}")
+        else:
+            print("Mevcut aktif embedding'ler güncel. Yeniden oluşturmaya gerek yok.")
 
     def _load_ml_keywords_and_stopwords(self):
         """Yardımcı fonksiyon: Anahtar kelimeleri ve stop words'leri başlangıçta yükler."""
@@ -58,7 +148,6 @@ class QASystem:
             print(f"'{self.ml_keywords}' dosyası okunurken hata oluştu: {e}. Konu kontrolü devre dışı.")
             self.ml_keywords_set = set()
 
-        # Stop words listesini doğrudan kod içinde tanımlayalım veya bir dosyadan okuyalım.
         try:
             with open('stopwords.json', 'r', encoding='utf-8') as f:
                 self.stop_words = set(json.load(f))
@@ -66,86 +155,10 @@ class QASystem:
             print("Uyarı: 'stopwords.json' bulunamadı. Basit bir stop words listesi kullanılacak.")
             self.stop_words = {'ve', 'veya', 'ile', 'ama', 'çünkü', 'da', 'de', 'ki', 'mi', 'mı', 'mu', 'mü', 'bu', 'şu', 'o', 'bir', 'için', 'ne', 'nasıl', 'nedir'}
 
-    def load_data(self):
-        """
-        data_path içerisindeki JSON dosyasını yükler ve soruları belleğe alır.
-        """
-        try:
-            with open(self.data_path, 'r', encoding='utf-8') as file:
-                self.data = json.load(file)
-                self.questions = [item['question'] for item in self.data]
-        except (FileNotFoundError, json.JSONDecodeError) as e:
-            print(f"Veri dosyası hatalı veya eksik: {e}")
-            exit(1)
-
-    def embed_questions(self):
-        """
-        `self.questions` listesindeki soruların embedding'lerini oluşturur ve ChromaDB'ye kaydeder.
-        (Açıklamalar aynı)      
-        """
-
-        num_questions_in_data = len(self.questions)
-        num_items_in_collection = self.collection.count()
-
-        if not self.questions:
-            print("Embedding için hiç soru bulunamadı. Lütfen önce veriyi yükleyin.")
-            return
-
-        if num_items_in_collection != num_questions_in_data:
-            print(f"ChromaDB koleksiyonundaki öğe sayısı ({num_items_in_collection}) ile veri dosyasındaki soru sayısı ({num_questions_in_data}) eşleşmiyor.")
-            print("Mevcut koleksiyon temizlenip yeniden embedding oluşturulacak.")
-            
-            if num_items_in_collection > 0:
-                 all_ids = self.collection.get(include=[])['ids']
-                 if all_ids:
-                     self.collection.delete(ids=all_ids)
-                 print(f"Koleksiyondaki {len(all_ids)} öğe silindi.")
-
-
-            print("Sorular için embedding'ler oluşturuluyor...")
-            embeddings: List[List[float]] = self.model.encode(self.questions, convert_to_tensor=False, show_progress_bar=True).tolist() # numpy array yerine list of lists
-            ids: List[str] = [str(i) for i in range(num_questions_in_data)]
-            
-            metadatas = [{'answer': item['answer']} for item in self.data]
-
-            try:
-                self.collection.add(
-                    ids=ids,
-                    documents=self.questions, 
-                    embeddings=embeddings,
-                    metadatas=metadatas 
-                )
-                print(f"{len(ids)} adet soru embedding'i ChromaDB'ye başarıyla eklendi.")
-            except Exception as e:
-                print(f"ChromaDB'ye embedding eklenirken hata oluştu: {e}")
-        else:
-            print("Mevcut embedding'ler güncel. Yeniden oluşturmaya gerek yok.")
-
-    def is_about_ml(self, text: str) -> bool:
-        """
-        Metnin makine öğrenmesiyle ilgili olup olmadığını daha akıllı bir şekilde kontrol eder.
-        """
-        normalized_text = re.sub(r'[^\w\s]', '', text.lower())
-        input_words = {word for word in normalized_text.split() if word not in self.stop_words and len(word) > 1}
-        
-        # Kelime bazlı kesişim kontrolü
-        if input_words.intersection(self.ml_keywords_set):
-            return True
-        
-        # N-gram (çoklu kelime) kontrolü
-        for keyword in self.ml_keywords_set:
-            if " " in keyword and keyword in normalized_text:
-                return True
-
-        return False
-
-
     def load_openai_key(self):
         """
         OpenAI API anahtarını `self.api_key_path` ile belirtilen dosyadan yükler.
-        (Açıklamalar aynı)
         """
-
         while True:
             if not os.path.exists(self.api_key_path) or os.path.getsize(self.api_key_path) == 0:
                 key = input("OpenAI API anahtarınızı girin: ").strip()
@@ -165,7 +178,7 @@ class QASystem:
                 os.remove(self.api_key_path)
                 continue
 
-            if self.check_openai_api_key(key):
+            if QASystem.check_openai_api_key(key): 
                 print("API anahtarı doğru.")
                 break
             else:
@@ -176,7 +189,6 @@ class QASystem:
     def check_openai_api_key(api_key):
         """
         OpenAI API anahtarının geçerli olup olmadığını kontrol eder.
-        (Açıklamalar aynı)
         """
         try:
             client = OpenAI(api_key=api_key)
@@ -188,7 +200,6 @@ class QASystem:
     def ask_openai(self, prompt):
         """
         OpenAI ChatGPT API'sini kullanarak kullanıcıdan gelen soruya yanıt alır.
-        (Açıklamalar aynı)
         """
         try:
             client = OpenAI(api_key=openai.api_key)
@@ -209,112 +220,131 @@ class QASystem:
 
     def find_best_match(self, user_question):
         """
-        Kullanıcının sorduğu soruya en benzer soruyu veri kümesinde bulur.
-        (Açıklamalar aynı)
+        Kullanıcının sorduğu soruya en benzer soruyu aktif veri kümesinde bulur.
+        Sadece aktif (data.json) havuzdaki soruları dikkate alır.
         """
-        if self.collection.count() == 0:
-            print("ChromaDB koleksiyonunda hiç öğe yok. Eşleşme yapılamaz.")
-            return None, 0.0
+        print(f"DEBUG: find_best_match çağrıldı, user_question: '{user_question}'")
 
-        user_emb: List[float] = self.model.encode(user_question, convert_to_numpy=False).tolist() # Tek bir embedding için
-        
+        if self.collection.count() == 0:
+            print("DEBUG: ChromaDB koleksiyonunda hiç öğe yok. Eşleşme yapılamaz.")
+            return None 
+
+        user_emb: List[float] = self.model.encode(user_question, convert_to_numpy=False).tolist()
+
         try:
             results = self.collection.query(
                 query_embeddings=[user_emb], 
                 n_results=1,
                 include=['documents', 'distances', 'metadatas']
             )
+            print(f"DEBUG: ChromaDB sonuçları: {results}")
         except Exception as e:
-            print(f"ChromaDB sorgusu sırasında hata: {e}")
-            return None, 0.0
+            print(f"DEBUG: ChromaDB sorgusu sırasında hata: {e}")
+            return None 
 
         if results and results['ids'] and results['ids'][0]:
             distance = results['distances'][0][0] if results['distances'] and results['distances'][0] else float('inf')
             similarity = 1 - distance
+            print(f"DEBUG: Eşleşme mesafesi: {distance}, Benzerlik skoru: {similarity:.4f}")
 
             if similarity >= self.similarity_threshold:
-                answer = results['metadatas'][0][0].get('answer') if results['metadatas'] and results['metadatas'][0] and results['metadatas'][0][0] else None
+                matched_question_text = results['documents'][0][0] if isinstance(results['documents'][0], list) else results['documents'][0]
+                print(f"DEBUG: Eşleşen soru metni (ChromaDB'den çıkarıldı): '{matched_question_text}'")
                 
-                if answer:
-                    return answer, similarity
-                else:
-                    return None, similarity
+                # data.json içinde tam eşleşen item'ı bul
+                for item in self.data:
+                    if item['question'] == matched_question_text:
+                        print(f"DEBUG: data.json içinde tam eşleşen soru bulundu: '{item['question']}'")
+                        return item
+                
+                print(f"DEBUG: ChromaDB'de eşleşen soru metni bulundu ancak self.data içinde tam item bulunamadı. Bu bir senkronizasyon hatası olabilir.")
+                return None 
             else:
-                return None, similarity 
+                print(f"DEBUG: Benzerlik eşiğinin altında kaldı ({similarity:.4f} < {self.similarity_threshold}).")
+                return None
         
-        return None, 0.0
+        print("DEBUG: ChromaDB'den sonuç bulunamadı.")
+        return None
 
     def add_new_qa_to_data(self, question: str, answer: str):
         """
         Yeni soruyu ve cevabını data.json dosyasına ve bellekteki verilere ekler,
         ardından embedding'leri günceller.
-        (Açıklamalar aynı)
+        Yeni eklenen sorulara başlangıç puanlama alanları eklenir.
         """
-        if not question or not answer: # Basit doğrulama
-            print("Soru veya cevap boş olamaz. Veriye eklenmedi.")
+        if not question or not answer: 
+            print("DEBUG: Soru veya cevap boş olamaz. Veriye eklenmedi.")
             return
 
-        new_entry = {"question": question, "answer": answer}
+        # Sadece soru metninin zaten var olup olmadığını kontrol et.
+        # Eğer aynı soru metni zaten varsa, yeni bir girdi ekleme.
+        for item in self.data:
+            if item['question'] == question:
+                print(f"DEBUG: Aynı soru metni zaten mevcut: '{question[:30]}...'. Yeni girdi eklenmedi.")
+                return 
+
+        new_entry = {
+            "question": question, 
+            "answer": answer,
+            "sorulma_sayisi": 0,
+            "ratings": [],
+            "current_average": 0.0
+        }
         
         self.data.append(new_entry)
-        self.questions.append(question)
+        self.questions.append(question) 
         
         try:
-            with open(self.data_path, 'w', encoding='utf-8') as f:
-                json.dump(self.data, f, ensure_ascii=False, indent=2) 
-            print(f"Yeni soru-cevap '{question[:30]}...' başarıyla '{self.data_path}' dosyasına eklendi.")
+            self._save_data() 
+            print(f"DEBUG: Yeni soru-cevap '{question[:30]}...' başarıyla '{self.data_path}' dosyasına eklendi.")
             
-            print("Veri güncellendi, embedding'ler yeniden oluşturulacak...")
-            self.embed_questions()
+            print("DEBUG: Veri güncellendi, embedding'ler yeniden oluşturulacak...")
+            self.embed_questions() 
 
-        except IOError as e:
-            print(f"'{self.data_path}' dosyasına yazılırken hata oluştu: {e}")
-            self.data.pop() 
-            self.questions.pop() 
-            print("Dosyaya yazılamadığı için bellekteki son eklenen soru-cevap geri alındı.")
         except Exception as e:
-            print(f"Yeni soru-cevap eklenirken beklenmedik bir hata oluştu: {e}")
+            print(f"DEBUG: Yeni soru-cevap eklenirken beklenmedik bir hata oluştu: {e}")
             if self.data and self.data[-1] == new_entry: self.data.pop()
             if self.questions and self.questions[-1] == question: self.questions.pop()
+    
+    def update_answer_rating(self, question_text: str, answer_text: str, rating: int):
+        """
+        Belirli bir soru-cevap çiftinin puanını günceller, ortalamayı hesaplar
+        ve duruma göre aktif/pasif havuzlar arasında taşır.
+        """
+        found_item = None
+        item_index = -1
 
-    def run(self):
-        """
-        Ana uygulama döngüsünü başlatır. Kullanıcıdan soru alır, 
-        ÖNCE KONU KONTROLÜ YAPAR, sonra eşleşme varsa gösterir;
-        yoksa OpenAI API'ye soruyu gönderir.
-        """
-        print("Soru cevap sistemine hoş geldiniz. Çıkmak için 'cikis' yazınız.")
-        while True:
-            user_input = input("Soru girin: ").strip()
-            if not user_input: # Boş girdi kontrolü
-                continue
-            if user_input.lower() == "cikis":
-                print("Programdan çıkılıyor...")
+        # Aktif havuzda (data.json) ilgili soru-cevap çiftini bul
+        for i, item in enumerate(self.data):
+            if item['question'] == question_text and item['answer'] == answer_text:
+                found_item = item
+                item_index = i
                 break
+        
+        if not found_item:
+            print(f"DEBUG: Hata: Puanlanacak soru-cevap çifti aktif havuzda bulunamadı: Soru: '{question_text[:50]}...', Cevap: '{answer_text[:50]}...'")
+            return {"status": "error", "message": "Puanlanacak soru-cevap bulunamadı."}
+
+        # Puanı ekle ve sayaçları güncelle
+        found_item['ratings'].append(rating)
+        found_item['sorulma_sayisi'] += 1
+        found_item['current_average'] = sum(found_item['ratings']) / len(found_item['ratings'])
+
+        if found_item['sorulma_sayisi'] > 3 and found_item['current_average'] < 3.0:
+            print(f"DEBUG: Soru-cevap çifti düşük puan aldı ({found_item['current_average']:.2f}). Pasif havuza taşınıyor.")
             
-            # Herhangi bir işlem yapmadan önce, sorunun konuyla ilgili olup olmadığını kontrol et.
-            if not self.is_about_ml(user_input):
-                print("Üzgünüm, yalnızca makine öğrenmesiyle ilgili sorulara yanıt veriyorum.")
-                continue
+            self.data.pop(item_index)
+            self.questions.remove(question_text)
 
-            # Eğer soru konuyla ilgiliyse, normal işlemlere devam et.
-            answer, score = self.find_best_match(user_input)
+            self.low_score_qa_data.append(found_item)
+
+            self._save_data() 
+            self._save_low_score_qa_data() 
+            self.embed_questions() 
             
-            if answer:
-                print(f"Cevap: {answer} (Benzerlik skoru: {score:.4f})")
-            else:
-                print("Cevap verilemiyor, ChatGPT'den cevap alınıyor...")
-                ai_answer = self.ask_openai(user_input)
-                
-                print(f"ChatGPT cevabı: {ai_answer}")
+            return {"status": "success", "message": "Cevap puanlandı ve düşük puan nedeniyle pasif havuza taşındı."}
+        else:
+            self._save_data() 
+            print(f"DEBUG: Cevap puanlandı. Yeni ortalama: {found_item['current_average']:.2f}, Sorulma Sayısı: {found_item['sorulma_sayisi']}")
+            return {"status": "success", "message": "Cevap başarıyla puanlandı."}
 
-                # ChatGPT'den gelen cevabın geçerli olup olmadığını kontrol et.
-                if ai_answer and not ai_answer.startswith("ChatGPT API hatası:"):
-                    # Yeni soruyu ve ChatGPT'nin cevabını veri setine ekle
-                    self.add_new_qa_to_data(user_input, ai_answer)
-                else:
-                    print("Yeni soru-cevap, bir hata oluştuğu veya cevap geçersiz olduğu için kaydedilmedi.")
-
-if __name__ == "__main__":
-    qa_system = QASystem()
-    qa_system.run()
