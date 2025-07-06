@@ -248,6 +248,7 @@ class QASystem:
             print(f"DEBUG: Eşleşme mesafesi: {distance}, Benzerlik skoru: {similarity:.4f}")
 
             if similarity >= self.similarity_threshold:
+                # BURADAKİ DÜZELTME: results['documents'][0] bir liste döndürüyorsa, ilk elemanı al.
                 matched_question_text = results['documents'][0][0] if isinstance(results['documents'][0], list) else results['documents'][0]
                 print(f"DEBUG: Eşleşen soru metni (ChromaDB'den çıkarıldı): '{matched_question_text}'")
                 
@@ -255,7 +256,7 @@ class QASystem:
                 for item in self.data:
                     if item['question'] == matched_question_text:
                         print(f"DEBUG: data.json içinde tam eşleşen soru bulundu: '{item['question']}'")
-                        return item
+                        return item # Tüm eşleşen öğeyi döndür
                 
                 print(f"DEBUG: ChromaDB'de eşleşen soru metni bulundu ancak self.data içinde tam item bulunamadı. Bu bir senkronizasyon hatası olabilir.")
                 return None 
@@ -286,6 +287,7 @@ class QASystem:
         new_entry = {
             "question": question, 
             "answer": answer,
+            "answer2": "", # Yeni eklenen soruya answer2 alanı boş olarak eklenir
             "sorulma_sayisi": 0,
             "ratings": [],
             "current_average": 0.0
@@ -306,43 +308,98 @@ class QASystem:
             if self.data and self.data[-1] == new_entry: self.data.pop()
             if self.questions and self.questions[-1] == question: self.questions.pop()
     
+    # Yeni eklenen metod: answer2'yi güncellemek için
+    def update_answer2(self, question_text: str, new_answer2: str):
+        """
+        Belirli bir soru için answer2 alanını günceller.
+        """
+        for item in self.data:
+            if item['question'] == question_text:
+                item['answer2'] = new_answer2
+                self._save_data()
+                print(f"DEBUG: Soru '{question_text[:30]}...' için answer2 güncellendi.")
+                return True
+        print(f"DEBUG: Soru '{question_text[:30]}...' için answer2 güncellenemedi, soru bulunamadı.")
+        return False
+
     def update_answer_rating(self, question_text: str, answer_text: str, rating: int):
         """
         Belirli bir soru-cevap çiftinin puanını günceller, ortalamayı hesaplar
         ve duruma göre aktif/pasif havuzlar arasında taşır.
+        Sadece birincil cevap (item['answer']) puanlanır.
         """
         found_item = None
         item_index = -1
 
         # Aktif havuzda (data.json) ilgili soru-cevap çiftini bul
         for i, item in enumerate(self.data):
-            if item['question'] == question_text and item['answer'] == answer_text:
-                found_item = item
-                item_index = i
-                break
+            if item['question'] == question_text:
+                # Puanlanan cevap, item'ın birincil cevabı mı?
+                if item['answer'] == answer_text:
+                    found_item = item
+                    item_index = i
+                    break
+                # Eğer puanlanan cevap answer2 ise, bu senaryoda puanlama yapmıyoruz.
+                # Kullanıcıdan gelen answer_text'in her zaman item['answer'] olması bekleniyor.
+                elif item['answer2'] == answer_text:
+                    print(f"DEBUG: answer2'ye puanlama denemesi algılandı, ancak answer2 puanlanmayacak. Soru: '{question_text[:50]}...'")
+                    return {"status": "ignored", "message": "İkinci cevaba puanlama yapılamaz."}
         
         if not found_item:
-            print(f"DEBUG: Hata: Puanlanacak soru-cevap çifti aktif havuzda bulunamadı: Soru: '{question_text[:50]}...', Cevap: '{answer_text[:50]}...'")
-            return {"status": "error", "message": "Puanlanacak soru-cevap bulunamadı."}
+            print(f"DEBUG: Hata: Puanlanacak soru-cevap çifti aktif havuzda bulunamadı (birincil cevap eşleşmedi): Soru: '{question_text[:50]}...', Cevap: '{answer_text[:50]}...'")
+            return {"status": "error", "message": "Puanlanacak soru-cevap bulunamadı veya birincil cevap değil."}
 
-        # Puanı ekle ve sayaçları güncelle
+        # Puanı ekle ve sayaçları güncelle (sadece birincil cevap için)
         found_item['ratings'].append(rating)
         found_item['sorulma_sayisi'] += 1
         found_item['current_average'] = sum(found_item['ratings']) / len(found_item['ratings'])
 
+        # Taşıma mantığı: sorulma_sayisi 3'ten büyükse ve ortalama 3'ün altına düşerse
         if found_item['sorulma_sayisi'] > 3 and found_item['current_average'] < 3.0:
-            print(f"DEBUG: Soru-cevap çifti düşük puan aldı ({found_item['current_average']:.2f}). Pasif havuza taşınıyor.")
+            print(f"DEBUG: Soru-cevap çifti düşük puan aldı ({found_item['current_average']:.2f}). Taşıma kontrolü yapılıyor.")
             
-            self.data.pop(item_index)
-            self.questions.remove(question_text)
-
-            self.low_score_qa_data.append(found_item)
-
-            self._save_data() 
-            self._save_low_score_qa_data() 
-            self.embed_questions() 
+            # Pasif havuza taşınacak olan eski birincil cevap bilgileri
+            failed_answer_entry = {
+                "question": found_item['question'],
+                "answer": found_item['answer'], # Eski birincil cevap
+                "sorulma_sayisi": found_item['sorulma_sayisi'],
+                "ratings": found_item['ratings'],
+                "current_average": found_item['current_average']
+            }
+            self.low_score_qa_data.append(failed_answer_entry)
             
-            return {"status": "success", "message": "Cevap puanlandı ve düşük puan nedeniyle pasif havuza taşındı."}
+            # Eğer answer2 boş değilse, onu birincil answer'a terfi ettir
+            if found_item['answer2']:
+                print(f"DEBUG: answer2 mevcut. answer2 birincil cevaba terfi ettiriliyor.")
+                found_item['answer'] = found_item['answer2'] # answer2'yi answer'a taşı
+                found_item['answer2'] = "" # answer2'yi boşalt
+
+                # Yeni birincil cevabın istatistiklerini sıfırla
+                found_item['sorulma_sayisi'] = 0
+                found_item['ratings'] = []
+                found_item['current_average'] = 0.0
+                
+                self._save_data() # data.json'ı kaydet
+                self._save_low_score_qa_data() # low_score_qa.json'ı kaydet
+                self.embed_questions() # Embedding'leri yeniden oluştur (soru metni değişmese de, cevabı değişti)
+                
+                return {"status": "success", "message": "Cevap düşük puan aldı, answer2 terfi ettirildi."}
+            else:
+                # answer2 boş ise, komple soru-cevap çiftini aktif havuzdan sil ve pasif havuza taşı
+                print(f"DEBUG: answer2 boş. Komple soru-cevap çifti pasif havuza taşınıyor.")
+                # data.json'dan sil
+                self.data.pop(item_index)
+                self.questions.remove(question_text) # Embedding listesinden de kaldır
+                
+                # low_score_qa.json'a ekle (found_item artık güncel olmayan bir referans olabilir,
+                # bu yüzden failed_answer_entry'yi kullanmak daha güvenli)
+                self.low_score_qa_data.append(failed_answer_entry) # Sadece başarısız olan cevabı taşı
+
+                self._save_data() 
+                self._save_low_score_qa_data() 
+                self.embed_questions() 
+                
+                return {"status": "success", "message": "Cevap düşük puan aldı ve pasif havuza taşındı."}
         else:
             self._save_data() 
             print(f"DEBUG: Cevap puanlandı. Yeni ortalama: {found_item['current_average']:.2f}, Sorulma Sayısı: {found_item['sorulma_sayisi']}")

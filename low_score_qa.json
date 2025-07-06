@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "question": "Denetimli öğrenme nedir?",
+    "answer": "Denetimli öğrenme, verilerdeki örneklerin etiketli olduğu ve modelin bu etiketlere göre eğitim aldığı bir makine öğrenmesi türüdür. Model, bu etiketli verilerle eğitilir ve bilinmeyen verilerle tahmin yapabilir.",
+    "sorulma_sayisi": 4,
+    "ratings": [
+      1,
+      1,
+      2,
+      3
+    ],
+    "current_average": 1.75
+  }
+]

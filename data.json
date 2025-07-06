@@ -1,1416 +1,1618 @@
 [
   {
     "question": "Denetimli öğrenme nedir?",
-    "answer": "Denetimli öğrenme, verilerdeki örneklerin etiketli olduğu ve modelin bu etiketlere göre eğitim aldığı bir makine öğrenmesi türüdür. Model, bu etiketli verilerle eğitilir ve bilinmeyen verilerle tahmin yapabilir.",
+    "answer": "Denetimli öğrenme, makine öğrenmesi alanında bir öğrenme şeklidir. Bu yöntemde, algoritma belirli girdi verileriyle eğitilir ve bu verilerin karşılık geldiği çıktılar önceden etiketlenmiştir. Yani, algoritma, verilerdeki desenleri çıkarmak ve girdi verileri ile çıktı arasındaki ilişkiyi öğrenmek için etiketli verilerden öğrenir. Denetimli öğrenme, sınıflandırma (classification) ve regresyon (regression) problemlerini çözmek için kullanılan yaygın bir tekniktir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Sınıflandırma ve Regresyon arasındaki fark?",
     "answer": "Sınıflandırma, verileri kategorik sınıflara ayırmayı amaçlayan bir modelleme problemidir. Regresyon ise sürekli bir değeri tahmin etmeye yönelik bir problem türüdür. Örneğin, sınıflandırma 'spam' veya 'ham' e-posta gibi etiketleri tahmin ederken, regresyon bir evin fiyatını tahmin edebilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Aşırı öğrenme nedir nasıl önlenir?",
     "answer": "Aşırı öğrenme, modelin eğitim verisine fazla uyum sağlaması durumudur. Bu, modelin eğitim verisini çok iyi ezberlemesi ancak yeni, görülmemiş verilerde kötü performans göstermesiyle sonuçlanır. Aşırı öğrenmeyi önlemek için veri artırma, erken durdurma, regularizasyon ve çapraz doğrulama gibi yöntemler kullanılabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Gradyan düşüşü nedir?",
     "answer": "Gradyan düşüşü, bir fonksiyonun minimum değerini bulmak için kullanılan bir optimizasyon algoritmasıdır. Modelin hata fonksiyonunun türevini alarak, en düşük hata için modelin parametrelerini günceller. Derin öğrenme ve makine öğrenmesi algoritmalarında, özellikle yapay sinir ağlarında yaygın olarak kullanılır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Karmaşıklık (Confusion) Matrisi ne işe yarar?",
     "answer": "Karmaşıklık matrisi, sınıflandırma problemlerinin değerlendirilmesinde kullanılan bir araçtır. Modelin doğru ve yanlış sınıflandırmalarını görsel olarak gösterir. Doğru pozitif, yanlış pozitif, doğru negatif ve yanlış negatif değerleri içerir. Bu matris, modelin performansını ölçmede, özellikle dengesiz veri setlerinde faydalıdır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Veri ön işleme neden önemli?",
     "answer": "Veri ön işleme, modelin doğru ve güvenilir sonuçlar verebilmesi için verinin temizlenmesi ve düzenlenmesidir. Eksik verilerin doldurulması, anormal değerlerin düzeltilmesi, normalizasyon ve standardizasyon işlemleri, modelin daha verimli ve doğru sonuçlar üretmesini sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Birim vektör nedir?",
     "answer": "Birim vektör, uzunluğu 1 olan bir vektördür. Veri analizi ve makine öğrenmesinde, vektörlerin karşılaştırılması veya benzerlik hesaplamaları için kullanılır. Özellikle, metin madenciliği ve doğal dil işleme (NLP) gibi alanlarda, kelime gömme (word embedding) tekniklerinde yer alır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Support Vector Machine (SVM) nedir?",
     "answer": "Support Vector Machine (SVM), sınıflandırma ve regresyon analizlerinde kullanılan güçlü bir makine öğrenmesi algoritmasıdır. SVM, iki sınıf arasındaki en geniş marjı maksimize ederek karar sınırını belirler ve yeni verileri bu sınırla sınıflandırır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Derin Öğrenme (Deep Learning) ile Geleneksel Makine Öğrenmesi Arasındaki Fark?",
     "answer": "Derin öğrenme, özellikle büyük veri setleri ve karmaşık yapılarla çalışabilen bir makine öğrenmesi dalıdır. Derin öğrenme, çok katmanlı sinir ağları kullanırken, geleneksel makine öğrenmesi algoritmaları daha basit yapılarla çalışır. Derin öğrenme genellikle daha fazla hesaplama gücü ve veri gerektirir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Doğruluk (Accuracy) metriği ne zaman yanıltıcı olabilir?",
     "answer": "Doğruluk metriği, sınıflandırma modellerinde genel başarıyı gösterse de, dengesiz veri setlerinde yanıltıcı olabilir. Örneğin, %95 oranında bir sınıf varsa ve model hep bu sınıfı tahmin ediyorsa doğruluk yüksek olur ama model başarısızdır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Random Forest nasıl çalışır?",
     "answer": "Random Forest, birçok karar ağacından oluşan bir topluluk (ensemble) algoritmasıdır. Her bir ağaç farklı veri alt kümeleriyle eğitilir ve sonuçlar çoğunluk oyuna göre birleştirilir. Bu, aşırı öğrenmeyi azaltır ve doğruluğu artırır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "K-means algoritması nedir?",
     "answer": "K-means, kümeleme (clustering) algoritmasıdır. Verileri, her biri bir merkeze (centroid) sahip K farklı kümeye ayırır. Veriler, en yakın merkeze atanır ve merkezler her iterasyonda güncellenir. Genelde denetimsiz öğrenmede kullanılır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "ROC eğrisi nedir ve ne işe yarar?",
     "answer": "ROC eğrisi, sınıflandırma modellerinin başarılarını çeşitli eşik değerlerinde karşılaştırmak için kullanılır. True Positive Rate ile False Positive Rate'in grafiğini çizer. Altında kalan alan (AUC) ne kadar büyükse, model o kadar iyidir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Epoch ve Batch Size ne anlama gelir?",
     "answer": "Epoch, tüm eğitim verisinin modele bir kez gösterilmesidir. Batch size ise verinin modele aynı anda gösterilen parça büyüklüğüdür. Küçük batch boyutu daha sık güncelleme sağlar; büyük batch ise daha stabil ama yavaş olabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Naive Bayes algoritması nerede kullanılır?",
     "answer": "Naive Bayes, özellikle metin sınıflandırma problemlerinde (spam filtresi, duygu analizi gibi) yaygın kullanılan olasılıksal bir sınıflandırıcıdır. Özelliklerin birbirinden bağımsız olduğu varsayımıyla çalışır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Aktivasyon fonksiyonu nedir?",
     "answer": "Aktivasyon fonksiyonu, yapay sinir ağlarında nöronların çıkış değerini belirler. Doğrusal olmayanlık katarak öğrenmeyi mümkün kılar. Yaygın örnekler: ReLU, Sigmoid, Tanh.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Principal Component Analysis (PCA) ne işe yarar?",
     "answer": "PCA, yüksek boyutlu verileri daha az boyuta indirgerken veri varyansını korumaya çalışan bir boyut indirgeme tekniğidir. Görselleştirme ve gürültü azaltma gibi işlemlerde kullanılır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Veri setini eğitim ve test olarak ayırmak neden önemlidir?",
     "answer": "Modelin genelleme yeteneğini değerlendirmek için eğitim verisiyle öğrenme yapılır, test verisiyle performans ölçülür. Aynı veride hem eğitim hem test yapılırsa modelin ezberlemiş olması muhtemeldir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Makine öğrenmesi nedir?",
     "answer": "Makine öğrenmesi, bilgisayar sistemlerinin verilerden öğrenerek belirli bir görevi yerine getirmelerini sağlayan yapay zeka alanının bir alt dalıdır. Makine öğrenmesi algoritmaları, veri analizi yaparak desenleri tanımlar, öğrenir ve bu desenleri kullanarak tahminlerde bulunabilir. Makine öğrenmesi, genellikle deneyimsel veriler üzerinden çalışır ve insan müdahalesi olmadan kendini geliştirme yeteneğine sahiptir. Amacı, veri tabanlı kararlar alabilen ve belirli bir problemi çözebilen modeller oluşturmaktır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Random forest nedir?",
     "answer": "Random Forest, karar ağaçlarından oluşturulan bir ensemble (topluluk) öğrenme algoritmasıdır. Karar ağaçlarının bir araya gelerek oluşturduğu bu topluluk sayesinde daha doğru ve güvenilir tahminler yapılabilir. Random Forest, hem sınıflandırma hem de regresyon problemlerinde kullanılabilir. Algoritma, her bir karar ağacının veri kümesinin rastgele alt kümeleri üzerinde eğitilmesi ve ardından bu ağaçların bir araya getirilerek ortak bir tahmin oluşturulması prensibine dayanır. Bu sayede overfitting (aşırı uydurma) problemi azaltılarak daha iyi genelleme yapılabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "sınıflandırma problemi nedir",
     "answer": "Sınıflandırma problemi, makine öğrenimi alanında karşılaşılan bir tür gözetimli öğrenme problemidir. Bu problemde, veri noktaları farklı sınıflara ayrılmalıdır. Yani, veri noktalarının belirli kategorilere veya sınıflara atanması hedeflenir. Örneğin, e-posta mesajlarını spam veya spam olmayan olarak sınıflandırmak, el yazısı sayıları tanımlamak gibi uygulamalarda sınıflandırma problemleri karşımıza çıkar. Sınıflandırma algoritmaları, belirli özelliklere sahip veri noktalarını doğru sınıflara atamak için kullanılır. Bu algoritmalar, veri setinin özelliklerini analiz ederek örüntüleri tanımlar ve yeni, görülmemiş veri noktalarını doğru sınıflara atamak için bu örüntüleri kullanır",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Denetimli öğrenme nedir?",
     "answer": "Denetimli öğrenme, makine öğrenmesinin bir alt dalıdır ve etiketli verilerle çalışmayı içerir. Bu yöntemde, makine öğrenme modeli, giriş verileri ile bu verilere karşılık gelen doğru çıktıları eşleştirmeyi öğrenmeye çalışır. Yani, model, eğitim verilerindeki örneklerden öğrenerek, yeni giriş verileri için doğru çıktıları tahmin etmeyi amaçlar. Sınıflandırma ve regresyon gibi görevlerde yaygın olarak kullanılan denetimli öğrenme, veriler arasındaki ilişkileri modeller ve bu modelleri kullanarak tahminler yapar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Pekiştirmeli öğrenmede, keşif-sömürme ikilemi nedir ve bir ajan bu ikilem ile nasıl başa çıkabilir?",
     "answer": "Keşif-sömürme ikilemi, bir ajanın bilinmeyen durumlar hakkında bilgi edinme (keşif) ile bilinen en iyi eylemleri seçme (sömürme) arasında denge kurma ihtiyacıdır.  Ajanlar, ε-greedy gibi stratejiler veya daha sofistike yöntemler kullanarak bu ikilemi yönetebilirler.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Çok değişkenli bir veri setinde, yüksek korelasyona sahip özelliklerin varlığı veri ön işleme aşamasında nasıl ele alınmalı ve neden?",
     "answer": "Yüksek korelasyonlu özellikler, modelin performansını olumsuz etkileyebilir ve yorumlanabilirliği azaltabilir.  Bu durum, özellik seçimi (feature selection) teknikleriyle veya Principal Component Analysis (PCA) gibi boyut indirgeme yöntemleriyle ele alınabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Özellik mühendisliğinde, kategorik değişkenleri sayısal değişkenlere dönüştürmek için kullanılan 'One-Hot Encoding' yönteminin dezavantajı nedir ve bu dezavantajı nasıl aşabiliriz?",
     "answer": "One-Hot Encoding, yüksek kardinaliteli kategorik değişkenlerde boyutlanma sorununa yol açabilir. Bu sorun, 'Target Encoding' veya 'Binary Encoding' gibi alternatif yöntemler kullanılarak veya özellik seçimi teknikleriyle azaltılabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "L bırakma çapraz doğrulamasının (Leave-One-Out Cross-Validation - LOOCV) avantajları ve dezavantajları nelerdir ve hangi durumlarda tercih edilir?",
     "answer": "LOOCV, yüksek varyanslı tahminler sağlar ancak aşırı uyumu azaltır.  Hesaplama maliyeti yüksek olduğundan küçük veri setlerinde daha uygundur, büyük veri setlerinde ise hesaplama süresi oldukça artar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Regresyon analizinde, modelin performansını değerlendirirken R-kare (R²) metriğinin yanı sıra hangi ek metrikleri kullanmak faydalı olabilir ve neden?",
     "answer": "R-kare, modelin varyans açıklamasını gösterir ancak modelin karmaşıklığını yansıtmaz.  Bu nedenle,  Ortalama Kare Hata (MSE) veya Ortalama Mutlak Hata (MAE) gibi hata metrikleri ile birlikte kullanmak, modelin hem doğruluğunu hem de karmaşıklığını değerlendirmeye yardımcı olur.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "F1 skoru, hassasiyet ve duyarlılığın harmonik ortalamasını alarak hesaplanır. Peki, hangi durumlarda F1 skoru, hassasiyet ve duyarlılıktan daha tercih edilir bir performans metriği olur?",
     "answer": "F1 skoru, hassasiyet ve duyarlılığın dengeli bir ölçümüdür.  Sınıflar arasında dengesizlik varsa veya hem yanlış pozitif hem de yanlış negatiflerin maliyetleri önemliyse, F1 skoru daha anlamlı bir performans göstergesidir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "DBSCAN algoritmasının K-means algoritmasına göre avantajı ve dezavantaji nedir?  Özellikle farklı şekil ve boyutlardaki kümeleri bulma yeteneği açısından karşılaştırınız.",
     "answer": "DBSCAN, kümelerin şekli ve boyutu konusunda daha esnektir ve gürültü noktalarını daha iyi ele alır.  Ancak, DBSCAN için uygun parametre seçimi daha zordur ve yoğunluk tabanlı yapısı nedeniyle yüksek boyutlu verilerde performansı düşebilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Boyut azaltma teknikleri arasında, PCA'nın doğrusal bağımlılık varsayımına dayanması nedeniyle yetersiz kaldığı durumlar için alternatif bir yöntem önerin ve neden bu yöntemi tercih edersiniz?",
     "answer": "PCA'nın yetersiz kaldığı doğrusal olmayan veriler için,  t-distributed Stochastic Neighbor Embedding (t-SNE) veya UMAP gibi doğrusal olmayan boyut azaltma teknikleri kullanılabilir.  Bu yöntemler, verinin yerel komşuluk yapısını koruyarak daha iyi görselleştirme ve kümeleme sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Topluluk öğrenmesinde, farklı algoritmaların birleştirilmesinin, tek bir güçlü algoritma kullanmaya göre, modelin genel performansını nasıl iyileştirdiğine dair üç önemli neden açıklayın.",
     "answer": "Farklı algoritmaların farklı güçlü ve zayıf yönleri vardır; birleştirme bu zayıf yönleri telafi eder. Birden fazla modelin tahminlerinin ortalaması alınarak gürültü azaltılır ve genelleme yeteneği artar.  Ayrıca, birleştirme aşırı öğrenmeyi azaltarak daha sağlam bir model sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "ResNet (Residual Network) mimarisinde kullanılan 'skip connection' (atlamalı bağlantı) mekanizmasının amacı nedir ve bu mekanizma, çok derin ağların eğitimini nasıl kolaylaştırır?",
     "answer": "Skip connection'lar, derin ağlarda gradyan kaybolma problemine karşı koruma sağlar.  Derin katmanlardan gelen bilgileri doğrudan daha ileri katmanlara ileterek, gradyanların daha etkin bir şekilde geri yayılmasını ve ağın daha derin katmanlarını da etkili bir şekilde eğitmesini mümkün kılar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "ReLU aktivasyon fonksiyonunun, sigmoid veya tanh fonksiyonlarına göre, derin öğrenme modellerinde tercih edilmesinin başlıca nedenlerinden biri nedir ve bu tercih hangi olumsuzluklara yol açabilir?",
     "answer": "ReLU, gradyan kaybolma problemine daha az yatkın olduğu için derin ağlarda daha hızlı öğrenmeyi sağlar.  Ancak, bazı nöronların 'ölü' hale gelmesi ve eğitimde yavaşlamaya neden olması gibi bir dezavantaja sahiptir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Adam optimizasyon algoritmasının RMSprop'a göre avantajları ve dezavantajları nelerdir?  Özellikle, yüksek boyutlu parametre uzaylarında performanslarını karşılaştırarak açıklayınız.",
     "answer": "Adam, RMSprop'a göre daha hızlı yakınsama sağlayabilir ve daha iyi genel performans gösterebilir, ancak bazı durumlarda aşırı optimizasyona daha yatkın olabilir. Yüksek boyutlu uzaylarda, Adam'ın adaptasyon mekanizması daha etkili olabilir ancak öğrenme oranı ayarlama ihtiyacını da beraberinde getirebilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Transformer modellerinde kullanılan Self-Attention mekanizmasının, Recurrent Neural Networks (RNN'ler) gibi sıralı modellere göre avantajı nedir ve bu avantaj, özellikle uzun diziler üzerinde nasıl kendini gösterir?",
     "answer": "Self-attention, dizideki her kelimenin diğer tüm kelimelerle ilişkisini paralel olarak hesaplayarak, RNN'lerin sıralı işleme ihtiyacını ortadan kaldırır. Bu, uzun dizilerde hesaplama verimliliğini artırır ve uzun mesafeli bağımlılıkları daha etkili bir şekilde yakalar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Pekiştirmeli öğrenmede, bir ajanın çevresiyle etkileşiminin sonucunda aldığı geri bildirimin, ödül fonksiyonunun şekillendirme stratejisi üzerindeki etkisi nedir ve bu etkiyi azaltmak veya yönetmek için neler yapılabilir?",
     "answer": "Ödül fonksiyonunun tasarımı, ajanın öğrenme sürecini doğrudan etkiler; yanlış veya yetersiz tasarlanmış bir ödül fonksiyonu, istenmeyen davranışlara yol açabilir.  Ödül şekillendirme teknikleri, ajanın istenen davranışlara yönlendirilmesini sağlayarak bu sorunun üstesinden gelmeye yardımcı olur.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Veri ön işleme aşamasında, 'outlier' (aykırı değer) tespiti için hangi yöntemleri kullanabiliriz ve bu yöntemlerin her birinin güçlü ve zayıf yönleri nelerdir?",
     "answer": "Aykırı değer tespiti için kutu grafiği, Z-skoru ve IQR gibi yöntemler kullanılabilir. Kutu grafiği görsel bir yöntem olup, kolay anlaşılırken, Z-skoru ve IQR ise istatistiksel yöntemler olup veri dağılımına göre aykırı değerleri belirler. Ancak, bu yöntemler veri dağılımının varsayımlarına duyarlı olabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Özellik mühendisliğinde, yüksek kardinaliteli kategorik değişkenlerle nasıl başa çıkılır ve bu durumun model performansına etkisi nedir?",
     "answer": "Yüksek kardinaliteli kategorik değişkenler, one-hot encoding ile aşırı boyutluluk sorununa yol açabilir.  Bu sorunu çözmek için hedef değişken ile ilişkisine göre özellik seçimi, hedef sıkıştırma veya bayesyen yaklaşımlar kullanılabilir; aksi takdirde model performansı düşebilir veya aşırı öğrenme görülebilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "K-katlı çapraz doğrulamada, kat sayısının (K) model performansının tahmini üzerindeki etkisi nedir ve çok yüksek bir K değeri seçmenin dezavantajları nelerdir?",
     "answer": "Yüksek K değeri, eğitim verilerinin daha iyi kullanılmasını ve daha az varyanslı bir performans tahmini sağlar. Ancak, hesaplama maliyetini artırır ve küçük veri setlerinde modelin aşırı öğrenme riskini artırabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Regresyon analizinde, bağımsız değişkenlerin modelde bulunmaması durumunda (yani, göz ardı edilmiş değişkenler varsa) modelin tahminlerinde nasıl bir yanlılık oluşur ve bu yanlılığın nedeni nedir?",
     "answer": "Bağımsız değişkenlerin göz ardı edilmesi, modelde öngörülemeyen varyansın kalmasına ve katsayı tahminlerinin gerçek değerlerden sapmasına (yanlılığa) neden olur. Bu, göz ardı edilen değişkenlerin bağımlı değişken ile ilişkili olduğu ve modelde bulunan diğer değişkenlerle korelasyonlu olması durumunda özellikle belirgindir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "AUC (Alan Altındaki Eğri) skoru yüksek olan bir sınıflandırma modeli her zaman daha iyi midir ve neden?",
     "answer": "AUC skoru yüksek olsa da, gerçek dünya uygulamalarında, sınıf dengesizliği veya farklı maliyet matrisleri gibi faktörler nedeniyle, doğruluk gibi diğer metriklerle birlikte değerlendirilmesi önemlidir. Sadece AUC'ya bakarak optimum model seçimi yanıltıcı olabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Kümeleme algoritmalarında, kümelerin sayısını (k) belirlemek için kullanılan 'Dirsek Metodu'nun (Elbow Method) sınırlamaları nelerdir ve bu sınırlamaları aşmak için hangi alternatif yöntemler kullanılabilir?",
     "answer": "Dirsek Metodu, hata kareler toplamının (SSE) k değerine göre grafiğini inceleyerek dirseğe benzeyen bir nokta arayarak k'yı belirler. Ancak bu yöntem, belirgin bir dirsek noktası olmadığında veya birden fazla dirsek noktası mevcut olduğunda belirsiz sonuçlar verebilir. Bu nedenle, siluet genişliği gibi alternatif metrikler kullanılabilir veya optimum k değerini bulmak için bir grid search yapılabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Yapay sinir ağlarındaki 'katmanlar' (layers) ne işe yarar?",
     "answer": "Yapay sinir ağlarındaki katmanlar, verinin işlenmesi için ardışık işlem adımlarıdır.  Her katman, önceki katmandan gelen verileri işler ve sonraki katmana aktarır, böylece ağ karmaşık kalıpları öğrenebilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Derin öğrenmedeki 'ağırlıklar' (weights) nedir ve ne işe yararlar?",
     "answer": "Ağırlıklar, yapay sinir ağlarındaki nöronlar arasındaki bağlantıların gücünü temsil eden sayılardır.  Öğrenme sürecinde, ağ bu ağırlıkları ayarlayarak girdilerdeki desenleri öğrenir ve daha doğru tahminler yapar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Veri ön işleme sürecinde 'eksik değerler' ile nasıl başa çıkabiliriz?",
     "answer": "Eksik veriler, modelin doğruluğunu düşürebilir.  Bunlarla başa çıkmak için eksik değerleri silebilir, ortalama/medyan değerlerle doldurabilir veya daha gelişmiş yöntemler kullanabiliriz.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Makine öğrenmesinin temel amacı nedir?",
     "answer": "Makine öğrenmesinin temel amacı, bilgisayarlara açıkça programlanmadan veri setlerinden öğrenme ve gelecekteki durumları tahmin etme yeteneği kazandırmaktır.  Bu, algoritmaların veri örneklerinden kalıplar belirleyerek kararlar vermesini sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Denetimsiz öğrenme ve denetimli öğrenme arasındaki en temel fark nedir?",
     "answer": "Denetimli öğrenmede, model etiketlenmiş verilerle eğitilir ve doğru çıktıyı öğrenir. Denetimsiz öğrenmede ise, model etiketlenmemiş verilerle eğitilir ve verilerdeki gizli kalıpları keşfetmeye çalışır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Doğrulama kümesi (validation set) neden kullanılır ve eğitim ve test kümesinden nasıl farklıdır?",
     "answer": "Doğrulama kümesi, modelin eğitim sırasında aşırı öğrenmeyi önlemek ve hiperparametreleri ayarlamak için kullanılır. Eğitim kümesi modelin eğitilmesi için, test kümesi ise eğitilmiş modelin performansının değerlendirilmesi için kullanılır; doğrulama kümesi ise bu ikisi arasında bir köprü görevi görür.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Aşırı öğrenme (overfitting) ile az öğrenme (underfitting) arasındaki fark nedir?",
     "answer": "Aşırı öğrenme, modelin eğitim verilerine çok fazla uyum sağlaması ve yeni verilerde başarısız olması durumudur. Az öğrenme ise modelin verilerin temel özelliklerini yakalayamaması ve hem eğitim hem de test verilerinde düşük performans göstermesidir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Bir makine öğrenmesi modelinde özellik (feature) ve etiket (label) arasındaki fark nedir?",
     "answer": "Özellikler, modelin öğrenmesi için kullandığı girdi verileridir (örneğin, bir evin fiyatı için metrekaresi, oda sayısı). Etiket ise modelin tahmin etmesi gereken çıktı değeridir (örneğin, evin fiyatı).",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Sınıflandırma probleminde, 'eğitim verisi' ve 'test verisi' kavramları ne anlama gelir?",
     "answer": "Eğitim verisi, modelin öğrenmesi için kullanılan verilerdir.  Test verisi ise, eğitilmiş modelin performansının değerlendirilmesi için, modelin daha önce görmediği verilerdir.  Bu ayrım, modelin genelleme yeteneğini ölçmek için çok önemlidir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Regresyon probleminde hedefimiz nedir?",
     "answer": "Regresyon probleminde, bağımsız değişkenler (özellikler) kullanılarak, sürekli bir bağımlı değişken (hedef değişken) için en iyi tahmini bulmak hedeflenir.  Bu tahmin, veriler arasındaki ilişkiyi modelleyerek yapılır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Precision (Hassasiyet) ve Recall (Duyarlılık) metrikleri nedir ve birbirlerinden nasıl farklıdırlar?",
     "answer": "Precision, modelin pozitif tahminlerinin ne kadarının gerçekten pozitif olduğunu ölçer. Recall ise, gerçekte pozitif olan örneklerin kaçının model tarafından doğru tahmin edildiğini gösterir.  Yani, precision doğru pozitif oranını, recall ise gerçek pozitifleri yakalama oranını ölçer.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Doğruluk (Accuracy) metriği nasıl hesaplanır?",
     "answer": "Doğruluk, doğru tahmin edilen örneklerin toplam örnek sayısına oranıdır.  Yani, modelin ne kadar doğru tahmin yaptığını gösteren bir yüzdelik değerdir.  Örneğin, 100 örnekten 90'ını doğru tahmin eden bir modelin doğruluk oranı %90'dır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Karar ağaçlarında dallanma (branching) nasıl gerçekleşir?",
     "answer": "Karar ağaçları, verilerdeki en iyi ayrımı sağlayan özelliği ve eşik değerini seçerek dallanır.  Bu seçim, genellikle verileri en iyi şekilde iki veya daha fazla gruba ayırmak için bilgi kazanımını veya Gini katsayısını maksimize ederek yapılır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "K-NN algoritmasında 'K' değeri neyi temsil eder ve bu değerin seçiminin algoritmanın performansına etkisi nedir?",
     "answer": "K, algoritmanın bir veri noktasını sınıflandırmak veya bir değeri tahmin etmek için dikkate alacağı en yakın komşu sayısını belirtir. K değerinin uygun şekilde seçilmesi önemlidir; çok küçük bir K aşırı uyuma, çok büyük bir K ise alt uyuma yol açabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Gradyan inişi algoritması bir tepenin aşağısına doğru nasıl iner?",
     "answer": "Gradyan inişi, bir fonksiyonun eğimini (gradyanı) hesaplayarak, en dik iniş yönünde küçük adımlar atarak minimum bir noktaya ulaşmaya çalışır.  Bu adımlar, öğrenme oranı adı verilen bir parametre ile kontrol edilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Yapay sinir ağlarında 'nöron' nedir ve ne işe yarar?",
     "answer": "Nöronlar, yapay sinir ağlarının temel yapı taşlarıdır.  Her bir nöron, aldığı girdileri ağırlıklarla çarpar, bunları toplar ve bir aktivasyon fonksiyonu uygulayarak bir çıktı üretir. Bu işlem, ağın öğrenmesini ve karar vermesini sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Derin öğrenme modelleri nasıl eğitilir?",
     "answer": "Derin öğrenme modelleri, büyük miktarda veri üzerinde, ağırlıklarını ince ayarlayarak ve hatalarını azaltarak eğitilir.  Bu süreç, genellikle gradyan inişi adı verilen bir optimizasyon algoritması kullanılarak yapılır ve modelin verideki kalıpları öğrenmesini sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Veri ön işleme sürecinde 'gürültü' (noise) nedir ve neden veri temizliğinde önemlidir?",
     "answer": "Veri içindeki gürültü, ölçüm hataları veya rastgele varyasyonlar gibi istenmeyen varyasyonları ifade eder.  Gürültüyü temizlemek, modelin doğru tahminler yapmasını sağlar ve aşırı öğrenmeyi önlemeye yardımcı olur.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Makine öğrenmesinde 'model' tam olarak neyi ifade eder?",
     "answer": "Makine öğrenmesinde model, verilerden öğrenilen ve yeni veriler üzerinde tahmin veya sınıflandırma yapmak için kullanılan matematiksel bir yapıdır.  Örneğin, bir spam filtresi modeli, e-postaları spam veya spam olmayan olarak sınıflandırmayı öğrenmiştir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Denetimsiz öğrenmede kümeleme nedir ve ne zaman kullanılır?",
     "answer": "Kümeleme, denetimsiz öğrenmenin bir türüdür ve benzer özelliklere sahip verileri gruplara (kümelere) ayırmak için kullanılır.  Bu yöntem, verilerde gizli kalıpları keşfetmek ve veri noktalarını benzerliklerine göre sınıflandırmak için idealdir, örneğin müşteri segmentasyonu gibi durumlarda.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Bir veri setini eğitim, test ve doğrulama kümelerine ayırırken, her kümenin ideal boyutu nedir ve bu oranlar neden önemlidir?",
     "answer": "Genellikle, veri setinin %60-70'i eğitim, %15-20'si doğrulama ve %15-20'si test kümesi olarak ayrılır.  Bu oranlar, modelin eğitim sırasında aşırı öğrenmesini önlemek ve gerçek dünya performansını doğru bir şekilde tahmin etmek için önemlidir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Bir makine öğrenmesi modeli aşırı öğrenmeye ne zaman maruz kalır?",
     "answer": "Bir model, eğitim verilerindeki gürültüyü veya rastgele varyasyonları ezberleyerek aşırı öğrenmeye maruz kalır.  Bu durumda, eğitim verilerinde çok iyi performans gösterir ancak daha önce görmediği verilerde kötü performans gösterir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Makine öğrenmesinde bir veri noktasının 'özelliği' ile 'etiketi' arasındaki fark nedir?",
     "answer": "Özellik, bir veri noktası hakkında sahip olduğumuz bilgilerdir (örneğin, bir elmanın rengi, boyutu). Etiket ise, o veri noktasının gerçek değeri veya sınıfıdır (örneğin, elmanın 'kırmızı' veya 'yeşil' olması).",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Sınıflandırma probleminde, 'sınıf' terimi ne anlama gelir?",
     "answer": "Sınıflandırma probleminde sınıf, veri noktalarının ait olduğu grupları temsil eder.  Örneğin, kedi ve köpek resmi sınıflandırma probleminde 'kedi' ve 'köpek' iki farklı sınıftır.  Model, verilen bir veri noktasının hangi sınıfa ait olduğunu tahmin etmeye çalışır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Regresyon probleminde, hedef değişkenin sürekli mi yoksa kategorik mi olması gerekir?",
     "answer": "Regresyon problemlerinde hedef değişken sürekli olmalıdır.  Yani, hedef değişkenin alabileceği değerler arasında sürekli bir aralık bulunmalıdır.  Örneğin, ev fiyatlarını tahmin etmek bir regresyon problemidir çünkü fiyat sürekli bir değişkendir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "F1 skoru nedir ve neden bazen doğruluk oranından daha iyi bir performans ölçütü olarak kullanılır?",
     "answer": "F1 skoru, hassasiyet ve duyarlılığın harmonik ortalamasıdır.  Dengesiz veri setlerinde, doğruluk oranı yanıltıcı olabilirken F1 skoru, hem yanlış pozitif hem de yanlış negatiflerin etkilerini dengeleyerek daha kapsamlı bir performans ölçütü sunar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Doğruluk (Accuracy) metriği, bir sınıflandırma modelinin performansını nasıl ölçer?",
     "answer": "Doğruluk, doğru tahmin edilen örneklerin toplam örnek sayısına oranını hesaplar.  Yani, modelin ne kadar doğru tahminde bulunduğunu gösterir.  Yüksek doğruluk, modelin genel olarak iyi performans gösterdiğini işaret eder.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Karar ağaçlarında 'budama' (pruning) ne işe yarar?",
     "answer": "Karar ağaçları aşırı öğrenmeye (overfitting) yatkındır. Budama, ağacın karmaşıklığını azaltarak, daha genelleyici ve daha az aşırı öğrenen bir model oluşturmak için gereksiz dalları kesme işlemidir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "K-NN algoritmasında mesafe ölçümü nasıl yapılır ve hangi mesafe ölçümleri kullanılır?",
     "answer": "K-NN, veriler arasındaki mesafeyi hesaplayarak en yakın komşuları bulur.  Öklid mesafesi, Manhattan mesafesi gibi çeşitli mesafe ölçümleri kullanılabilir; seçilen ölçüm, verilerin yapısına bağlı olarak performansı etkiler.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Gradyan inişi algoritmasında öğrenme oranı (learning rate) nedir ve neden önemlidir?",
     "answer": "Öğrenme oranı, gradyan inişinin her adımda ne kadar hızlı ilerleyeceğini belirleyen bir parametredir. Çok büyük bir öğrenme oranı algoritmanın çözümü atlamasına, çok küçük bir öğrenme oranı ise çok yavaş ilerlemesine neden olabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Yapay sinir ağlarında 'bias' (eşik değeri) nedir ve ne işe yarar?",
     "answer": "Bias, bir nöronun aktive olup olmamasını belirleyen bir sabit değerdir.  Ağırlıklar ile gelen sinyallerin toplamına eklenir ve ağın farklı girdiler için farklı çıktı üretmesini sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Derin öğrenme modellerinde kullanılan 'katmanlar' (layers) tam olarak nedir ve ne işe yararlar?",
     "answer": "Derin öğrenme modelleri, veriyi işleyen ve dönüştüren birçok katmandan oluşur. Her katman, verinin farklı özelliklerini öğrenir ve bir sonraki katmana daha soyut bir temsil gönderir. Bu katmanlar sayesinde, modeller karmaşık kalıpları ve ilişkileri öğrenebilirler.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Veri ön işleme sürecinde 'normalizasyon' veya 'standardizasyon' teknikleri neden kullanılır?",
     "answer": "Normalizasyon ve standardizasyon, özelliklerin farklı ölçeklerde olmasının makine öğrenmesi modellerini olumsuz etkilemesini önler. Bu teknikler, özelliklerin aynı ölçekte olmasını sağlayarak modelin daha iyi öğrenmesini ve daha doğru sonuçlar vermesini sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Makine öğrenmesi, yapay zekanın bir alt dalı olarak nasıl tanımlanabilir?",
     "answer": "Makine öğrenmesi, bilgisayarların açıkça programlanmadan verilerden öğrenmelerini sağlayan bir yapay zeka dalıdır.  Bilgisayarlar, verileri analiz ederek kalıplar bulur ve bu kalıpları kullanarak gelecekteki veriler hakkında tahminlerde bulunur veya kararlar alır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Denetimli ve denetimsiz öğrenme arasındaki temel fark nedir?",
     "answer": "Denetimli öğrenme, etiketlenmiş verilerle (yani, her veri noktasının doğru cevabı bilinir) bir model eğitirken, denetimsiz öğrenme, etiketlenmemiş verilerle (yani, doğru cevap bilinmez) verilerdeki kalıpları bulmaya çalışır.  Örneğin, denetimli öğrenmede bir kedi resmini kedi olarak sınıflandırmayı öğrenirken, denetimsiz öğrenmede benzer resimleri gruplara ayırmayı öğrenirsiniz.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Eğitim, test ve doğrulama veri setleri neden ayrı ayrı kullanılır?",
     "answer": "Modelin eğitim verileri üzerinde aşırı öğrenmesini önlemek ve gerçek dünya performansını daha doğru tahmin etmek için kullanılırlar.  Eğitim verileri modelin öğrenmesi için, test verileri modelin performansını değerlendirmek için, doğrulama verileri ise hiperparametre ayarlaması için kullanılır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Aşırı öğrenme (overfitting) nedir ve nasıl olur?",
     "answer": "Aşırı öğrenme, bir modelin eğitim verilerine çok fazla uyum sağlaması ve yeni, görülmemiş verilere yeterince genelleyememesidir.  Bu, modelin eğitim verilerindeki gürültüyü veya rastgele varyasyonları öğrenmesi ve gerçek desenleri göz ardı etmesi nedeniyle olur.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Makine öğrenmesinde özellik (feature) ve etiket (label) arasındaki fark nedir?",
     "answer": "Özellikler, bir veri noktasını tanımlayan girdilerdir (örneğin, bir evin boyutu ve yaşı). Etiket ise, makine öğrenme modelinin tahmin etmesi gereken çıktıdır (örneğin, evin fiyatı).  Kısacası, özellikler girdi, etiket ise çıktıdır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Sınıflandırma probleminde, hedef değişkenin türü nedir ve bu türü regresyon problemlerindeki hedef değişkenden nasıl ayırt ederiz?",
     "answer": "Sınıflandırma problemlerinde hedef değişken kategoriktir, yani sınırlı sayıda önceden belirlenmiş kategoriden birini alır (örneğin, 'kedi' veya 'köpek'). Regresyon problemlerinde ise hedef değişken süreklidir, yani herhangi bir değeri alabilir (örneğin, bir evin fiyatı).",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Regresyon problemlerinde kullanılan en yaygın metrikler nelerdir ve bunlar neyi ölçer?",
     "answer": "En yaygın metrikler Ortalama Kare Hata (MSE) ve Ortalama Mutlak Hata (MAE)'dir. MSE, tahminler ile gerçek değerler arasındaki karesel farkların ortalamasını, MAE ise mutlak farkların ortalamasını hesaplar.  Bu metrikler modelin doğruluğunu değerlendirmek için kullanılır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Doğruluk (Accuracy) ve F1 Skoru gibi farklı model değerlendirme metrikleri ne zaman kullanılır ve aralarındaki fark nedir?",
     "answer": "Doğruluk, genel doğruluk oranını ölçerken, F1 skoru özellikle dengesiz veri setlerinde sınıflandırma performansını daha iyi yansıtır.  F1 skoru, hassasiyet ve duyarlılığın uyumlu bir ortalamasını alarak, yanlış pozitif ve yanlış negatiflerin etkisini dengeleyerek daha kapsamlı bir değerlendirme sunar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Doğruluk (Accuracy) metriği nedir ve nasıl hesaplanır?",
     "answer": "Doğruluk, bir sınıflandırma modelinin doğru tahmin ettiği örneklerin toplam örnek sayısına oranıdır.  Basitçe, doğru tahminlerin toplam tahminlere bölünmesiyle hesaplanır ve genellikle yüzdesel olarak ifade edilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Karar ağaçlarında aşırı uyum (overfitting) problemi nedir ve nasıl önlenebilir?",
     "answer": "Aşırı uyum, karar ağacının eğitim verilerine çok fazla odaklanıp, yeni verilere genelleme yeteneğini kaybetmesi durumudur.  Bu problem, ağacın budanması (pruning) veya daha basit bir ağaç yapısı seçilmesiyle önlenebilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "K-En Yakın Komşu (K-NN) algoritmasında 'k' değeri neyi temsil eder ve nasıl seçilir?",
     "answer": "'k' değeri, algoritmanın yeni bir veri noktasını sınıflandırmak için göz önünde bulunduracağı en yakın komşu sayısını belirtir.  'k' değeri genellikle deneysel olarak, farklı değerler denenerek ve en iyi performansı veren değer seçilerek belirlenir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Gradyan inişinde öğrenme oranı (learning rate) nedir ve neden önemlidir?",
     "answer": "Öğrenme oranı, gradyan iniş algoritmasının her adımda ne kadar büyük bir adım atacağını belirleyen bir parametredir. Çok büyük bir öğrenme oranı optimuma ulaşmayı zorlaştırırken, çok küçük bir öğrenme oranı ise öğrenme sürecini yavaşlatır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Yapay sinir ağlarında 'aktivasyon fonksiyonu' nedir ve neden kullanılır?",
     "answer": "Aktivasyon fonksiyonu, bir nöronun çıktısını belirlemek için kullanılır.  Bu fonksiyon, ağın doğrusal olmayan davranış sergilemesini ve karmaşık problemleri çözmesini sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Derin öğrenmedeki 'katman' (layer) ne anlama gelir ve neden önemlidir?",
     "answer": "Derin öğrenme modellerinde katmanlar, verinin işlendiği ve özelliklerinin çıkarıldığı ardışık işlem birimleridir.  Birçok katmanın üst üste istiflenmesi, karmaşık kalıpları öğrenmeyi ve daha doğru tahminler yapmayı sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Veri ön işleme neden önemlidir ve kötü veri ön işlemenin sonuçları neler olabilir?",
     "answer": "Veri ön işleme, makine öğrenmesi modellerinin doğru ve etkili çalışması için ham verinin temizlenmesi ve düzenlenmesidir.  Kötü veri ön işleme, modelin yanlış sonuçlar üretmesine, performansının düşmesine ve hatta tamamen başarısız olmasına neden olabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Makine öğrenmesi ile istatistik arasındaki fark nedir?",
     "answer": "Makine öğrenmesi, bilgisayarların verilerden öğrenmesini sağlayan bir yöntemdir; istatistik ise verilerin analizi ve yorumlanmasıyla ilgilenir.  Makine öğrenmesi, istatistiksel yöntemleri kullanabilir ancak amacı, verilerden öngörülerde bulunmak ve kararlar almakken, istatistik daha çok verinin anlamlı bir şekilde açıklanması ve çıkarımlar yapılması üzerinedir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Denetimli ve denetimsiz öğrenme arasındaki en temel fark nedir?",
     "answer": "Denetimli öğrenmede, algoritma etiketlenmiş verilerle (yani, doğru cevaplarla) eğitilir ve bu verilerden yeni veriler için tahminler yapmayı öğrenir. Denetimsiz öğrenmede ise, algoritma etiketlenmemiş verilerle eğitilir ve verilerdeki kalıpları veya yapıları bulmaya çalışır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Eğitim, test ve doğrulama veri setlerini neden ayrı ayrı kullanıyoruz?  Sadece eğitim ve test seti yeterli değil mi?",
     "answer": "Eğitim seti modelin öğrenmesi için, test seti modelin yeni veriler üzerindeki performansını değerlendirmek için kullanılır. Doğrulama seti ise, modelin hiperparametrelerini ayarlamak ve aşırı uyumu (overfitting) önlemek için kullanılır; bu da daha genellenebilir bir model sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Aşırı öğrenme (overfitting) nedir ve nasıl oluşur?",
     "answer": "Aşırı öğrenme, bir modelin eğitim verilerine çok fazla uyum sağlaması ve yeni, görülmemiş verilere yeterince genelleyememesidir. Bu durum, modelin eğitim verilerindeki gürültüyü veya rastgele varyasyonları öğrenmesi ve gerçek örüntüleri gözden kaçırmasıyla oluşur.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Özellik (Feature) ve Etiket (Label) arasındaki fark nedir?",
     "answer": "Özellikler, bir veri noktasını tanımlayan girdilerdir (örneğin, bir evin büyüklüğü ve yaşı). Etiket ise, o veri noktasının doğru cevabı veya tahmin edilmesi gereken şeydir (örneğin, evin fiyatı).",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Sınıflandırma probleminde, 'aşırı uyum' (overfitting) nedir ve nasıl önlenebilir?",
     "answer": "Aşırı uyum, modelin eğitim verilerine çok fazla odaklanıp, yeni, görülmemiş verilere genelleme yeteneğini kaybetmesidir.  Bu durum, daha basit bir model kullanarak veya eğitim verilerinin miktarını artırarak önlenebilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Regresyon probleminde, 'iyi' bir modelin göstergesi nedir?",
     "answer": "İyi bir regresyon modeli, tahminleri ile gerçek değerler arasında düşük bir hata oranına sahiptir.  Bu, modelin verileri ne kadar iyi temsil ettiğini ve gelecekteki verileri ne kadar iyi tahmin edebileceğini gösterir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Farklı model değerlendirme metrikleri (örneğin, doğruluk, hassasiyet, duyarlılık) arasında nasıl seçim yaparım?",
     "answer": "Seçtiğiniz metrik, probleminizin türüne ve neyin daha önemli olduğuna bağlıdır. Örneğin, sahte pozitiflerin maliyeti yüksekse hassasiyet (precision) daha önemli olabilirken, sahte negatiflerin maliyeti yüksekse duyarlılık (recall) daha önemlidir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Doğruluk metriği yüksek olsa bile, bir makine öğrenmesi modelinin kötü performans göstermesinin sebebi ne olabilir?",
     "answer": "Yüksek doğruluk, dengesiz bir veri setinde, modelin baskın sınıfı tahmin etmesinden kaynaklanabilir.  Bu durumda, model azınlık sınıfını doğru tahmin etmekte başarısız olabilir ve bu da gerçek dünya uygulamalarında kötü performansa yol açar.  Başka bir deyişle, doğruluk tek başına yeterli bir performans ölçütü olmayabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Karar ağaçlarında aşırı uyum (overfitting) nedir ve nasıl önlenir?",
     "answer": "Aşırı uyum, karar ağacının eğitim verilerine çok fazla odaklanması ve yeni, görülmemiş verilere genelleme yeteneğinin azalmasıdır.  Bu durum, ağacın çok derin ve karmaşık hale gelmesiyle ortaya çıkar.  Aşırı uyumu önlemek için budama (pruning) teknikleri veya daha küçük ağaçlar kullanılabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "K-En Yakın Komşu (K-NN) algoritması nasıl çalışır?",
     "answer": "K-NN, yeni bir veri noktasının sınıfını, ona en yakın K komşusunun çoğunluk sınıfına göre belirler.  Bu komşuluk, veri noktaları arasındaki mesafeyi hesaplayarak bulunur.  Mesafeler daha sonra en yakın komşuları bulmak için sıralanır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Gradyan inişinde, 'yerel minimum' (local minimum) nedir ve neden bir problem olabilir?",
     "answer": "Yerel minimum, gradyan iniş algoritmasının yakına düştüğü, ama daha iyi bir çözümün daha uzakta olduğu bir noktadır.  Bu, algoritmanın en iyi çözümü bulmasını engeller ve modelin performansını sınırlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Yapay sinir ağlarında 'katman' (layer) ne demektir ve farklı katman türleri nelerdir?",
     "answer": "Bir yapay sinir ağı, verileri işleyen ve dönüştüren birbirine bağlı 'katmanlardan' oluşur.  Giriş, gizli ve çıkış katmanları olmak üzere temel katman türleri vardır; gizli katmanlar birden fazla olabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Derin öğrenme nedir?",
     "answer": "Derin öğrenme, insan beynindeki sinir ağlarını taklit eden çok katmanlı yapay sinir ağları kullanan bir makine öğrenmesi türüdür.  Bu ağlar, büyük veri kümeleri üzerinde eğitilerek karmaşık desenleri ve ilişkileri otomatik olarak öğrenirler.  Sonuç olarak, görüntü tanıma veya doğal dil işleme gibi zorlu problemleri çözebilirler.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Veri ön işleme neden önemlidir ve makine öğrenmesi modellerini nasıl etkiler?",
     "answer": "Veri ön işleme, modellerin daha iyi performans göstermesi için verilerin temizlenmesi ve düzenlenmesidir.  Gürültülü, eksik veya tutarsız veriler, modelin doğruluğunu düşürür ve yanlış tahminlere yol açar.  Doğru veri ön işlemesi ile modeller daha güvenilir ve doğru sonuçlar üretir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Makine öğrenmesi ile geleneksel programlama arasındaki temel fark nedir?",
     "answer": "Geleneksel programlamada, programcı kuralları belirler ve bilgisayar bu kuralları izler. Makine öğrenmesinde ise, bilgisayar verilerden öğrenerek kendi kurallarını oluşturur ve bu kuralları kullanarak yeni veriler üzerinde tahminlerde bulunur.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Denetimli öğrenme ile denetimsiz öğrenme arasındaki en temel fark nedir?",
     "answer": "Denetimli öğrenmede, model etiketlenmiş verilerle (giriş ve istenen çıktı) eğitilirken, denetimsiz öğrenmede model sadece etiketlenmemiş verilerle eğitilir ve verilerdeki kalıpları bulmaya çalışır.  Kısacası, denetimli öğrenme 'öğretmenli', denetimsiz öğrenme ise 'öğretmensiz' öğrenmedir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Eğitim, test ve doğrulama veri setlerini neden ayrı ayrı kullanırız?",
     "answer": "Modelimizi eğitim verisiyle eğitir, test verisiyle performansını değerlendirir ve doğrulama verisiyle hiperparametre ayarlamalarını yaparız.  Bu, modelin yeni, görülmemiş veriler üzerindeki genelleme yeteneğini doğrulamak ve aşırı öğrenmeyi (overfitting) önlemek için önemlidir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Aşırı öğrenme (overfitting) nedir ve nasıl anlaşılır?",
     "answer": "Aşırı öğrenme, bir modelin eğitim verilerine çok fazla uyum sağlaması ve yeni, görülmemiş verilere yeterince iyi genelleyememesidir.  Bu durum, eğitim verilerindeki gürültüyü veya rastgelelikleri öğrenmesiyle ortaya çıkar ve modelin performansını yeni verilerde düşürür.  Grafiklerde yüksek eğitim doğruluğu ama düşük test doğruluğu ile anlaşılır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Makine öğrenmesinde 'özellik' (feature) ve 'etiket' (label) arasındaki fark nedir?",
     "answer": "Özellikler, bir veri noktasını tanımlayan girdilerdir (örneğin, bir elmanın ağırlığı ve rengi). Etiket ise, o veri noktasının gerçek değeri veya sınıfıdır (örneğin, elmanın 'kırmızı' veya 'yeşil' olması).",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Sınıflandırma problemlerinde, 'yanlış pozitif' (false positive) ve 'yanlış negatif' (false negative) nedir ve bunlar neden önemlidir?",
     "answer": "Yanlış pozitif, aslında negatif olan bir örneğin pozitif olarak sınıflandırılmasıdır (örneğin, sağlıklı bir insanın hastalıklı olarak teşhis edilmesi). Yanlış negatif ise, aslında pozitif olan bir örneğin negatif olarak sınıflandırılmasıdır (örneğin, hastalıklı bir insanın sağlıklı olarak teşhis edilmesi). Her iki hata türü de farklı sonuçlara ve maliyetlere yol açabilir, bu yüzden bunları anlamak çok önemlidir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Regresyon problemlerinde hedefimiz nedir?",
     "answer": "Regresyon problemlerinde, bağımsız değişkenlere bağlı olarak sürekli bir bağımlı değişkeni tahmin etmek hedeflenir.  Örneğin, bir evin büyüklüğüne göre fiyatını tahmin etmek bir regresyon problemidir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Doğruluk (Accuracy) skoru, bir sınıflandırma modelinin performansını değerlendirmek için iyi bir metrik midir ve neden?",
     "answer": "Doğruluk skoru, tüm örneklerin doğru sınıflandırılma oranını gösterir. Ancak, dengesiz veri setlerinde yanıltıcı olabilir.  Örneğin, çok fazla sayıda bir sınıfa sahip bir veri setinde yüksek doğruluk skoru elde edilse bile, az sayıda olan diğer sınıfların doğru tahmini düşük olabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Doğruluk (Accuracy) metriği nedir ve ne zaman kullanışlıdır?",
     "answer": "Doğruluk, bir sınıflandırma modelinin doğru tahmin ettiği örneklerin toplam örnek sayısına oranıdır.  Basit ve anlaşılırdır, ancak dengesiz veri setlerinde yanıltıcı olabilir; yani, bir sınıfın diğerlerinden çok daha fazla olması durumunda güvenilir olmayabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Karar ağaçları aşırı öğrenmeyi (overfitting) nasıl önler?",
     "answer": "Karar ağaçları, dallanma işlemi sırasında verinin aşırı ayrıntısına inmeyi önlemek için budama (pruning) veya maksimum derinlik gibi yöntemler kullanır. Bu sayede, yeni veriler üzerinde daha iyi genelleme yeteneği kazanır ve aşırı öğrenme riski azalır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "K-NN algoritmasında 'k' değeri ne anlama gelir ve bu değerin seçimi algoritmanın performansını nasıl etkiler?",
     "answer": "'k' değeri, sınıflandırmada dikkate alınacak en yakın komşu sayısını belirtir.  'k' değeri çok küçükse algoritma gürültüye daha duyarlı olurken, çok büyükse hesaplama maliyeti artar ve karar sınırları bulanıklaşabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Gradyan inişi (Gradient Descent) algoritmasında, 'yerel minimum' (local minimum) problemi nedir ve nasıl üstesinden gelinir?",
     "answer": "Yerel minimum, algoritmanın gerçek minimum yerine, yakındaki daha düşük bir değerde takılıp kalması durumudur.  Farklı başlangıç noktalarıyla birden çok kez çalıştırmak veya daha gelişmiş optimizasyon algoritmaları kullanmak bu sorunu azaltabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Yapay sinir ağlarında aktivasyon fonksiyonu nedir ve neden gereklidir?",
     "answer": "Aktivasyon fonksiyonu, bir nöronun çıktısını belirler ve ağın doğrusal olmayan işlevler öğrenmesini sağlar.  Bu fonksiyonlar, ağın karmaşık kalıpları öğrenmesine ve farklı girdiler arasında ayrım yapmasına olanak tanır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Derin öğrenme, makine öğrenmesinin bir alt dalı olarak, diğer makine öğrenmesi yöntemlerinden nasıl farklıdır?",
     "answer": "Derin öğrenme, büyük ve çok katmanlı yapay sinir ağları kullanarak karmaşık desenleri öğrenir.  Diğer makine öğrenmesi yöntemlerinin aksine, özellik mühendisliğine daha az ihtiyaç duyar çünkü özellikleri kendiliğinden öğrenebilir. Bu, büyük veri kümeleri üzerinde çok iyi sonuçlar vermesini sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Veri ön işleme neden önemlidir?  Verilerim temiz görünüyorsa, neden ön işleme yapmalıyım?",
     "answer": "Temiz görünen veriler bile hatalar veya tutarsızlıklar içerebilir.  Veri ön işleme, bu hataları tespit edip düzeltmeyi, modelin daha doğru ve güvenilir sonuçlar üretmesini sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Makine öğrenmesi (ML) nedir ve günlük hayatta nerelerde kullanılır?",
     "answer": "Makine öğrenmesi, bilgisayarların açıkça programlanmadan veri analiz ederek öğrenmelerini sağlayan bir yapay zeka dalıdır.  Günlük hayatta; spam filtreleme, kişiselleştirilmiş öneriler, yüz tanıma gibi birçok alanda kullanılır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Denetimli öğrenme ve denetimsiz öğrenme arasındaki temel fark nedir?",
     "answer": "Denetimli öğrenmede, model etiketlenmiş verilerle (giriş ve çıkış değerleri) eğitilirken, denetimsiz öğrenmede model etiketlenmemiş verilerle eğitilir ve kendi başına kalıplar bulmaya çalışır.  Özetle, denetimli öğrenme öğretmenli, denetimsiz öğrenme ise öğretmensiz öğrenmedir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Eğitim, test ve doğrulama veri setlerini neden ayrı ayrı kullanıyoruz?",
     "answer": "Modelin eğitim verileriyle aşırı öğrenmesini (overfitting) önlemek ve gerçek dünya performansını daha doğru tahmin etmek için.  Test seti, modelin eğitilmediği yeni veriler üzerindeki performansını değerlendirmek için kullanılır; doğrulama seti ise hiperparametre ayarlaması gibi model geliştirme adımlarında kullanılır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Boyut azaltma nedir ve neden PCA (Principal Component Analysis) kullanırız?",
     "answer": "Boyut azaltma, verilerdeki özellik sayısını azaltarak karmaşıklığı düşürmek ve hesaplama maliyetini azaltmaktır. PCA, verilerdeki en fazla varyansı açıklayan yeni özellikler (baş bileşenler) oluşturarak boyut azaltmasını gerçekleştirir, böylece verilerin özünü koruyarak boyutunu düşürür.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "K-Means kümeleme algoritması nasıl çalışır?  Basit bir şekilde açıklayabilir misiniz?",
     "answer": "K-Means, verileri belirli bir 'k' sayıda kümeye ayırır.  Algoritma, rastgele seçilen merkez noktaları etrafında veri noktalarını gruplar ve bu merkez noktalarını her iterasyonda veri noktalarının ortalamasına doğru hareket ettirir, böylece kümeler daha iyi ayrışana kadar bu işlemi tekrarlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "ROC eğrisi ve AUC değeri nedir ve bunlar bir sınıflandırma modelinin performansını nasıl değerlendirmemize yardımcı olur?",
     "answer": "ROC eğrisi, farklı eşik değerlerinde bir sınıflandırma modelinin gerçek pozitif oranını (duyarlılık) yanlış pozitif oranına (1-özellik) karşı gösteren bir grafiktir. AUC (Alan Altındaki Eğri), bu eğrinin altındaki alanı ölçer ve modelin genel performansını, yani rastgele tahmin yapmaktan ne kadar iyi olduğunu gösterir; daha yüksek AUC değeri daha iyi performansı gösterir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Makine öğrenmesi, bilgisayarlara nasıl programlanmadan öğrenme yeteneği kazandırır?",
     "answer": "Makine öğrenmesi, bilgisayarların büyük miktarda veriden kalıplar ve ilişkiler öğrenmesini sağlar.  Bu kalıpları kullanarak, yeni veriler üzerinde tahminlerde bulunmayı veya kararlar almayı öğrenirler;  yani, açıkça programlanmadan öğrenirler.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Denetimli öğrenmede kullanılan regresyon ve sınıflandırma algoritmaları arasındaki temel fark nedir?",
     "answer": "Regresyon algoritmaları, sürekli değerler tahmin ederken (örneğin, ev fiyatları), sınıflandırma algoritmaları verileri önceden tanımlanmış sınıflara (örneğin, kedi veya köpek) ayırır.  Kısacası, regresyon sürekli çıktılar, sınıflandırma ise kategorik çıktılar üretir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Eğitim, test ve doğrulama veri setlerini oluştururken, veri kümelerini nasıl ayırmam gerekir?  Verilerin rastgele bölünmesi her zaman yeterli midir?",
     "answer": "Veri kümelerini genellikle rastgele ayırırız, ancak veri setinizdeki örneklerin belirli bir özelliğe göre dağılım gösteriyorsa (örneğin, belirli bir sınıfın az temsil edilmesi), tabakalı örnekleme (stratified sampling) kullanarak daha dengeli alt kümeler oluşturmanız faydalı olabilir.  Bu, her veri kümesinin orijinal verinin dağılımını daha iyi yansıtmasını sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Aşırı öğrenme (overfitting) nedir ve nasıl önlenebilir?",
     "answer": "Aşırı öğrenme, bir modelin eğitim verilerine çok fazla uyum sağlaması ve yeni, görülmemiş veriler üzerinde kötü performans göstermesi durumudur.  Bu durum, modelin eğitim verilerindeki gürültüyü veya rastgele varyasyonları öğrenmesiyle oluşur.  Aşırı öğrenmeyi önlemek için daha fazla veri kullanabilir, modelin karmaşıklığını azaltabilir veya düzenleme teknikleri uygulayabiliriz.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Bir makine öğrenmesi modelini eğitirken, özelliklerin (feature) ve etiketlerin (label) rolleri nedir ve aralarındaki temel fark nedir?",
     "answer": "Özellikler, modelin bir örneği sınıflandırmak veya tahmin etmek için kullandığı girdi verileridir. Etiket ise, modelin tahmin etmesi gereken çıktı veya doğru yanıttır.  Örneğin, bir kedi resmi için özellikler piksel değerleri olurken, etiket 'kedi' olur.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Sınıflandırma probleminde, yanlış sınıflandırma türleri nelerdir ve bunlar neden önemlidir?",
     "answer": "Yanlış sınıflandırma türleri, yanlış pozitif (gerçekte negatif olan bir örneği pozitif olarak sınıflandırmak) ve yanlış negatif (gerçekte pozitif olan bir örneği negatif olarak sınıflandırmak) olarak ikiye ayrılır.  Bu türler, problemin bağlamına bağlı olarak farklı maliyetlere sahiptir; örneğin, bir hastalığı tespit eden sistemde yanlış negatifler daha ciddi sonuçlar doğurabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Regresyon problemlerinde kullanılan hata fonksiyonları (örneğin, MSE, MAE) nelerdir ve bunlar neyi ölçer?",
     "answer": "Hata fonksiyonları, modelin tahminlerinin gerçek değerlerden ne kadar uzak olduğunu ölçer.  MSE (Ortalama Karesel Hata), karesel hataların ortalamasını alırken, MAE (Ortalama Mutlak Hata) ise mutlak hataların ortalamasını alır.  Her ikisi de modelin performansını değerlendirmek için kullanılır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Doğruluk (Accuracy) metriği, bir sınıflandırma modelinin performansını değerlendirmek için neden her zaman en iyi seçenek olmayabilir?",
     "answer": "Doğruluk, tüm doğru tahminlerin toplam tahminlere oranıdır. Ancak, veri setinde sınıflar dengesizse (örneğin, bir sınıfta çok az örnek varsa), yüksek doğruluk yanıltıcı olabilir.  Dengesiz verilerde, hassasiyet, duyarlılık ve F1 skoru gibi diğer metrikler daha bilgilendirici olabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Doğruluk (Accuracy) metriği, bir makine öğrenmesi modelinin performansını ölçmek için yaygın olarak kullanılır. Ancak, doğruluk metriğinin bazı dezavantajları nelerdir?",
     "answer": "Doğruluk, tüm örnekleri eşit olarak ele aldığı için dengesiz veri setlerinde yanıltıcı olabilir.  Örneğin, %99 doğruluk oranına sahip bir model, baskın sınıfı doğru tahmin ederken azınlık sınıfını tamamen göz ardı edebilir. Bu nedenle, doğruluk tek başına her zaman yeterli bir performans ölçütü değildir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Karar ağaçlarında 'aşırı uyum' (overfitting) problemi nedir ve nasıl önlenebilir?",
     "answer": "Aşırı uyum, karar ağacının eğitim verilerine çok fazla odaklanıp, yeni verilerde performansının düşmesine neden olan bir durumdur.  Bu problem, ağacın budanması (pruning) veya daha az karmaşık bir ağaç oluşturulmasıyla önlenebilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "K-NN algoritmasında mesafe ölçümü nasıl yapılır ve farklı mesafe ölçümlerinin algoritmanın performansına etkisi nedir?",
     "answer": "K-NN algoritması, komşulukları belirlemek için Öklid mesafesi gibi çeşitli mesafe ölçümleri kullanır.  Farklı ölçümler, verilerin yapısına bağlı olarak farklı performanslar gösterebilir; örneğin, Öklid mesafesi sayısal veriler için uygundurken, diğer ölçümler kategorik veriler için daha uygun olabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Gradyan inişi (Gradient Descent) nedir ve basitçe nasıl çalışır?",
     "answer": "Gradyan inişi, bir fonksiyonun minimum noktasını bulmak için kullanılan bir optimizasyon algoritmasıdır.  Temel olarak, fonksiyonun eğimini (gradyanı) takip ederek, en düşük noktaya doğru adım adım ilerler.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Yapay sinir ağlarında 'gizli katman' (hidden layer) nedir ve neden önemlidir?",
     "answer": "Gizli katmanlar, giriş ve çıktı katmanları arasında yer alan ve ağın öğrenmesini sağlayan düğüm (nöron) katmanlarıdır.  Daha fazla gizli katman, ağın daha karmaşık ilişkileri öğrenmesini ve daha iyi performans göstermesini sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Denetimli öğrenmede, modelin eğitim verilerine aşırı uyum sağlaması (overfitting) ve eğitim verilerine yeterince uyum sağlayamaması (underfitting) durumları nasıl birbirinden ayırt edilir ve bu durumların sonuçları nelerdir?",
     "answer": "Overfitting, modelin eğitim verilerine çok iyi uyum sağlaması, ancak yeni verilere kötü genelleme yapması durumudur. Underfitting ise modelin hem eğitim hem de yeni verilere yeterince uyum sağlayamaması durumudur. Her iki durum da modelin başarımını olumsuz etkiler.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Bir SVM'nin 'marj'ı (margin) nedir ve neden geniş bir marj arzu edilir?",
     "answer": "SVM'de marj, destek vektörleri ile karar sınırları arasındaki mesafeyi ifade eder. Geniş bir marj, modelin yeni verileri daha iyi genellemesini ve aşırı öğrenmeyi azaltmasını sağlar çünkü karar sınırı daha güvenli bir konumdadır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Eğitim, test ve doğrulama veri setlerini oluştururken, her setteki örnek sayısının ideal oranı nedir ve bu oranı belirlerken nelere dikkat etmeliyiz?",
     "answer": "İdeal oran, veri setinin büyüklüğüne ve problemin karmaşıklığına bağlıdır. Genellikle, eğitim seti en büyük, ardından doğrulama ve test setleri gelir.  Amaç, modelin genelleme yeteneğini doğru bir şekilde değerlendirebilecek kadar büyük bir test seti ve modelin parametrelerini ince ayarlayabilecek kadar büyük bir doğrulama setine sahip olmaktır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Gradyan inişi sırasında, öğrenme oranı (learning rate) çok büyük veya çok küçük olursa ne olur ve neden?",
     "answer": "Çok büyük bir öğrenme oranı, optimum noktayı aşarak salınım yapmasına ve yakınsamayı zorlaştırmasına neden olur. Çok küçük bir öğrenme oranı ise, optimum noktaya ulaşmak için çok uzun sürebilir, hatta hiç ulaşamayabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Doğruluk oranı %99 olan bir model mükemmel midir?  Bir modelin doğruluk oranının yüksek olmasına rağmen başarısız olabileceği bir senaryo örneği verin.",
     "answer": "Hayır, değildir.  Örneğin, dengesiz bir veri setinde, %99 doğruluk oranı, baskın sınıfı sürekli doğru tahmin ederken, azınlık sınıfını tamamen göz ardı eden bir modeli ifade edebilir. Bu durumda model pratik olarak işe yaramaz.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Gradyan inişi algoritması bir dağdan aşağı doğru inerken, farklı yollardan inmeyi deneyebilir.  Bu yolların hangisinin en iyi olduğunu nasıl anlarız ve bu seçim modelin performansını nasıl etkiler?",
     "answer": "Algoritmanın izlediği yol, başlangıç noktasına ve öğrenme oranına bağlıdır.  Farklı başlangıç noktaları ve öğrenme oranları farklı minimum noktalara ulaşabilir; bu nedenle en iyi yolu bulmak için deneme yanılma ve farklı parametrelerle deney yapılması gerekir.  Bu seçim, modelin ne kadar hızlı ve doğru bir şekilde minimum noktaya ulaştığını etkiler.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Aşırı öğrenmeyi önlemek için düzenleme (regularization) teknikleri kullanılır.  Peki, bu teknikler modelin karmaşıklığını nasıl azaltır ve bu azaltma nasıl aşırı öğrenmeyi engeller?",
     "answer": "Düzenleme teknikleri, modelin parametrelerine ceza uygulayarak karmaşıklığını azaltır. Bu ceza, modelin eğitim verilerine aşırı uyum sağlamasını önler ve daha genellenebilir bir model elde edilmesini sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Rastgele Orman algoritması, her ağacın ayrı ayrı eğitim verilerinin rastgele bir alt kümesini kullanarak oluşturulduğunu söylüyor. Peki, bu rastgelelik modelin performansını nasıl iyileştiriyor ve aşırı öğrenmeyi (overfitting) nasıl önlüyor?",
     "answer": "Rastgelelik, modelin farklı özelliklere odaklanmasını sağlayarak tek bir özellik kümesine aşırı bağımlılığı önler.  Bu, çeşitliliğe yol açar ve tek bir ağacın hata yapma olasılığını azaltarak genel modelin daha doğru ve genelleştirilebilir olmasını sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Bir makine öğrenmesi modeli, tıpkı bir çocuk gibi öğrenirken nasıl hatalar yapar ve bu hatalar nasıl düzeltilir?",
     "answer": "Modeller, yanlış veya eksik verilerle eğitildiğinde veya karmaşık örüntüleri anlamakta zorlandığında hatalar yapar.  Bu hatalar, daha fazla veri ekleyerek, modelin karmaşıklığını ayarlayarak veya farklı bir algoritma kullanarak düzeltilebilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "K-Means kümeleme algoritması, verilerin kümelenmesini nasıl belirler ve bu süreçte 'rasgele başlangıç noktaları' seçmenin algoritmanın sonucunu nasıl etkileyebileceğini basitçe açıklayabilir misiniz?",
     "answer": "K-Means, verileri merkez noktalar (centroid) etrafında gruplandırarak kümeler oluşturur.  Rasgele başlangıç noktaları seçimi, farklı küme merkezlerine ve dolayısıyla farklı küme sonuçlarına yol açabilir. Bu nedenle, algoritmanın farklı başlangıç noktalarıyla birkaç kez çalıştırılması ve en iyi sonucu seçmek faydalıdır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Eğer bir kedinin resmini sınıflandırmak için bir makine öğrenmesi modeli eğitiyorsanız, 'kedi' etiketi (label) nereden geliyor ve bu etiket verinin hangi kısmına ait?",
     "answer": "Etiket, veri setindeki her kedinin resmine insan tarafından manuel olarak atanır.  Bu etiket, resmin özelliklerine (örneğin, renk, şekil) bağlı olarak kedinin olup olmadığını gösterir ve 'gerçek dünya' bilgisi sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Doğruluk oranı yüksek ama gerçek hayatta kullanıldığında başarısız olan bir model düşünebilir miyiz? Bu durumun nedeni ne olabilir?",
     "answer": "Evet, dengesiz veri setlerinde yüksek doğruluk oranına sahip bir model, azınlık sınıfını doğru tahmin etmekte başarısız olabilir. Bu, modelin çoğunluk sınıfına odaklanarak yüksek doğruluk oranı elde etmesine rağmen, gerçek dünya uygulamalarında istenmeyen sonuçlara yol açabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "PCA'yı kullanarak boyut azaltımı yaptığımızda, orijinal verilerimizin bazı bilgilerini kaybediyoruz. Bu kayıp hakkında endişelenmeli miyiz ve ne kadar bilgi kaybına katlanabiliriz?",
     "answer": "Evet, PCA ile bilgi kaybı kaçınılmazdır.  Amaç, mümkün olduğunca az bilgi kaybederek boyut sayısını azaltmaktır.  Kayıp miktarı, açıklanan varyans oranıyla ölçülür ve uygulamaya bağlı olarak kabul edilebilir bir kayıp seviyesi belirlenmelidir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Destek Vektör Makineleri (SVM) kullanarak bir problemi çözmeye çalışırken, farklı çekirdek fonksiyonları (örneğin, doğrusal, polinom, RBF) arasında nasıl seçim yapmalıyız ve hangi faktörler bu seçimi etkiler?",
     "answer": "Veri setinin yapısına ve dağılımına bakarak uygun çekirdek fonksiyonu seçilir.  Doğrusal veriler için doğrusal, karmaşık ilişkiler için polinom veya RBF gibi çekirdekler daha uygundur.  En iyi performansı veren çekirdek, deneme yanılma yoluyla veya çapraz doğrulama ile belirlenebilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "ROC eğrisinde, eğrinin sola doğru ve yukarı doğru ne kadar yakın olması, modelin performansının o kadar iyi olduğu söylenir. Peki ya eğri, köşegen çizgiye çok yakın bir şekilde seyrediyorsa bu ne anlama gelir?",
     "answer": "Eğri köşegen çizgiye çok yakınsa, bu modelin tahminlerinin rastgele bir tahminden daha iyi olmadığı anlamına gelir.  Başka bir deyişle, modelin sınıflandırma performansı zayıftır ve iyileştirilmesi gerekir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Aşırı öğrenmenin, küçük bir eğitim verisi kümesiyle eğitilmiş bir modelde daha sık görülmesinin nedeni nedir?",
     "answer": "Küçük bir eğitim verisi kümesi, modelin eğitim verisindeki gürültüyü ve rastgele varyasyonları öğrenmesine ve genelleme yeteneğini kaybetmesine neden olur. Bu da aşırı öğrenmeye ve yeni verilere kötü performans göstermeye yol açar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Veri ön işleme sırasında, bazı veriler eksikse, bu eksik verileri doldurmanın farklı yolları nelerdir ve hangi yöntemin hangi durumlarda daha uygun olduğunu nasıl belirleyebiliriz?",
     "answer": "Eksik verileri doldurmanın yolları ortalama, medyan veya mod değerlerini kullanmak, k-en yakın komşuları (k-NN) kullanmak veya eksik verilerin olasılık dağılımını modellemektir.  En uygun yöntem, verilerin dağılımına ve eksik verilerin nedenine bağlıdır; örneğin, çok sayıda eksik veri için k-NN veya modelleme daha uygun olabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Doğruluk oranı %99 olan bir model, mükemmel bir model midir?  Bu yüksek doğruluk oranına rağmen, modelin başarısız olduğu durumlar hakkında ne düşünebiliriz?",
     "answer": "Hayır, %99 doğruluk oranı her zaman mükemmelliği göstermez.  Veri setindeki sınıfların dengesiz dağılımı gibi faktörler, yüksek doğruluk oranına rağmen modelin belirli bir sınıfta kötü performans göstermesine neden olabilir. Örneğin, nadir görülen bir hastalığın tespiti için geliştirilmiş bir modelde, bu durum ortaya çıkabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Gradyan inişi, bir dağcı gibi en düşük noktayı bulmaya çalışır. Peki, dağcı her zaman en düşük noktayı (global minimum) bulamayabilirse, bunun nedeni nedir ve bu durumun üstesinden nasıl gelmeye çalışabiliriz?",
     "answer": "Dağcı, her adımda sadece bulunduğu noktanın etrafındaki en dik inişi takip eder; bu yüzden yerel minimum noktalara takılıp kalabilir.  Daha geniş bir arama alanı veya farklı başlangıç noktaları kullanarak global minimumu bulma olasılığını artırabiliriz.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Naive Bayes sınıflandırıcısı, özelliklerin bağımsız olduğunu varsayar.  Eğer bu varsayım gerçek hayatta nadiren karşılanıyorsa, neden bu sınıflandırıcı hala popüler ve etkilidir?",
     "answer": "Naive Bayes, bağımsızlık varsayımını ihlal etmesine rağmen iyi performans gösterir çünkü basitliği ve hesaplama verimliliği sağlar.  Yüksek boyutlu verilerde bile hızlı ve etkili sonuçlar üretebildiği için popülerdir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Bir SVM'nin 'destek vektörleri' tam olarak nedir ve neden diğer veri noktalarından daha önemlidirler?",
     "answer": "Destek vektörleri, sınıflandırma sınırını belirleyen ve bu sınıra en yakın olan veri noktalarıdır.  Bu noktalar, modelin karar sınırını tanımladığı için diğerlerinden daha önemlidir ve modeli en çok etkilerler.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Derin öğrenme modellerinin 'kara kutu' olarak adlandırılmasının nedeni nedir ve bu durumun pratik uygulamalarda olası dezavantajları nelerdir?",
     "answer": "Derin öğrenme modelleri, genellikle karmaşık ve çok sayıda katmandan oluştuğu için iç işleyişleri anlamak zordur. Bu 'kara kutu' özelliği, modelin karar verme süreçlerini açıklamakta zorluk çıkarır ve güvenilirlik konusunda endişelere yol açabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "K-Means algoritmasında, küme sayısını (k değerini) belirlemek için kullanılan bazı pratik yöntemler nelerdir ve bu yöntemlerden birinin avantajı ve dezavantajı nedir?",
     "answer": "Küme sayısını belirlemek için dirsek yöntemi (elbow method) veya siluet analizi gibi yöntemler kullanılır. Dirsek yöntemi, atalet grafiğini inceleyerek bir 'dirsek noktası' bulur; avantajı basitliği, dezavantajı ise her zaman net bir dirsek noktası olmamasıdır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Doğruluk oranı yüksek bir modelin, gerçek dünyada kullanıldığında başarısız olma olasılığı neden yüksek olabilir?",
     "answer": "Yüksek doğruluk oranı, verilerdeki baskın sınıfın doğru tahmin edildiğini gösterebilir.  Ancak, azınlık sınıfının tahmini başarısızlığı önemli sonuçlara yol açabilirse (örneğin, tıbbi teşhislerde), yüksek doğruluk oranı yanıltıcı olabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Yapay sinir ağlarında, bir nöronun 'ateşlemesi' ne anlama gelir ve bu, ağın genel çıktısını nasıl etkiler?",
     "answer": "Bir nöronun 'ateşlemesi', belirli bir eşik değerini aşan bir aktivasyon fonksiyonu çıktısı üretmesidir.  Bu ateşleme, ağırlıklarla çarpılan girişler toplamının sonucudur ve ağın genel çıktısını etkiler çünkü bu çıktı diğer nöronların girişini oluşturur.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Makine öğrenmesi modelleri, verilerden öğrenerek kararlar alırlar.  Peki ya verilerde yanlış bilgiler veya önyargılar (bias) varsa, modelin aldığı kararlar nasıl etkilenir ve bu durumun farkında olmak neden önemlidir?",
     "answer": "Yanlış veya önyargılı verilerle eğitilen bir makine öğrenmesi modeli, hatalı ve ayrımcı kararlar alabilir. Bu yüzden verilerin kalitesi ve temsiliyeti çok önemlidir; aksi takdirde modelin güvenilirliği ve doğruluğu tehlikeye girer.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Sınıflandırma probleminde, farklı sınıfların sayısı (örneğin, iki sınıflı mı, çok sınıflı mı olduğu) model seçimi ve performans değerlendirmesinde nasıl bir rol oynar?",
     "answer": "İki sınıflı problemler (örneğin, spam/spam değil) genellikle daha basit modellerle çözülebilirken, çok sınıflı problemler (örneğin, resim sınıflandırma) daha karmaşık modeller ve farklı performans ölçütleri gerektirir.  Sınıf sayısı, modelin karmaşıklığını ve eğitim süresini de etkiler.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "K-NN algoritmasında, 'k' değerinin seçimi nasıl yapılır ve çok büyük veya çok küçük bir 'k' değeri modelin performansını nasıl etkiler?",
     "answer": "K değeri, komşu sayısını belirler. Çok küçük bir k, gürültülü verilere aşırı duyarlılığa neden olurken, çok büyük bir k, karar sınırlarını bulanıklaştırır ve modelin performansını düşürür.  İdeal k değeri, veri setine ve soruna bağlı olarak deneysel olarak belirlenir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Derin öğrenme modellerinde kullanılan 'katmanlar' (layers) ne işe yarar ve bir pastanın katmanlarına benzeterek nasıl açıklayabiliriz?",
     "answer": "Her katman, veriden farklı özellikleri öğrenir ve bunları bir sonraki katmana iletir.  Bir pastanın katmanları gibi, her katman farklı bir lezzet veya doku ekleyerek, nihai sonucu (tahmini) oluşturur.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Bir bilgisayarın bir kediyi bir köpekten ayırt etmesini nasıl öğretebiliriz?  Makine öğrenmesinin bu süreçte rolü nedir?",
     "answer": "Bir kedi ve köpek fotoğraflarını bir bilgisayara veri olarak besleyerek, her fotoğrafa 'kedi' veya 'köpek' etiketi ekleriz. Makine öğrenmesi algoritmaları, bu verileri kullanarak kedi ve köpek arasındaki görsel farkları öğrenir ve daha sonra yeni resimleri doğru şekilde sınıflandırır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Regresyon probleminde, tahmin edilen değerler ile gerçek değerler arasındaki farkı görselleştirmek için hangi grafik türleri kullanılabilir ve bunların her biri neyi vurgular?",
     "answer": "Dağılım grafikleri (scatter plots) tahmin edilen ve gerçek değerler arasındaki ilişkiyi gösterirken, kalıntı grafikleri (residual plots) modelin hatalarının dağılımını gösterir.  Bu grafikler, modelin performansını ve olası sorunları anlamada yardımcı olur.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Gradyan inişi sırasında, öğrenme oranı çok büyük veya çok küçük olursa ne olur ve bunun nedeni nedir?",
     "answer": "Çok büyük bir öğrenme oranı, minimum noktayı aşarak modelin dalgalanmasına neden olurken, çok küçük bir öğrenme oranı, minimum noktaya ulaşmak için çok uzun sürebilir ve verimsiz olur.  Bu, öğrenme oranının modelin minimum maliyet fonksiyonuna yaklaşma hızını ve doğruluğunu etkilemesinden kaynaklanır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Eğitim, test ve doğrulama veri setlerini ayırmanın amacı nedir ve eğitim verisi çok büyükken doğrulama veri setine ihtiyaç duyulmaz mı?",
     "answer": "Modelin eğitim verilerine aşırı uyum yapmasını önlemek ve gerçek dünya performansını daha doğru tahmin etmek için eğitim, test ve doğrulama veri setleri ayrı tutulur.  Eğitim verisi çok büyükse, doğrulama seti modelin genelleme yeteneğini değerlendirmede yardımcı olur ve test setiyle karışıklıktan kaçınılır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Rastgele Orman algoritmasında, her ağacın bağımsız olarak eğitilmesi, modelin genel performansını nasıl iyileştirir ve aşırı uyumu (overfitting) nasıl önler?",
     "answer": "Her ağaç farklı bir rastgele alt veri kümesi ve özellik kümesi kullanarak eğitilir. Bu bağımsızlık, modelin farklı özelliklere odaklanmasını sağlar ve tek bir ağacın aşırı uyum yapma riskini azaltarak genel performansı artırır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Etiketleri (label) belirlerken, bir veri setindeki örneklerin (örneğin, resimler, metinler) sadece bir alt kümesine etiket atamak yerine, tüm örnekleri etiketlemenin avantajları ve dezavantajları nelerdir?",
     "answer": "Tüm örnekleri etiketlemek, daha doğru ve kapsamlı bir model eğitimi sağlar, ancak zaman alıcı ve pahalıdır.  Sadece bir alt kümeyi etiketlemek daha hızlı ve ucuzdur, ancak modelin doğruluğunu olumsuz etkileyebilir ve olası önyargıları artırabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Gradyan inişi algoritması bir dağın yamacından aşağı doğru inerken, neden her zaman aynı yoldan inmeyip farklı yollar deneyebiliyor?  Bu farklı yolların sonuçları nasıl farklılık gösterir?",
     "answer": "Gradyan inişi, her adımda en dik inişi bulur ve ona doğru hareket eder.  Başlangıç noktasına bağlı olarak farklı iniş yolları izlenebilir.  Farklı yollar, farklı yerel minimumlara veya hatta küresel minimuma ulaşabilir, bu da modelin performansını etkiler.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Sınıflandırma problemlerinde, yanlış sınıflandırmanın maliyetinin her sınıf için farklı olduğu durumlar (örneğin, yanlış pozitif ve yanlış negatiflerin farklı önem taşıdığı durumlar) nasıl ele alınır?",
     "answer": "Bu durumlar için maliyet matrisi kullanılır.  Her yanlış sınıflandırma türüne farklı bir maliyet atanarak, modelin hangi tür yanlış sınıflandırmalardan daha fazla kaçınması gerektiği belirtilir.  Bu, modelin performansını istenen önceliklere göre optimize etmeyi sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "K-NN algoritması, yeni bir veri noktasını sınıflandırırken, komşularının sınıf dağılımını nasıl değerlendirir ve bu değerlendirme sonucunda nasıl bir karar verir?",
     "answer": "K-NN, en yakın 'k' komşusunun sınıflarını sayar.  En çok tekrar eden sınıf, yeni veri noktasının tahmini sınıfı olur.  Eğer birden fazla sınıf aynı sayıda ise, genellikle rastgele bir sınıf seçilir veya alternatif bir karar mekanizması kullanılır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Aşırı öğrenmeyi önlemek için model karmaşıklığını azaltmanın yanı sıra, veri setinin büyüklüğünü nasıl artırabiliriz ve bu yöntemin aşırı öğrenme üzerindeki etkisi nedir?",
     "answer": "Daha fazla veri, modelin daha genel kalmasını sağlar.  Aşırı öğrenme, modelin eğitim verisine aşırı uyum sağlaması ve yeni verilerde başarısız olmasıdır. Daha fazla veri, modelin daha iyi genellemesini sağlar.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Sınıflandırma problemlerinde, yanlış sınıflandırmanın maliyeti her sınıf için aynı değilse (örneğin, yanlış pozitif ve yanlış negatif sonuçların farklı etkileri varsa), model performansını değerlendirmek için doğruluk oranı yerine hangi metrik daha uygun olur ve neden?",
     "answer": "Doğruluk oranı her sınıflandırma hatasını eşit olarak değerlendirir.  Ancak, maliyetler farklıysa, hassasiyet (precision), duyarlılık (recall) veya F1 skoru gibi metrikler, farklı hata türlerinin göreceli önemini yansıtarak daha uygun olur.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Regresyon modellerinde, tahmin edilen değerler ile gerçek değerler arasındaki farkı gösteren hata teriminin, modelin başarısını nasıl etkilediğini basitçe açıklayabilir misiniz?",
     "answer": "Hata terimi, modelin gerçek değerleri ne kadar iyi tahmin ettiğini gösterir.  Küçük hata terimleri daha iyi bir model anlamına gelirken, büyük hata terimleri modelin gerçek değerlerden uzak olduğunu ve iyileştirilmesi gerektiğini gösterir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Regresyon probleminde, tahmin edilen değer ile gerçek değer arasındaki farkı gösteren 'hata' kavramı, modelin başarısını nasıl etkiler ve bu hatayı azaltmak için neler yapılabilir?",
     "answer": "Hata, modelin gerçek değerleri ne kadar doğru tahmin ettiğini gösterir.  Yüksek hata, modelin performansının düşük olduğunu gösterir.  Bu hatayı azaltmak için daha fazla veri kullanabilir, farklı model türleri deneyebilir veya özellik mühendisliği teknikleri uygulayabiliriz.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Makine öğrenmesi modelleri, insan beyninin öğrenme şekline benziyor mu?  Eğer benzerlik varsa, hangi yönlerde ve farklılıklar nelerdir?",
     "answer": "Makine öğrenmesi modelleri, insan beyninin belirli yönlerini taklit eder; örneğin, verilerden örüntü bulma yeteneği. Ancak, insan beyni çok daha karmaşıktır ve sezgisel düşünme, yaratıcılık gibi makine öğrenmesinin henüz yakalayamadığı yeteneklere sahiptir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Naive Bayes sınıflandırıcısı, özelliklerin birbirinden bağımsız olduğunu varsayar.  Peki ya bu varsayım gerçek hayatta tam olarak geçerli değilse?  Bu durum sınıflandırma performansını nasıl etkiler ve bu bağımsızlıktan sapmayı nasıl ele alabiliriz?",
     "answer": "Özellikler bağımsız değilse, Naive Bayes'in doğruluğu azalabilir çünkü model gerçekte var olan ilişkiyi göz ardı eder.  Bağımsızlık varsayımının ihlalinin etkisini azaltmak için özellik mühendisliği teknikleri kullanılabilir veya daha karmaşık bir model tercih edilebilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Yapay sinir ağlarında, her nöronun sadece bir 'aktivasyon fonksiyonu' kullanmasının sebebi nedir? Farklı aktivasyon fonksiyonları kullanmanın avantajları ve dezavantajları neler olabilir?",
     "answer": "Her nöron aynı aktivasyon fonksiyonunu kullanır çünkü bu, ağın matematiksel olarak daha kolay anlaşılmasını ve eğitilmesini sağlar. Farklı fonksiyonlar kullanmak, ağın karmaşıklığını artırır ancak bazı özel durumlarda performansı iyileştirebilir veya belirli sorunları çözmede daha etkili olabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "SVM'lerde kullanılan 'çekirdek fonksiyonları' (kernel functions) tam olarak ne yapar ve neden farklı çekirdek fonksiyonları kullanmak gerekir?",
     "answer": "Çekirdek fonksiyonları, verileri yüksek boyutlu bir uzaya dönüştürerek orada doğrusal olarak ayrılabilir hale getirir.  Farklı çekirdekler, verilerin yapısına bağlı olarak farklı dönüşümler sağlar ve bu da model performansını etkiler.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Naive Bayes sınıflandırıcısı, özelliklerin birbirinden bağımsız olduğunu varsayar. Bu varsayım gerçek hayatta çoğu zaman doğru değildir. Peki, bu varsayımın yanlış olması durumunda, Naive Bayes hala iyi sonuçlar verebiliyor olmasının nedeni nedir?",
     "answer": "Naive Bayes, bağımsızlık varsayımının yanlış olmasına rağmen iyi performans gösterebilir çünkü sınıflandırma performansını etkileyen temel faktör, özelliklerin *sınıflar* açısından koşullu bağımsızlığıdır.  Yüksek doğruluk için mutlak bağımsızlık gerekmez, yaklaşık bağımsızlık yeterli olabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Rastgele Orman algoritmasında, her ağacın farklı bir veri alt kümesiyle eğitilmesi, modelin performansını nasıl iyileştirir ve aşırı uyumu (overfitting) nasıl önler?",
     "answer": "Farklı veri alt kümeleriyle eğitim, her ağacın veri setinin farklı yönlerini öğrenmesini sağlar. Bu çeşitlilik, tek bir ağacın yapabileceğinden daha genelleyici bir model oluşturur ve tek bir veri kümesine aşırı uyumu önler.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Regresyon modellerinde tahmin edilen değerlerin gerçek değerlerden sistematik olarak yüksek veya düşük çıkması durumunda, modelin hangi yönünü gözden geçirmeliyiz ve neden?",
     "answer": "Modelin önyargılı (bias) olup olmadığını kontrol etmeliyiz.  Sistematik hatalar, modelin gerçek ilişkiyi tam olarak yakalayamadığını ve veri dağılımının ortalamasını doğru tahmin edemediğini gösterir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Naive Bayes sınıflandırıcısı, spam tespiti gibi problemlerde başarılı olur.  Peki, bir e-postanın 'para' kelimesini içermesinin spam olma olasılığını nasıl hesaplar ve bu hesaplamada hangi faktörler etkili olur?",
     "answer": "Naive Bayes, 'para' kelimesinin spam ve spam olmayan e-postalardaki sıklığını kullanır.  Spam e-postalarda 'para' kelimesi daha sık geçiyorsa, e-postanın spam olma olasılığı artar. Bu hesaplama, 'para' kelimesinin genel sıklığı ve e-postanın diğer kelimeleri gibi faktörlerden de etkilenir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Doğruluk oranı yüksek olan bir modelin, gerçek dünyadaki bir problem için mutlaka iyi bir model olduğu söylenebilir mi?  Örneğin, %99 doğruluk oranına sahip bir spam filtresi kötü sonuçlar verirse bunun nedeni ne olabilir?",
     "answer": "Hayır, söylenemez.  Yüksek doğruluk oranı, veri setindeki baskın sınıfın doğru tahmin edilmesinden kaynaklanıyor olabilir. Örneğin, spam filtresi örneğinde, spam mesajlarının az olması, modeli çoğunlukla spam olmayan mesajları doğru tahmin etmeye yönlendirebilir, ancak spam mesajlarını yanlış sınıflandırarak kötü sonuçlara yol açabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "K-Means kümeleme algoritmasını kullanarak bir şehirdeki restoranları farklı mutfak türlerine göre gruplandırmak istiyoruz.  Ancak, bazı restoranlar birden fazla mutfak türü sunuyor. K-Means algoritması bu durumu nasıl ele alır ve bu durum sonuçları nasıl etkiler?",
     "answer": "K-Means, her veri noktasını (restoranı) sadece bir kümeye (mutfak türüne) atayarak çalışır. Birden fazla mutfak sunan restoranlar, en yakın kümeye atanır. Bu, sonuçların gerçek durumu tam olarak yansıtmamasına ve bazı restoranların yanlış sınıflandırılmasına neden olabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Naive Bayes sınıflandırıcısı, özelliklerin birbirinden bağımsız olduğunu varsayar.  Eğer elimizde sadece bir özellik varsa,  Naive Bayes sınıflandırıcısı ne kadar etkili olur ve neden?",
     "answer": "Tek bir özellik durumunda, özelliklerin bağımsızlığı varsayımı önemsizleşir çünkü zaten sadece bir özellik var. Bu nedenle, Naive Bayes hala oldukça etkilidir çünkü temelde olasılık hesaplamalarına indirgenmiş basit bir Bayes teoremi uygulaması olur.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Gradyan inişi, bir dağın zirvesinden aşağı doğru inmeye benzetilir. Peki, bu 'dağın' şekli, yani hata fonksiyonunun görünümü, gradyan inişinin başarısını nasıl etkiler ve farklı şekillerdeki dağlar için farklı stratejiler uygulamak neden gerekli olabilir?",
     "answer": "Hata fonksiyonunun şekli, gradyan inişinin ne kadar hızlı ve doğru bir şekilde minimum noktaya ulaştığını belirler.  Düzgün bir hata fonksiyonu hızlı yakınsama sağlar, oysa engebeli bir fonksiyon, yerel minimumlara takılıp kalmaya veya yavaş ilerlemeye neden olabilir. Bu yüzden farklı optimizasyon teknikleri kullanılır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Gradyan inişi, bir dağcı gibi en düşük noktayı bulmaya çalışırken, bazen 'yerel minimum' adı verilen bir çukura takılıp kalabilir.  Bu yerel minimumdan kurtulmak için dağcı neler yapabilir?",
     "answer": "Dağcı, farklı bir başlangıç noktasından inişe başlayabilir veya daha geniş adımlar atabilir.  Bu, farklı bir yoldan en düşük noktayı bulmasını veya mevcut çukurdan çıkmasını sağlayabilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Gradyan inişi, bir dağın zirvesinden aşağı doğru yuvarlanan bir top gibi açıklanabilir. Peki, bu 'top'un inişini yavaşlatabilecek veya hızlandırabilecek faktörler nelerdir ve bunlar modelin performansını nasıl etkiler?",
     "answer": "Öğrenme oranı, topun iniş hızını etkiler; yüksek öğrenme oranı hızlı ancak dalgalı bir iniş, düşük öğrenme oranı ise yavaş ve istikrarlı bir iniş sağlar.  Veri gürültüsü ve yerel minimumlar da inişi yavaşlatabilir veya yanlış bir yöne yönlendirebilir, bu da modelin optimal bir çözüme ulaşmasını engeller.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Gradyan inişinde, öğrenme oranı (learning rate) çok küçük veya çok büyük olursa ne olur ve bu durum bir dağcıya nasıl benzetilebilir?",
     "answer": "Çok küçük öğrenme oranı, dağcı çok yavaş ilerlediği için hedefe ulaşması çok uzun sürer. Çok büyük öğrenme oranı ise, dağcı çok hızlı ilerlediği için hedefi kaçırabilir ve iniş yapamaz.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "K-NN algoritmasında, farklı komşuların etkisi nasıl ayarlanabilir? Örneğin, en yakın komşunun daha fazla ağırlık taşıması nasıl sağlanır?",
     "answer": "Farklı komşuların etkisi, ağırlıklı K-NN algoritmaları kullanılarak ayarlanabilir.  Bu algoritmalar, yakın komşulara daha yüksek ağırlık vererek uzak komşuların etkisini azaltır, böylece daha hassas tahminler elde edilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Model değerlendirme metriklerini seçerken, verilerimizdeki sınıf dengesizliğinin (örneğin, bir sınıfın diğerlerinden çok daha fazla örnek içermesi) nasıl bir etkiye sahip olduğunu ve bu durumu nasıl ele alabileceğimizi açıklayabilir misiniz?",
     "answer": "Sınıf dengesizliği, bazı metriklerin (örneğin doğruluk) yanıltıcı sonuçlar vermesine neden olabilir.  Bu nedenle, hassasiyet (precision), duyarlılık (recall) ve F1 skoru gibi dengesizliğe daha az duyarlı metrikleri kullanmalı veya verileri yeniden dengelemeliyiz.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "Bir sınıflandırma problemi için, kedileri ve köpekleri ayırt eden bir model eğitmeyi hedefliyoruz.  Eğitim verilerimizde sadece beyaz kediler ve siyah köpekler varsa, modelin yeni, farklı renkli kediler ve köpekleri doğru sınıflandırması ne kadar güvenilir olur ve neden?",
     "answer": "Güvenilirliği düşük olur. Model, sadece beyaz kedi ve siyah köpek örneklerine göre eğitmenmiş, gerçek dünyadaki çeşitliliği yansıtmamıştır.  Bu nedenle, yeni, farklı renkteki hayvanları doğru sınıflandıramama riski yüksektir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "K-Means algoritmasında, küme merkezlerinin başlangıç konumları sonucu nasıl etkiler?  Farklı başlangıç noktalarıyla aynı veri kümesi üzerinde birkaç kez K-Means çalıştırmanın neden önemli olabileceğini açıklayın.",
     "answer": "K-Means'in başlangıç noktaları, algoritmanın farklı kümelemelere ulaşmasına neden olabilir.  Çünkü algoritma, merkezlerin etrafındaki noktaları gruplandırarak çalışır ve bu merkezlerin başlangıç konumları, son kümelerin şeklini belirler. Birkaç kez çalıştırmak, farklı sonuçlar alıp en iyi sonucu bulmaya yardımcı olur.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "k-nn nedir",
     "answer": "K-NN (k en yakın komşu) algoritması, gözetimli bir makine öğrenimi algoritmasıdır. Bu algoritma, bir veri noktasının sınıflandırılması veya regresyon problemlerinde kullanılır. K-NN algoritması, bir veri noktasını sınıflandırmak veya tahmin etmek için o veri noktasına en yakın k komşusunu kullanır. K-NN algoritması, veri noktaları arasındaki benzerlik ölçüsüne göre çalışır ve yeni bir veri noktasını sınıflandırmak için komşularının etiketlerini kullanır. Bu algoritma genellikle basit ve anlaşılması kolay olması nedeniyle tercih edilir.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   },
   {
     "question": "reinforcement learning nedir?",
     "answer": "Reinforcement learning (teşvik öğrenimi), bir yapay zeka alanıdır ve bir ajanın çevresiyle etkileşime girerek deneyimlerden öğrenmesini sağlar. Ajan, belirli bir görevde en iyi performansı elde etmek için çevresinden gelen geri bildirimlere dayanarak öğrenme sürecini optimize eder. Bu geri bildirimler genellikle ödüller veya cezalar şeklinde olabilir. Reinforcement learning algoritmaları, ajanın en uygun eylemleri seçmesini ve hedeflenen davranışları öğrenmesini sağlar. Bu algoritmalar genellikle Q-learning, Deep Q-Networks (DQN), Policy Gradient gibi teknikleri kullanır.",
     "sorulma_sayisi": 0,
     "ratings": [],
-    "current_average": 0.0
+    "current_average": 0.0,
+    "answer2": ""
   }
 ]

@@ -227,7 +227,6 @@ class QuizManager:
 # --- Uygulama Kurulumu ve Webhook'lar ---
 app = Flask(__name__)
 print("Sistemler başlatılıyor...")
-# QASystem'i low_score_qa_path ile başlat
 qa_system = QASystem(low_score_qa_path='low_score_qa.json')
 user_manager = UserManager()
 quiz_manager = QuizManager() 
@@ -282,8 +281,10 @@ def handle_ask():
         return jsonify({"error": "Soru ve email alanları zorunludur."}), 400
 
     response_text, response_status = "", "success"
-    question_to_rate = user_question 
-    answer_to_rate = "" 
+    question_for_rating = user_question 
+    answer_for_rating = "" 
+    # Hangi cevabın sunulduğunu ve puanlanacağını belirtmek için yeni bir flag
+    answer_type_offered = "primary" # 'primary' veya 'secondary'
 
     if not quiz_manager.is_about_ml(user_question):
         response_text, response_status = "Üzgünüz, yalnızca makine öğrenmesiyle ilgili sorulara yanıt veriyorum.", "rejected"
@@ -294,46 +295,66 @@ def handle_ask():
             print("ERROR: user_question is unexpectedly None in regenerate block.")
             return jsonify({"error": "Soru alanı boş."}), 400
 
-        topic = quiz_manager.get_topic_from_question(user_question)
-        print(f"DEBUG: get_topic_from_question sonucu: {topic}")
+        # Yeniden oluşturma isteğinde, ilgili soru-cevap çiftini bulmalıyız
+        # Sadece soru metniyle arama yapıyoruz, çünkü `answer` değişebilir.
+        found_item = None
+        for item in qa_system.data:
+            if item['question'] == user_question:
+                found_item = item
+                break
         
-        quiz_manager.add_topic_for_user(email, topic)
-        
-        regenerate_prompt = f"'{user_question}' konusunu daha basit veya farklı bir dille yeniden açıklar mısın?"
-        print(f"DEBUG: regenerate_prompt: {regenerate_prompt}")
-        
-        response_text = qa_system.ask_openai(regenerate_prompt)
-        print(f"DEBUG: qa_system.ask_openai sonucu: {response_text} (Tipi: {type(response_text)})")
-
-        if response_text is None:
-            print("ERROR: qa_system.ask_openai'den None döndü.")
-            response_text = "Üzgünüm, şu anda bir cevap üretemiyorum."
+        if not found_item:
+            print(f"DEBUG: Yeniden oluşturma için soru aktif havuzda bulunamadı: '{user_question}'")
+            response_text = "Üzgünüm, bu soruyu bulamadım veya yeniden oluşturamıyorum."
             response_status = "error"
             return jsonify({"answer": response_text, "status": response_status})
 
-        question_to_rate = user_question 
-        answer_to_rate = response_text
-        print(f"DEBUG: Yeniden oluşturma isteği işlendi. question_to_rate: '{question_to_rate}', answer_to_rate: '{answer_to_rate}'") 
+        if found_item['answer2']:
+            # answer2 dolu ise, OpenAI'ye gitmeden doğrudan answer2'yi sun
+            response_text = found_item['answer2']
+            answer_type_offered = "secondary"
+            print(f"DEBUG: answer2 mevcut. Doğrudan answer2 sunuluyor: '{response_text[:50]}...'")
+        else:
+            # answer2 boş ise, OpenAI'den yeni bir cevap al ve answer2'ye kaydet
+            print(f"DEBUG: answer2 boş. OpenAI'den yeni cevap üretiliyor ve answer2'ye kaydediliyor.")
+            ai_answer = qa_system.ask_openai(user_question)
+            
+            if ai_answer and not ai_answer.startswith("ChatGPT API hatası:"):
+                qa_system.update_answer2(user_question, ai_answer) # answer2'yi güncelle
+                response_text = ai_answer
+                answer_type_offered = "secondary"
+                print(f"DEBUG: OpenAI'den yeni answer2 üretildi: '{response_text[:50]}...'")
+            else:
+                response_text = "Üzgünüm, şu anda yeni bir cevap üretemiyorum veya ChatGPT bir hata döndürdü."
+                response_status = "error"
+                print(f"DEBUG: ChatGPT hatası veya geçersiz answer2: {response_text}")
+                return jsonify({"answer": response_text, "status": response_status})
+        
+        question_for_rating = user_question 
+        answer_for_rating = response_text # Sunulan cevabı puanlama için gönder
 
-    else: 
+    else: # Standart /ask isteği
         print(f"DEBUG: Standart 'ask' isteği algılandı.")
         matched_item = qa_system.find_best_match(user_question)
         
         if matched_item: 
-            response_text = matched_item['answer']
-            question_to_rate = matched_item['question'] 
-            answer_to_rate = response_text
-            print(f"DEBUG: data.json'dan eşleşen cevap bulundu: '{response_text[:50]}...'")
+            response_text = matched_item['answer'] # Birincil cevabı sun
+            question_for_rating = matched_item['question'] 
+            answer_for_rating = response_text
+            answer_type_offered = "primary"
+            print(f"DEBUG: data.json'dan eşleşen birincil cevap bulundu: '{response_text[:50]}...'")
         else:
-            print("DEBUG: Veritabanında uygun cevap bulunamadı veya eşik altında kaldı, ChatGPT'den cevap alınıyor...")
+            print("DEBUG: Veritabanında uygun birincil cevap bulunamadı veya eşik altında kaldı, ChatGPT'den cevap alınıyor...")
             ai_answer = qa_system.ask_openai(user_question)
             
             if ai_answer and not ai_answer.startswith("ChatGPT API hatası:"):
+                # Yeni üretilen cevap her zaman birincil cevap olarak eklenir
                 qa_system.add_new_qa_to_data(user_question, ai_answer)
                 response_text = ai_answer
-                question_to_rate = user_question 
-                answer_to_rate = response_text
-                print(f"DEBUG: ChatGPT'den yeni cevap alındı ve eklenmeye çalışıldı: '{response_text[:50]}...'")
+                question_for_rating = user_question 
+                answer_for_rating = response_text
+                answer_type_offered = "primary"
+                print(f"DEBUG: ChatGPT'den yeni birincil cevap alındı ve eklenmeye çalışıldı: '{response_text[:50]}...'")
             else:
                 response_text = "Üzgünüm, şu anda cevap veremiyorum veya ChatGPT bir hata döndürdü."
                 response_status = "error"
@@ -343,12 +364,13 @@ def handle_ask():
     return jsonify({
         "answer": response_text,
         "status": response_status,
-        "question_text_for_rating": question_to_rate, 
-        "answer_text_for_rating": answer_to_rate   
+        "question_text_for_rating": question_for_rating, 
+        "answer_text_for_rating": answer_for_rating,
+        "answer_type_offered": answer_type_offered # Hangi cevabın sunulduğunu Landbot'a bildir
     })
 
 
-# Puanlama endpoint'i
+# Yeni puanlama endpoint'i
 @app.route('/rate_answer', methods=['POST'])
 def handle_rate_answer():
     print("------------------------------------")
@@ -367,10 +389,13 @@ def handle_rate_answer():
     question_text = data.get('question')
     answer_text = data.get('answer')
     rating = data.get('rating')
+    # Landbot'tan gelen answer_type_offered'ı al
+    answer_type_offered = data.get('answer_type_offered', 'primary') 
 
     print(f"Alınan 'question': {question_text}")
     print(f"Alınan 'answer': {answer_text}")
     print(f"Alınan 'rating': {rating} (Tipi: {type(rating)})")
+    print(f"Alınan 'answer_type_offered': {answer_type_offered}")
 
     if not all([question_text, answer_text, rating is not None]):
         print("Hata: Eksik veri (question, answer veya rating).")
@@ -387,6 +412,12 @@ def handle_rate_answer():
         return jsonify({"status": "error", "message": f"Puan dönüşümü sırasında bir hata oluştu: {str(e)}"}), 500
 
     try:
+        # update_answer_rating metoduna sadece birincil cevabın puanlandığını belirtiyoruz.
+        # Eğer sunulan cevap answer2 ise, bu puanlama yok sayılacak.
+        if answer_type_offered == 'secondary':
+            print("DEBUG: Sunulan cevap answer2 idi. answer2'ye puanlama yapılmayacak.")
+            return jsonify({"status": "ignored", "message": "İkinci cevaba puanlama yapılamaz."})
+        
         result = qa_system.update_answer_rating(question_text, answer_text, rating_int)
         print(f"Puanlama sonucu: {result}")
         return jsonify(result)
