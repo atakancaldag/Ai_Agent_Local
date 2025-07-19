@@ -5,7 +5,7 @@
     "sorulma_sayisi": 0,
     "ratings": [],
     "current_average": 0.0,
-    "answer2": ""
+    "answer2": "Denetimli öğrenme, makine öğrenimi alanında kullanılan bir öğrenme şeklidir. Bu yöntemde, bir modelin eğitilmesi için giriş verileri ile bu verilere karşılık gelen çıktılar kullanılır. Model, eğitim verileri üzerinde öğrenerek giriş verileri ile doğru çıktılar arasındaki ilişkiyi öğrenmeye çalışır. Denetimli öğrenme, sınıflandırma ve regresyon gibi problemleri çözmek için kullanılır. Sınıflandırma problemlerinde, modelin giriş verilerini farklı sınıflara ayırmasını sağlayacak bir çıktı elde edilirken, regresyon problemlerinde ise çıktının sürekli bir değer olması hedeflenir."
   },
   {
     "question": "Sınıflandırma ve Regresyon arasındaki fark?",
@@ -149,7 +149,7 @@
     "sorulma_sayisi": 0,
     "ratings": [],
     "current_average": 0.0,
-    "answer2": ""
+    "answer2": "Makine öğrenmesi, bilgisayar sistemlerinin verilerden öğrenerek belirli bir görevi gerçekleştirmelerini sağlayan yapay zeka alanının bir alt dalıdır. Makine öğrenmesi algoritmaları, veri üzerinde model oluşturarak gizli ilişkileri bulmayı ve gelecekteki verileri tahmin etmeyi amaçlar. Bu algoritmalar genellikle denetimli, denetimsiz veya takviyeli öğrenme tekniklerine dayanır. Makine öğrenmesi, görüntü tanıma, doğal dil işleme, öneri sistemleri gibi uygulamalarda yaygın olarak kullanılmaktadır."
   },
   {
     "question": "Random forest nedir?",
@@ -157,7 +157,7 @@
     "sorulma_sayisi": 0,
     "ratings": [],
     "current_average": 0.0,
-    "answer2": ""
+    "answer2": "Random forest, makine öğrenmesi alanında sınıflandırma ve regresyon problemleri için kullanılan bir ensemble öğrenme algoritmasıdır. Random forest, birçok karar ağacını bir araya getirerek daha güçlü ve genelleyici bir model oluşturmayı amaçlar. Her bir karar ağacı, veri kümesinin rastgele alt kümelerinden öğrenir ve bu sayede overfitting'i azaltır. Sonuç olarak, Random forest genellikle yüksek doğruluk ve direnç sağlayan etkili bir model oluşturmak için tercih edilir."
   },
   {
     "question": "sınıflandırma problemi nedir",

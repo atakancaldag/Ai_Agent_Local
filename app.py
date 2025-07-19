@@ -75,7 +75,7 @@ class QuizManager:
 
     def is_about_ml(self, text):
         """
-        Verilen metnin, keywords.json'daki anahtar kelimelerden birini
+        Verilen metnin, keywords.json'daki anahtar kelimelerden birını
         bütün bir kelime olarak içerip içermediğini kontrol eder.
         """
         text_lower = text.lower()
@@ -87,6 +87,10 @@ class QuizManager:
 
     def get_topic_from_question(self, question_text):
         """Sorunun metnine göre en uygun konuyu belirler."""
+        # Bu metod artık QASystem'deki get_qa_topic ile çakışıyor.
+        # QuizManager'ın kendi içinde tuttuğu quiz_questions.json'daki konuları kullanmaya devam edebiliriz,
+        # ancak yeni dinamik konu tespiti için QASystem.get_qa_topic'i kullanmak daha mantıklı.
+        # Şimdilik mevcut haliyle bırakıyorum, ancak gelecekte birleştirilebilirler.
         question_lower = question_text.lower()
         
         for topic, keywords in self.topic_keywords.items():
@@ -129,6 +133,7 @@ class QuizManager:
         if not user_topics_list:
             return {"status": "no_topics", "message": "Tebrikler, zayıf olduğunuz konu kalmadı!"}
 
+        # QuizManager'ın kendi quiz_questions'ını kullan
         available_topics = [t for t in user_topics_list if t in self.quiz_questions and self.quiz_questions[t]]
         
         all_questions_exhausted = True
@@ -227,7 +232,7 @@ class QuizManager:
 # --- Uygulama Kurulumu ve Webhook'lar ---
 app = Flask(__name__)
 print("Sistemler başlatılıyor...")
-qa_system = QASystem(low_score_qa_path='low_score_qa.json')
+qa_system = QASystem(low_score_qa_path='low_score_qa.json', quiz_questions_path='quiz_questions.json')
 user_manager = UserManager()
 quiz_manager = QuizManager() 
 print("Sistemler başarıyla yüklendi.")
@@ -282,45 +287,55 @@ def handle_ask():
 
     response_text, response_status = "", "success"
     question_for_rating = user_question 
-    answer_for_rating = "" 
-    # Hangi cevabın sunulduğunu ve puanlanacağını belirtmek için yeni bir flag
-    answer_type_offered = "primary" # 'primary' veya 'secondary'
+    answer_type_offered = "primary" 
 
-    if not quiz_manager.is_about_ml(user_question):
-        response_text, response_status = "Üzgünüz, yalnızca makine öğrenmesiyle ilgili sorulara yanıt veriyorum.", "rejected"
-        print(f"DEBUG: Konu dışı soru: '{user_question}'")
-    elif request_type == 'regenerate':
-        print(f"DEBUG: 'regenerate' isteği algılandı.")
-        if user_question is None: 
-            print("ERROR: user_question is unexpectedly None in regenerate block.")
-            return jsonify({"error": "Soru alanı boş."}), 400
+    # Her durumda konuyu belirle
+    determined_topic = "Genel Makine Öğrenmesi" # Varsayılan
+    if user_question: 
+        determined_topic = qa_system.get_qa_topic(user_question)
+    print(f"DEBUG: Belirlenen Konu: '{determined_topic}'")
 
-        # Yeniden oluşturma isteğinde, ilgili soru-cevap çiftini bulmalıyız
-        # Sadece soru metniyle arama yapıyoruz, çünkü `answer` değişebilir.
+
+    # quiz_manager.is_about_ml kontrolü kaldırıldı. Konu tespiti get_qa_topic tarafından yapılıyor.
+    # if not quiz_manager.is_about_ml(user_question):
+    #     response_text, response_status = "Üzgünüz, yalnızca makine öğrenmesiyle ilgili sorulara yanıt veriyorum.", "rejected"
+    #     print(f"DEBUG: Konu dışı soru: '{user_question}'")
+    
+    if request_type == 'regenerate':
+        print(f"DEBUG: 'regenerate' isteği algılandı. Gelen user_question (Landbot'tan): '{user_question}'")
+        
+        # BURADAKİ DÜZELTME: Kullanıcı yeni cevap istediğinde, o konuyu kullanıcının zayıf olduğu konulara ekle.
+        # Konu zaten belirlendiği için doğrudan kullanıyoruz.
+        quiz_manager.add_topic_for_user(email, determined_topic)
+        print(f"DEBUG: '{determined_topic}' konusu '{email}' kullanıcısının zayıf konularına eklendi (regenerate isteğiyle).")
+
+        # Bu user_question'ın Landbot'tan gelen 'question_text_for_rating' değeri olması beklenir.
+        # Yani data.json'daki canonical soru metni olmalı.
         found_item = None
         for item in qa_system.data:
-            if item['question'] == user_question:
+            if item['question'] == user_question: # Match by exact canonical question string
                 found_item = item
                 break
         
         if not found_item:
-            print(f"DEBUG: Yeniden oluşturma için soru aktif havuzda bulunamadı: '{user_question}'")
+            print(f"DEBUG: HATA: regenerate için soru aktif havuzda bulunamadı. Landbot'tan gelen soru: '{user_question}'")
+            print(f"DEBUG: Mevcut qa_system.data'daki sorular:")
+            for item in qa_system.data:
+                print(f"  - '{item['question']}'")
             response_text = "Üzgünüm, bu soruyu bulamadım veya yeniden oluşturamıyorum."
             response_status = "error"
             return jsonify({"answer": response_text, "status": response_status})
 
         if found_item['answer2']:
-            # answer2 dolu ise, OpenAI'ye gitmeden doğrudan answer2'yi sun
             response_text = found_item['answer2']
             answer_type_offered = "secondary"
             print(f"DEBUG: answer2 mevcut. Doğrudan answer2 sunuluyor: '{response_text[:50]}...'")
         else:
-            # answer2 boş ise, OpenAI'den yeni bir cevap al ve answer2'ye kaydet
             print(f"DEBUG: answer2 boş. OpenAI'den yeni cevap üretiliyor ve answer2'ye kaydediliyor.")
             ai_answer = qa_system.ask_openai(user_question)
             
             if ai_answer and not ai_answer.startswith("ChatGPT API hatası:"):
-                qa_system.update_answer2(user_question, ai_answer) # answer2'yi güncelle
+                qa_system.update_answer2(user_question, ai_answer) 
                 response_text = ai_answer
                 answer_type_offered = "secondary"
                 print(f"DEBUG: OpenAI'den yeni answer2 üretildi: '{response_text[:50]}...'")
@@ -330,17 +345,15 @@ def handle_ask():
                 print(f"DEBUG: ChatGPT hatası veya geçersiz answer2: {response_text}")
                 return jsonify({"answer": response_text, "status": response_status})
         
-        question_for_rating = user_question 
-        answer_for_rating = response_text # Sunulan cevabı puanlama için gönder
+        question_for_rating = user_question # The canonical question string
 
     else: # Standart /ask isteği
         print(f"DEBUG: Standart 'ask' isteği algılandı.")
         matched_item = qa_system.find_best_match(user_question)
         
         if matched_item: 
-            response_text = matched_item['answer'] # Birincil cevabı sun
-            question_for_rating = matched_item['question'] 
-            answer_for_rating = response_text
+            response_text = matched_item['answer'] 
+            question_for_rating = matched_item['question'] # THIS IS THE CANONICAL QUESTION FROM data.json
             answer_type_offered = "primary"
             print(f"DEBUG: data.json'dan eşleşen birincil cevap bulundu: '{response_text[:50]}...'")
         else:
@@ -348,11 +361,9 @@ def handle_ask():
             ai_answer = qa_system.ask_openai(user_question)
             
             if ai_answer and not ai_answer.startswith("ChatGPT API hatası:"):
-                # Yeni üretilen cevap her zaman birincil cevap olarak eklenir
-                qa_system.add_new_qa_to_data(user_question, ai_answer)
+                qa_system.add_new_qa_to_data(user_question, ai_answer, determined_topic) 
                 response_text = ai_answer
                 question_for_rating = user_question 
-                answer_for_rating = response_text
                 answer_type_offered = "primary"
                 print(f"DEBUG: ChatGPT'den yeni birincil cevap alındı ve eklenmeye çalışıldı: '{response_text[:50]}...'")
             else:
@@ -365,8 +376,7 @@ def handle_ask():
         "answer": response_text,
         "status": response_status,
         "question_text_for_rating": question_for_rating, 
-        "answer_text_for_rating": answer_for_rating,
-        "answer_type_offered": answer_type_offered # Hangi cevabın sunulduğunu Landbot'a bildir
+        "answer_type_offered": answer_type_offered 
     })
 
 
@@ -386,10 +396,13 @@ def handle_rate_answer():
         print(f"Gelen İstek Headers: {request.headers}")
         return jsonify({"status": "error", "message": "Geçersiz JSON formatı."}), 400
 
+    if data is None:
+        print("ERROR: request.get_json() None döndürdü.")
+        return jsonify({"error": "İstek gövdesi boş veya geçerli JSON değil."}), 400
+
     question_text = data.get('question')
     answer_text = data.get('answer')
     rating = data.get('rating')
-    # Landbot'tan gelen answer_type_offered'ı al
     answer_type_offered = data.get('answer_type_offered', 'primary') 
 
     print(f"Alınan 'question': {question_text}")
@@ -412,8 +425,7 @@ def handle_rate_answer():
         return jsonify({"status": "error", "message": f"Puan dönüşümü sırasında bir hata oluştu: {str(e)}"}), 500
 
     try:
-        # update_answer_rating metoduna sadece birincil cevabın puanlandığını belirtiyoruz.
-        # Eğer sunulan cevap answer2 ise, bu puanlama yok sayılacak.
+        # Sadece birincil cevap (answer) puanlanabilir.
         if answer_type_offered == 'secondary':
             print("DEBUG: Sunulan cevap answer2 idi. answer2'ye puanlama yapılmayacak.")
             return jsonify({"status": "ignored", "message": "İkinci cevaba puanlama yapılamaz."})

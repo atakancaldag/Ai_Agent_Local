@@ -2,8 +2,15 @@
   {
     "email": "ornekmail@ornek.com",
     "topics": [
-      "Random Forest"
+      "Random Forest",
+      "Denetimli öğrenme",
+      "Genel Makine Öğrenmesi",
+      "Karar Ağaçları (Decision Trees)"
     ],
-    "answered_questions": {}
+    "answered_questions": {
+      "Denetimli öğrenme": [
+        "denetimli_ogrenme_soru_2"
+      ]
+    }
   }
 ]

@@ -217,5 +217,75 @@
       },
       "dogru_cevap": "B"
     }
+  ],
+  "Denetimli Öğrenme": [
+    {
+      "id": "denetimli_ogrenme_soru_1",
+      "soru": "Denetimli öğrenme nedir?",
+      "siklar": {
+        "A": "Makinenin önceden belirlenmiş kurallara göre öğrenme süreci",
+        "B": "Makinenin kendi başına veri analizi yapması",
+        "C": "Etiketli veri kullanarak modelin eğitilmesi",
+        "D": "Makinenin veriler arasındaki ilişkileri bulması"
+      },
+      "dogru_cevap": "C"
+    },
+    {
+      "id": "denetimli_ogrenme_soru_2",
+      "soru": "Hangi algoritma denetimli öğrenme için kullanılabilir?",
+      "siklar": {
+        "A": "K-Means",
+        "B": "Decision Tree",
+        "C": "Support Vector Machine",
+        "D": "Random Forest"
+      },
+      "dogru_cevap": "B"
+    },
+    {
+      "id": "denetimli_ogrenme_soru_3",
+      "soru": "Eğitim veri setinin doğru etiketlenmesi hangi aşamada önemlidir?",
+      "siklar": {
+        "A": "Model eğitiminde",
+        "B": "Model değerlendirmesinde",
+        "C": "Veri ön işlemede",
+        "D": "Sonuçların yorumlanmasında"
+      },
+      "dogru_cevap": "A"
+    }
+  ],
+  "Karar Ağaçları (Decision Trees)": [
+    {
+      "id": "decision_trees_question_1",
+      "soru": "Karar ağaçları (Decision Trees) hangi tür bir makine öğrenmesi algoritmasıdır?",
+      "siklar": {
+        "A": "Denetimli Öğrenme (Supervised Learning)",
+        "B": "Denetimsiz Öğrenme (Unsupervised Learning)",
+        "C": "Pekiştirme Öğrenmesi (Reinforcement Learning)",
+        "D": "Yarı-Denetimli Öğrenme (Semi-Supervised Learning)"
+      },
+      "dogru_cevap": "A"
+    },
+    {
+      "id": "decision_trees_question_2",
+      "soru": "Karar ağaçları (Decision Trees) hangi prensibe göre çalışır?",
+      "siklar": {
+        "A": "Veri Kümesini en küçük kareler yöntemiyle modellemek",
+        "B": "Veri noktalarını belirli uzaklıklara göre kümelere ayırmak",
+        "C": "Kararları sırasıyla sormak ve veri kümesini bölerek sınıflandırmak",
+        "D": "Rastgele sayılar üreterek sonuçları tahmin etmek"
+      },
+      "dogru_cevap": "C"
+    },
+    {
+      "id": "decision_trees_question_3",
+      "soru": "Karar ağaçları (Decision Trees) eğitilirken hangi kriter kullanılır?",
+      "siklar": {
+        "A": "Gini impurity veya Entropi",
+        "B": "K-Means Clustering",
+        "C": "Principal Component Analysis (PCA)",
+        "D": "Apriori Algoritması"
+      },
+      "dogru_cevap": "A"
+    }
   ]
 }
