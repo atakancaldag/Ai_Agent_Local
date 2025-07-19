@@ -253,37 +253,37 @@
       "dogru_cevap": "A"
     }
   ],
-  "Karar Ağaçları (Decision Trees)": [
+  "Unsupervised Learning": [
     {
-      "id": "decision_trees_question_1",
-      "soru": "Karar ağaçları (Decision Trees) hangi tür bir makine öğrenmesi algoritmasıdır?",
+      "id": "unsupervised_learning_question_1",
+      "soru": "Unsupervised learning nedir?",
       "siklar": {
-        "A": "Denetimli Öğrenme (Supervised Learning)",
-        "B": "Denetimsiz Öğrenme (Unsupervised Learning)",
-        "C": "Pekiştirme Öğrenmesi (Reinforcement Learning)",
-        "D": "Yarı-Denetimli Öğrenme (Semi-Supervised Learning)"
+        "A": "Veri seti üzerinden etiket bilgisi olmadan örüntülerin keşfedilmesi",
+        "B": "Makineye önceden tanımlanmış kuralların öğretilmesi",
+        "C": "Eğitim verilerine göre doğru çıktıları tahmin etme",
+        "D": "Öğrenme sürecinde insan müdahalesi gerektiren yöntem"
       },
       "dogru_cevap": "A"
     },
     {
-      "id": "decision_trees_question_2",
-      "soru": "Karar ağaçları (Decision Trees) hangi prensibe göre çalışır?",
+      "id": "unsupervised_learning_question_2",
+      "soru": "Clustering algoritması nedir?",
       "siklar": {
-        "A": "Veri Kümesini en küçük kareler yöntemiyle modellemek",
-        "B": "Veri noktalarını belirli uzaklıklara göre kümelere ayırmak",
-        "C": "Kararları sırasıyla sormak ve veri kümesini bölerek sınıflandırmak",
-        "D": "Rastgele sayılar üreterek sonuçları tahmin etmek"
+        "A": "Veri noktalarını benzerliklerine göre gruplandıran algoritma",
+        "B": "Doğrusal regresyon modeli",
+        "C": "Karar ağaçları",
+        "D": "Yapay sinir ağları"
       },
-      "dogru_cevap": "C"
+      "dogru_cevap": "A"
     },
     {
-      "id": "decision_trees_question_3",
-      "soru": "Karar ağaçları (Decision Trees) eğitilirken hangi kriter kullanılır?",
+      "id": "unsupervised_learning_question_3",
+      "soru": "Dimensionality reduction ne işe yarar?",
       "siklar": {
-        "A": "Gini impurity veya Entropi",
-        "B": "K-Means Clustering",
-        "C": "Principal Component Analysis (PCA)",
-        "D": "Apriori Algoritması"
+        "A": "Veri setindeki gereksiz bilgileri çıkararak boyutu azaltır",
+        "B": "Veri setine yeni bilgiler ekler",
+        "C": "Bilgisayarın öğrenme sürecini hızlandırır",
+        "D": "Model performansını düşürür"
       },
       "dogru_cevap": "A"
     }

@@ -1613,6 +1613,24 @@
     "sorulma_sayisi": 0,
     "ratings": [],
     "current_average": 0.0,
-    "answer2": ""
+    "answer2": "Reinforcement learning (Öğrenmeli Takviye) makine öğreniminde bir dal olarak karşımıza çıkar. Bu algoritma, bir ajanın çevresiyle etkileşim halinde olduğu ve belirli bir hedefi maksimize etmeye çalıştığı bir öğrenme yaklaşımıdır. Ajan, çevresinden gelen geri bildirimlere dayanarak hangi eylemleri gerçekleştirmesi gerektiğini öğrenir. Hedef, genellikle bir ödül fonksiyonu aracılığıyla tanımlanır ve ajan, bu ödül fonksiyonunu maksimize etmeye çalışır. Reinforcement learning, özellikle oyun teorisi, kontrol sistemleri, robotik ve yapay zeka gibi alanlarda yaygın olarak kullanılmaktadır."
+  },
+  {
+    "question": "supervised learning nedir",
+    "answer": "Denetimli öğrenme, makine öğrenmesinde kullanılan bir öğrenme türüdür. Veri setinde giriş özellikleri ile etiketlenmiş çıkış değerleri bulunur. Model, bu veri setinden örnekler alarak giriş özellikleri ile çıkış değerleri arasındaki ilişkiyi öğrenmeye çalışır. Daha sonra yeni giriş verileri kullanıldığında model, doğru çıkış değerlerini tahmin etmeye çalışır. Denetimli öğrenme, sınıflandırma ve regresyon gibi çeşitli görevler için kullanılabilir.",
+    "answer2": "",
+    "sorulma_sayisi": 0,
+    "ratings": [],
+    "current_average": 0.0,
+    "topic": "Genel Makine Öğrenmesi"
+  },
+  {
+    "question": "sürü öğrenmesi nedir",
+    "answer": "Sürü öğrenmesi, doğal hayattaki sürü davranışından esinlenerek oluşturulan bir makine öğrenimi tekniğidir. Sürü öğrenmesi algoritmaları, genellikle birbirleriyle etkileşim halinde olan ve kolektif olarak bir hedefi gerçekleştirmeye çalışan çok sayıda özelliğe sahip öğrenme ajanlarından oluşan bir sistem üzerinde çalışır. Bu ajanlar genellikle birlikte çalışarak daha karmaşık ve zor problemleri çözebilirler.\n\nSürü öğrenmesinde yaygın olarak kullanılan algoritmalar arasında karınca kolonileri optimizasyonu, bal arısı algoritmaları, parçacık sürü optimizasyonu ve ateşböcekleri optimizasyonu bulunmaktadır. Bu algoritmalar genellikle optimizasyon problemlerini çözmek için kullanılır ve genellikle",
+    "answer2": "",
+    "sorulma_sayisi": 0,
+    "ratings": [],
+    "current_average": 0.0,
+    "topic": "Genel Makine Öğrenmesi"
   }
 ]
